@@ -2,15 +2,15 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-neutral-900">
     <x-landing.nav />
 
-    <main>
-        {{ $slot }}
-    </main>
+    <x-landing.hero/>
 
     <x-landing.footer />
 </body>
