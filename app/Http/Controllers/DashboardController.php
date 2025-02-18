@@ -9,7 +9,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('pages.admin.index');
+        $user = Auth::user();
+        return view('pages.admin.index')->with('user', $user);
     }
 
 

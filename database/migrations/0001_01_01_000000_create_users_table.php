@@ -22,7 +22,6 @@ return new class extends Migration
             $table->integer('year_level');
             $table->string('position');
             $table->string('role')->default('officer');
-
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

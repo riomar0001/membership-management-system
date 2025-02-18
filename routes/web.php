@@ -21,7 +21,7 @@ Route::post('/admin/logout', [AuthController::class, 'logout'])->middleware('aut
 
 Route::middleware('auth')->group(function () {
     Route::middleware('role:admin')->group(function () {
-        Route::get('/admin', function () {
+        Route::get('/admin/admin', function () {
             return view('pages.admin.index');
         });
     });
@@ -40,4 +40,5 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::post('/admin/logout', [AuthController::class, 'logout']);
+    Route::get('/admin/logout', [AuthController::class, 'logout']);
 });

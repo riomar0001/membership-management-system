@@ -12,6 +12,8 @@ class AuthController extends Controller
         if (Auth::check()) {
             return redirect()->route('dashboard');
         }
+
+
         return view('pages.auth.index');
     }
 
@@ -22,20 +24,24 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials)) {
+        $remember = $request->has('remember');
+
+        if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
             return redirect()->route('dashboard');
         }
 
         return back()->withErrors([
-            'umindanao_email' => 'Invalid credentials.',
-        ]);
+            'umindanao_email' => 'Invalid email or password.',
+        ])->withInput($request->only('umindanao_email', 'remember'));
     }
 
     public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
-        return redirect('/');
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 }
