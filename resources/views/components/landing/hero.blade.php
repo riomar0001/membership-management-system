@@ -20,10 +20,16 @@
           <p class="mt-5 text-white text-lg">
           Contact with Us:
           </p>
-          <div class="flex gap-4 mt-2">
+          <div class="py-3 flex space-x-6 items-center">
+          <a href="https://www.facebook.com/">
           <img src="/Facebook.svg" alt="Facebook Logo" width="40" height="16">
+          </a>
+          <a href="https://www.discord.com/">
           <img src="/Discord.svg" alt="Discord Logo" width="40" height="16">
+          </a>
+          <a href="https://www.linkedin.com/">
           <img src="/LinkedIn.svg" alt="LinkedIn Logo" width="40" height="16">
+          </a>
         </div>
       </div>
     </div>
