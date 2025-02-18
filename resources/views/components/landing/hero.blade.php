@@ -1,5 +1,5 @@
     <div class="bg-neutral-900">
-      <div class="max-w-5xl mx-auto px-4 xl:px-0 pt-24 lg:pt-32 pb-24">
+      <div class="px-10 pt-4 my-10 mt-10 max-w-5xl mx-auto ">
       <div class="flex flex-col text-start">
         <h1 class="max-w-xl font-semibold text-white text-5xl md:text-6xl leading-tight md:leading-relaxed">
           <span class="text-[#ff0]">Org Tagline:</span> Lorem ipsum odor amet,
@@ -19,6 +19,10 @@
           <p class="mt-5 text-white text-lg">
           Contact with Us:
           </p>
+          <div class="flex gap-4 mt-2">
+          <img src="/Facebook.svg" alt="Facebook Logo" width="40" height="16">
+          <img src="/Discord.svg" alt="Discord Logo" width="40" height="16">
+          <img src="/LinkedIn.svg" alt="LinkedIn Logo" width="40" height="16">
         </div>
       </div>
     </div>

@@ -11,6 +11,8 @@
     <x-landing.nav />
 
     <x-landing.hero/>
+    <x-landing.about/>
+    <x-landing.goals/>
 
     <x-landing.footer />
 </body>
