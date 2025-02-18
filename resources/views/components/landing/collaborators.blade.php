@@ -1,11 +1,12 @@
-<div class="relative z-10">
+<section id="collaborators">
+<div class="bg-[#272727] relative z-10 my-20">
 <div class="max-w-5xl px-4 xl:px-0 mx-auto">
 
 <div class="px-6 py-12 mt-8 max-w-5xl mx-auto font-source text-white text-center">
     <h3 class="font-semibold text-3xl text-white">Trusted Collaborators</h3>
 
 </div>
-<div class="flex justify-between gap-6">
+<div class="flex justify-between gap-6 py-12 ">
 
 {{-- CHANGE WITH ACTUAL LOGOS --}}
             <svg class="py-3 lg:py-5 w-16 h-auto md:w-20 lg:w-24 text-neutral-400" enable-background="new 0 0 2499 614" viewBox="0 0 2499 614" xmlns="http://www.w3.org/2000/svg">
@@ -41,3 +42,4 @@
           </div>
           </div>
           </div>
+          </section>

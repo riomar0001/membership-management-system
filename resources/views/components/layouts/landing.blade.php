@@ -14,6 +14,7 @@
     <x-landing.about/>
     <x-landing.goals/>
     <x-landing.collaborators/>
+    <x-landing.mv/>
 
     <x-landing.footer />
 </body>

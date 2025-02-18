@@ -1,3 +1,4 @@
+    <section id="hero">
     <div class="bg-neutral-900">
       <div class="px-10 pt-4 my-10 mt-10 max-w-5xl mx-auto ">
       <div class="flex flex-col text-start">
@@ -26,3 +27,4 @@
         </div>
       </div>
     </div>
+        </section>

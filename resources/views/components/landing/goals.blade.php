@@ -1,4 +1,5 @@
-<div class="py-10"></div>
+<section id="goals">
+<div class="py-10">
 <div class="px-10 max-w-5xl mx-auto ">
 <div class=" grid grid-cols-1 lg:grid-cols-3 items-center border border-neutral-600 divide-y lg:divide-y-0 lg:divide-x divide-backgroundblur rounded-xl backdrop-blur-lg">
           <!-- Card -->
@@ -43,3 +44,5 @@
 
         </div>
         </div>
+</div>
+</section>
