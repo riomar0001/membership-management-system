@@ -114,7 +114,7 @@
                     </div>
                     <!-- End Header -->
 
-                    @include('components.admin.datatable')
+                    @include('components.admin.datatable', ['members' => $members])
                 </div>
             </div>
         </div>
