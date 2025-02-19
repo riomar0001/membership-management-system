@@ -58,5 +58,6 @@ class DatabaseSeeder extends Seeder
             'role' => 'officer',
             'password' => Hash::make('password123'),
         ]);
+        $this->call(MembershipSeeder::class);
     }
 }

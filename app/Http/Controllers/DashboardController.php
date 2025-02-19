@@ -26,9 +26,6 @@ class DashboardController extends Controller
             ])
             ->get();
 
-
-
-
         return view('pages.admin.index', compact('user', 'members'));
     }
 

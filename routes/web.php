@@ -25,7 +25,8 @@ Route::middleware('auth')->group(function () {
             return view('pages.admin.index');
         });
     });
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::middleware('role:admin,president')->group(function () {
         Route::get('/admin-only', function () {
