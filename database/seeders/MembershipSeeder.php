@@ -29,7 +29,7 @@ class MembershipSeeder extends Seeder
         $membershipTypes = ['New', 'Old', 'Volunteer', 'Officer'];
 
         // Define status options
-        $statusOptions = ['PENDING', 'APPROVED', 'REJECTED'];
+        $statusOptions = ['Pending', 'Approved', 'Rejected'];
 
         // Define approval/rejection staff
         $staff = ['Dr. Santos', 'Prof. Reyes', 'Dean Mendoza', 'Dir. Aquino'];

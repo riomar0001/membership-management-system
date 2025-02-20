@@ -19,10 +19,10 @@ class DashboardController extends Controller
             ->leftJoin('membership_status', 'members.id', '=', 'membership_status.members_id')
             ->select([
                 'members.student_id',
-                DB::raw("CONCAT(members.first_name, ' ', members.last_name) AS student_name"), // Combine first & last name
+                DB::raw("CONCAT(members.first_name, ' ', members.last_name) AS student_name"),
                 'membership_status.status as membership_status',
-                'membership_status.approved_by as reviewed_by', // Use `approved_by` instead of `reviewed_by`
-                DB::raw("DATE_FORMAT(CONVERT_TZ(members.created_at, '+00:00', '+08:00'), '%m-%d-%Y %I:%i %p') as registered_at") // Convert to PH time zone and format to 12 hours
+                'membership_status.approved_by as reviewed_by',
+                DB::raw("DATE_FORMAT(CONVERT_TZ(members.created_at, '+00:00', '+08:00'), '%m-%d-%Y %I:%i %p') as registered_at")
             ])
             ->get();
 

@@ -12,7 +12,7 @@
 
                 <div class="mt-1 flex items-center gap-x-2">
                     <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
-                        {{ $members->where('membership_status', '!=', 'REJECTED')->count() }}
+                        {{ $members->where('membership_status', '!=', 'Rejected')->count() }}
                     </h3>
                 </div>
             </div>
@@ -29,7 +29,7 @@
 
                 <div class="mt-1 flex items-center gap-x-2">
                     <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
-                        {{ $members->where('membership_status', 'APPROVED')->count() }}
+                        {{ $members->where('membership_status', 'Approved')->count() }}
                     </h3>
                 </div>
             </div>
@@ -47,7 +47,7 @@
 
                 <div class="mt-1 flex items-center gap-x-2">
                     <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
-                        {{ $members->where('membership_status', 'PENDING')->count() }}
+                        {{ $members->where('membership_status', 'Pending')->count() }}
                     </h3>
                 </div>
             </div>
@@ -65,7 +65,7 @@
 
                 <div class="mt-1 flex items-center gap-x-2">
                     <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
-                        {{ $members->where('membership_status', 'REJECTED')->count() }}
+                        {{ $members->where('membership_status', 'Rejected')->count() }}
                     </h3>
                 </div>
             </div>

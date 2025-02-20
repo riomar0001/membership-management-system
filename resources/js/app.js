@@ -8,3 +8,5 @@ window.jQuery = jquery;
 window.$ = jquery;
 window.DataTable = DataTable;
 window.HSDataTable = HSDataTable;
+
+const func = function () {};
