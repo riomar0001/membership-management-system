@@ -28,10 +28,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
 
-    //get all members /admin/members
-    //get view invididual member page /admin/members/{id}
-    //get edit member page /admin/members/{id}/edit
-    //get add member page /admin/members/create
+    //get all members /admin/members, MembersControler index
+    //get view invididual member page /admin/members/{id} MembersControler show
+    //get edit member page /admin/members/{id}/edit MembersControler edit
+    //get add member page /admin/members/create MembersControler create
 
     Route::middleware('role:admin,president')->group(function () {
         Route::get('/admin-only', function () {
