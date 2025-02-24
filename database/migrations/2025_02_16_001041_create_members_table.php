@@ -28,7 +28,7 @@ return new class extends Migration
         Schema::create('membership_status', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('members_id')->unique();
-            $table->enum('status', ['PENDING', 'APPROVED', 'REJECTED']);
+            $table->enum('status', ['Pending', 'Approved', 'Rejected']);
             $table->string('approved_by')->nullable();
             $table->string('rejected_by')->nullable();
             $table->string('rejection_title')->nullable();

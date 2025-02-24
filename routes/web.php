@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MemberController;
 
 
 Route::get('/', function () {
@@ -29,9 +30,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
 
     //get all members /admin/members, MembersControler index
+    Route::get('/admin/members', [MemberController::class, 'index']);
     //get view invididual member page /admin/members/{id} MembersControler show
+    Route::get('/admin/members/{id}', [MemberController::class, 'show']);
     //get edit member page /admin/members/{id}/edit MembersControler edit
+    Route::get('/admin/members/{id}/edit', [MemberController::class, 'edit']);
     //get add member page /admin/members/create MembersControler create
+    Route::get('/admin/members/create', [MemberController::class, 'create']);
 
     Route::middleware('role:admin,president')->group(function () {
         Route::get('/admin-only', function () {
