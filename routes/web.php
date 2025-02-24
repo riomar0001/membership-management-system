@@ -28,6 +28,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
 
+    //get all members /admin/members
+    //get view invididual member page /admin/members/{id}
+    //get edit member page /admin/members/{id}/edit
+    //get add member page /admin/members/create
+
     Route::middleware('role:admin,president')->group(function () {
         Route::get('/admin-only', function () {
             return 'This page is for Admin and President only.';
