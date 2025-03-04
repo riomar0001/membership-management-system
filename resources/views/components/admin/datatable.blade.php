@@ -118,8 +118,14 @@
                         {{ $member->registered_at }}
                     </td>
                     <td class="p-3 whitespace-nowrap text-end text-sm font-medium">
-                        <button type="button"
-                            class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">Delete</button>
+                        <button type="button" title="View" onclick="showMemberDetails({{ json_encode($member) }})"
+                            class="inline-flex items-center gap-x-2 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-chart-gantt"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 8h7"/><path d="M8 12h6"/><path d="M11 16h5"/></svg>
+                        </button>
+                        <button type="button" title="Edit"
+                            class="inline-flex items-center gap-x-2  ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-pen-line"><path d="m18 5-2.414-2.414A2 2 0 0 0 14.172 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2"/><path d="M21.378 12.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/><path d="M8 18h1"/></svg>
+                        </button>
                     </td>
                 </tr>
             @endforeach
@@ -127,5 +133,7 @@
     </table>
 
     <x-admin.datatables.datatable-footer />
+
+    @include('pages.admin.members.member-view-modal')
 
 </x-admin.datatables.datatable-layout>
