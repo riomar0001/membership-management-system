@@ -72,7 +72,7 @@
     <!-- Card -->
     <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-800">
       <div class="p-4 md:p-5 flex gap-x-4">
-        <div class="shrink-0 flex justify-center items-center size-[46px] bg-red-100 text-red-800 rounded-lg dark:bg-red-500/10 dark:text-red-500">
+        <div class="shrink-0 flex justify-center items-center size-[46px] bg-red-100 text-red-800 rounded-lg   dark:bg-red-500/10 dark:text-red-500">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="oklch(0.444 0.177 26.899)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-800 lucide lucide-user-x"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" x2="22" y1="8" y2="13"/><line x1="22" x2="17" y1="8" y2="13"/></svg>
         </div> 
 
