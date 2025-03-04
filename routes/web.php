@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
 
     //get all members /admin/members, MembersControler index
-    Route::get('/admin/members', [MemberController::class, 'index']);
+    Route::get('/admin/members', [MemberController::class, 'index'])->name('members');
     //get view invididual member page /admin/members/{id} MembersControler show
     Route::get('/admin/members/{id}', [MemberController::class, 'show']);
     //get edit member page /admin/members/{id}/edit MembersControler edit
