@@ -11,11 +11,11 @@
                     </button>
                 </div>
                 <div class="mt-4">
-                    <p><strong>Student ID:</strong> <span id="modalStudentId"></span></p>
-                    <p><strong>Member Name:</strong> <span id="modalStudentName"></span></p>
-                    <p><strong>Membership Status:</strong> <span id="modalMembershipStatus"></span></p>
-                    <p><strong>Reviewed By:</strong> <span id="modalReviewedBy"></span></p>
-                    <p><strong>Registered At:</strong> <span id="modalRegisteredAt"></span></p>
+                    <p class="text-white"><strong>Student ID:</strong> <span id="modalStudentId"></span></p>
+                    <p class="text-white"><strong>Member Name:</strong> <span id="modalStudentName"></span></p>
+                    <p class="text-white"><strong>Membership Status:</strong> <span id="modalMembershipStatus"></span></p>
+                    <p class="text-white"><strong>Reviewed By:</strong> <span id="modalReviewedBy"></span></p>
+                    <p class="text-white"><strong>Registered At:</strong> <span id="modalRegisteredAt"></span></p>
                 </div>
                 <div class="mt-6 text-right">
                     <button type="button" onclick="closeModal()" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Close</button>

@@ -12,7 +12,7 @@
         <div class="grow">
           <div class="flex items-center gap-x-2">
             <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-500">
-              Registerd Members
+              Registered Members
             </p>
           </div>
           <div class="mt-1 flex items-center gap-x-2">
@@ -94,11 +94,146 @@
   </div>
   <!-- End Grid -->
 </div>
-<!-- End Card Section -->
 
 
-    <!-- End Card -->
+<!-- Card -->
+<div class="flex flex-row gap-4">
+  <div class="w-full md:w-1/2 p-4 md:p-5 min-h-102.5 flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
+    <!-- Header -->
+    <div class="flex flex-wrap justify-between items-center gap-2">
+      <div>
+        <h2 class="text-sm text-gray-500 dark:text-neutral-500">
+          Year Level Distribution
+        </h2>
+        <p class="text-[22px] font-medium text-gray-800 dark:text-neutral-200">
+          Members by Year Level
+        </p>
+      </div>
+    </div>
+    <!-- End Header -->
 
+    <div id="hs-multiple-bar-charts">
+      <canvas id="yearLevelChart"></canvas>
+    </div>
+  </div>
 
+  <div class="w-full md:w-1/2 p-4 md:p-5 min-h-102.5 flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
+    <!-- Header -->
+    <div class="flex flex-wrap justify-between items-center gap-2">
+      <div>
+        <h2 class="text-sm text-gray-500 dark:text-neutral-500">
+          Monthly Registrations
+        </h2>
+        <p class="text-[22px] font-medium text-gray-800 dark:text-neutral-200">
+          User Registrations per Month
+        </p>
+      </div>
+    </div>
+    <!-- End Header -->
+
+    <div id="monthly-registrations-chart">
+      <canvas id="monthlyRegistrationsChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const ctx = document.getElementById('yearLevelChart').getContext('2d');
+    const yearLevels = @json($yearLevels);
+
+    const data = {
+      labels: ['1st Year', '2nd Year', '3rd Year', '4th Year'],
+      datasets: [{
+        label: 'Number of Members',
+        data: [
+          yearLevels[1] || 0,
+          yearLevels[2] || 0,
+          yearLevels[3] || 0,
+          yearLevels[4] || 0
+        ],
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(255, 99, 132, 0.2)'
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(255, 99, 132, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+    const config = {
+      type: 'bar',
+      data: data,
+      options: {
+        animation: {
+          duration: 1000, // duration of the animation in milliseconds
+          easing: 'easeOutBounce' // easing function for the animation
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    new Chart(ctx, config);
+
+    // Monthly Registrations Line Chart
+    const monthlyCtx = document.getElementById('monthlyRegistrationsChart').getContext('2d');
+    const monthlyRegistrations = @json($monthlyRegistrations);
+
+    const monthlyData = {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+      datasets: [{
+        label: 'User Registrations',
+        data: [
+          monthlyRegistrations[1] || 0,
+          monthlyRegistrations[2] || 0,
+          monthlyRegistrations[3] || 0,
+          monthlyRegistrations[4] || 0,
+          monthlyRegistrations[5] || 0,
+          monthlyRegistrations[6] || 0,
+          monthlyRegistrations[7] || 0,
+          monthlyRegistrations[8] || 0,
+          monthlyRegistrations[9] || 0,
+          monthlyRegistrations[10] || 0,
+          monthlyRegistrations[11] || 0,
+          monthlyRegistrations[12] || 0
+        ],
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1,
+        fill: false
+      }]
+    };
+
+    const monthlyConfig = {
+      type: 'line',
+      data: monthlyData,
+      options: {
+        animation: {
+          duration: 1000, // duration of the animation in milliseconds
+          easing: 'easeOutBounce' // easing function for the animation
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    new Chart(monthlyCtx, monthlyConfig);
+  });
+</script>
 
 </x-layouts.admin>

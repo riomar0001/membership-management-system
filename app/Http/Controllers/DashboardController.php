@@ -26,8 +26,19 @@ class DashboardController extends Controller
             ])
             ->get();
 
-        return view('pages.admin.index', compact('user', 'members'));
-    }
+            $yearLevels = DB::table('members')
+            ->select(DB::raw('year_level, COUNT(*) as count'))
+            ->groupBy('year_level')
+            ->pluck('count', 'year_level')->all();
+
+            
+            $monthlyRegistrations = DB::table('members')
+            ->select(DB::raw('MONTH(created_at) as month, COUNT(*) as count'))
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->pluck('count', 'month')->all();
+            
+            return view('pages.admin.index', compact('user', 'members', 'yearLevels', 'monthlyRegistrations'));
+        }
 
 
     public function logout(Request $request)
