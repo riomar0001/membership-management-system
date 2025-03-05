@@ -157,6 +157,61 @@ class ContentManagementController extends Controller
             
         ]);
     }
+    public function showCreateOrgDetails()
+    {
+        $organizationSettings = DB::table('organizations_setting')->first();    
+
+        return view('pages.admin.content-management.create-org-details', [
+            'id' => $organizationSettings->id ?? null,
+        ]);
+    }
+
+    public function showEditOrgDetails()
+    {
+        $organizationSettings = DB::table('organizations_setting')->first();
+
+        return view('pages.admin.content-management.edit-org-details', [
+            'id' => $organizationSettings->id,
+            'logo' => $organizationSettings->logo,
+            'mission' => $organizationSettings->mission,
+            'vision' => $organizationSettings->vision,
+            'faqs' => $organizationSettings->faqs,
+
+        ]);
+    }
+
+    public function storeOrgDetails(Request $request)
+    {
+        $request->validate([
+            'logo' => 'required|string|max:255',
+            'mission' => 'required|string|max:255',
+            'vision' => 'required|string|max:20',
+            'faqs' => 'required|string|max:255',
+        ]);
+
+        $organizationSettings = DB::table('organizations_setting')->first();
+
+        if ($organizationSettings) {
+            DB::table('organizations_setting')
+                ->where('id', $organizationSettings->id)
+                ->update([
+                    'logo' => $request->input('logo'),
+                    'mission' => $request->input('mission'),
+                    'vision' => $request->input('vision'),
+                    'faqs' => $request->input('faqs'),
+                ]);
+        } else {
+            DB::table('organizations_setting')->insert([
+                'logo' => $request->input('logo'),
+                'mission' => $request->input('mission'),
+                'vision' => $request->input('vision'),
+                'faqs' => $request->input('faqs'),
+            ]);
+        }
+
+        return redirect()->route('org-details')->with('success', 'Org Details added successfully.');
+    }
+
 
     public function showRegisDetails()
     {
