@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ContentManagementController;
+
 
 
 Route::get('/', function () {
@@ -52,4 +54,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/admin/logout', [AuthController::class, 'logout']);
     Route::get('/admin/logout', [AuthController::class, 'logout']);
+
+    Route::get('/admin/content-management/contacts', [ContentManagementController::class, 'showContact'])->name('contacts');
+    Route::get('/admin/content-management/socials', [ContentManagementController::class, 'showSocials'])->name('socials');
+    Route::get('/admin/content-management/org-details', [ContentManagementController::class, 'showOrgDetails'])->name('org-details');
+    Route::get('/admin/content-management/regis-details', [ContentManagementController::class, 'showRegisDetails'])->name('regis-details');
+    
 });
