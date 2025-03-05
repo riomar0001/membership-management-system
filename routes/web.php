@@ -59,5 +59,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/content-management/socials', [ContentManagementController::class, 'showSocials'])->name('socials');
     Route::get('/admin/content-management/org-details', [ContentManagementController::class, 'showOrgDetails'])->name('org-details');
     Route::get('/admin/content-management/regis-details', [ContentManagementController::class, 'showRegisDetails'])->name('regis-details');
+    Route::get('/admin/content-management/contacts/contacts/create', [ContentManagementController::class, 'showCreateContact'])->name('contacts.show');
+    Route::get('/admin/content-management/contacts/contacts/edit', [ContentManagementController::class, 'showEditContact'])->name('contacts.edit');
+    Route::post('/admin/content-management/contacts/contacts/store', [ContentManagementController::class, 'storeContact'])->name('contacts.store');
+    Route::post('/admin/content-management/contacts/contacts/update', [ContentManagementController::class, 'updateContact'])->name('contacts.update');
+
     
 });
