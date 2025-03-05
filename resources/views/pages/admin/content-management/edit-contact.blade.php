@@ -2,7 +2,7 @@
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <h1 class="text-3xl font-bold text-gray-800 dark:text-neutral-200">Edit Contact Information</h1>
         
-        <form action="{{ route('contacts.update') }}" method="POST">
+        <form action="{{ route('contacts.store') }}" method="POST">
             @csrf
             @method('POST')
             <div class="mt-8">

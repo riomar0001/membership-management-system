@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create("organizations_setting", function (Blueprint $table) {
+            $table->id()->primary()->autoIncrement();
             $table->string("name")->nullable();
             $table->string("email")->nullable();
             $table->string("contact_number")->nullable();

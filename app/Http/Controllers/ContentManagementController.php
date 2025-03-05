@@ -46,52 +46,104 @@ class ContentManagementController extends Controller
             'address' => 'required|string|max:255',
         ]);
 
-        DB::table('organizations_setting')->insert([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'contact_number' => $request->input('contact_number'),
-            'address' => $request->input('address'),
-            
-        ]);
+        $organizationSettings = DB::table('organizations_setting')->first();
 
-        return redirect()->route('contacts')->with('success', 'Contact information added successfully.');
-    }
-
-    public function updateContact(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'contact_number' => 'required|string|max:20',
-            'address' => 'required|string|max:255',
-        ]);
-
-        $id = $request->input('id');
-
-        DB::table('organizations_setting')
-            ->where('id', $id)
-            ->update([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'contact_number' => $request->input('contact_number'),
-            'address' => $request->input('address'),
+        if ($organizationSettings) {
+            DB::table('organizations_setting')
+                ->where('id', $organizationSettings->id)
+                ->update([
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),
+                    'contact_number' => $request->input('contact_number'),
+                    'address' => $request->input('address'),
+                ]);
+        } else {
+            DB::table('organizations_setting')->insert([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'contact_number' => $request->input('contact_number'),
+                'address' => $request->input('address'),
             ]);
+        }
 
-        return redirect()->route('contacts')->with('success', 'Contact information updated successfully.');
+        return redirect()->route('contacts')->with('success', 'Contact information saved successfully.');
     }
+
 
     public function showSocials()
     {
         $organizationSettings = DB::table('organizations_setting')->first();
 
         return view('pages.admin.content-management.socials', [
+            'facebook' => $organizationSettings->facebook ?? null,
+            'twitter' => $organizationSettings->twitter ?? null,
+            'instagram' => $organizationSettings->instagram ?? null,
+            'linkedin' => $organizationSettings->linkedin ?? null,
+            'discord' => $organizationSettings->discord ?? null,
+        ]);
+    }   
+
+    public function showCreateSocials()
+    {
+        $organizationSettings = DB::table('organizations_setting')->first();    
+
+        return view('pages.admin.content-management.create-socials', [
+            'id' => $organizationSettings->id ?? null,
+        ]);
+    }
+
+    public function showEditSocials()
+    {
+        $organizationSettings = DB::table('organizations_setting')->first();
+
+        return view('pages.admin.content-management.edit-socials', [
+            'id' => $organizationSettings->id,
             'facebook' => $organizationSettings->facebook,
             'twitter' => $organizationSettings->twitter,
             'instagram' => $organizationSettings->instagram,
             'linkedin' => $organizationSettings->linkedin,
             'discord' => $organizationSettings->discord,
+
         ]);
-    }   
+    }
+
+    public function storeSocials(Request $request)
+    {
+        $request->validate([
+            'facebook' => 'required|string|max:255',
+            'twitter' => 'required|string|max:255',
+            'instagram' => 'required|string|max:20',
+            'linkedin' => 'required|string|max:255',
+            'discord' => 'required|string|max:255',
+        ]);
+
+        $organizationSettings = DB::table('organizations_setting')->first();
+
+        if ($organizationSettings) {
+            DB::table('organizations_setting')
+                ->where('id', $organizationSettings->id)
+                ->update([
+                    'facebook' => $request->input('facebook'),
+                    'twitter' => $request->input('twitter'),
+                    'instagram' => $request->input('instagram'),
+                    'linkedin' => $request->input('linkedin'),
+                    'discord' => $request->input('discord'),
+                ]);
+        } else {
+            DB::table('organizations_setting')->insert([
+                'facebook' => $request->input('facebook'),
+                'twitter' => $request->input('twitter'),
+                'instagram' => $request->input('instagram'),
+                'linkedin' => $request->input('linkedin'),
+                'discord' => $request->input('discord'),
+            ]);
+        }
+
+        return redirect()->route('socials')->with('success', 'Socials information added successfully.');
+    }
+
+
+
 
     public function showOrgDetails()
     {
