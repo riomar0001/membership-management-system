@@ -72,5 +72,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/content-management/org-details/edit', [ContentManagementController::class, 'showEditOrgDetails'])->name('org-details.edit');
     Route::post('/admin/content-management/org-details/store', [ContentManagementController::class, 'storeOrgDetails'])->name('org-details.store');
 
+    Route::get('/admin/content-management/regis-details/create', [ContentManagementController::class, 'showCreateRegisDetails'])->name('regis-details.show');
+    Route::get('/admin/content-management/regis-details/edit', [ContentManagementController::class, 'showEditRegisDetails'])->name('regis-details.edit');
+    Route::post('/admin/content-management/regis-details/store', [ContentManagementController::class, 'storeRegisDetails'])->name('regis-details.store');
+
     
 });

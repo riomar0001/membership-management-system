@@ -1,6 +1,6 @@
 <x-layouts.admin>
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-        <h1 class="text-3xl font-bold text-gray-800 dark:text-neutral-200">Add Contact Information</h1>
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-neutral-200">Add Organization Details</h1>
         
         <form action="{{ route('org-details.store') }}" method="POST">
             @csrf

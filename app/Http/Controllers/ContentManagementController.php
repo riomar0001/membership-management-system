@@ -112,7 +112,7 @@ class ContentManagementController extends Controller
         $request->validate([
             'facebook' => 'required|string|max:255',
             'twitter' => 'required|string|max:255',
-            'instagram' => 'required|string|max:20',
+            'instagram' => 'required|string|max:255',
             'linkedin' => 'required|string|max:255',
             'discord' => 'required|string|max:255',
         ]);
@@ -150,10 +150,10 @@ class ContentManagementController extends Controller
         $organizationSettings = DB::table('organizations_setting')->first();
 
         return view('pages.admin.content-management.org-details', [
-            'logo' => $organizationSettings->logo,
-            'mission' => $organizationSettings->mission,
-            'vision' => $organizationSettings->vision,
-            'faqs' => $organizationSettings->faqs,
+            'logo' => $organizationSettings->logo ?? null,
+            'mission' => $organizationSettings->mission ?? null,
+            'vision' => $organizationSettings->vision ?? null,
+            'faqs' => $organizationSettings->faqs ?? null,
             
         ]);
     }
@@ -185,7 +185,7 @@ class ContentManagementController extends Controller
         $request->validate([
             'logo' => 'required|string|max:255',
             'mission' => 'required|string|max:255',
-            'vision' => 'required|string|max:20',
+            'vision' => 'required|string|max:255',
             'faqs' => 'required|string|max:255',
         ]);
 
@@ -218,10 +218,63 @@ class ContentManagementController extends Controller
         $organizationSettings = DB::table('organizations_setting')->first();
 
         return view('pages.admin.content-management.regis-details', [
-            'membership_fee' => $organizationSettings->membership_fee,
-            'registration_start_date' => $organizationSettings->registration_start_date,
-            'registration_end_date' => $organizationSettings->registration_end_date,
+            'membership_fee' => $organizationSettings->membership_fee ?? null,
+            'registration_start_date' => $organizationSettings->registration_start_date ?? null,
+            'registration_end_date' => $organizationSettings->registration_end_date ?? null,
 
         ]);
     }
+
+    public function showCreateRegisDetails()
+    {
+        $organizationSettings = DB::table('organizations_setting')->first();    
+
+        return view('pages.admin.content-management.create-regis-details', [
+            'id' => $organizationSettings->id ?? null,
+        ]);
+    }
+
+    public function showEditRegisDetails()
+    {
+        $organizationSettings = DB::table('organizations_setting')->first();
+
+        return view('pages.admin.content-management.edit-regis-details', [
+            'id' => $organizationSettings->id,
+            'membership_fee' => $organizationSettings->membership_fee,
+            'registration_start_date' => $organizationSettings->registration_start_date,
+            'registration_end_date' => $organizationSettings->registration_end_date,
+           
+
+        ]);
+    }
+
+    public function storeRegisDetails(Request $request)
+    {
+        $request->validate([
+            'membership_fee' => 'required|numeric',
+            'registration_start_date' => 'required|date',
+            'registration_end_date' => 'required|date',
+        ]);
+
+        $organizationSettings = DB::table('organizations_setting')->first();
+
+        if ($organizationSettings) {
+            DB::table('organizations_setting')
+                ->where('id', $organizationSettings->id)
+                ->update([
+                    'membership_fee' => $request->input('membership_fee'),
+                    'registration_start_date' => $request->input('registration_start_date'),
+                    'registration_end_date' => $request->input('registration_end_date'),
+                ]);
+        } else {
+            DB::table('organizations_setting')->insert([
+                    'membership_fee' => $request->input('membership_fee'),
+                    'registration_start_date' => $request->input('registration_start_date'),
+                    'registration_end_date' => $request->input('registration_end_date'),
+            ]);
+        }
+
+        return redirect()->route('regis-details')->with('success', 'Org Details added successfully.');
+    }
+
 }
