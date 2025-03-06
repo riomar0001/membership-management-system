@@ -175,7 +175,8 @@ class ContentManagementController extends Controller
             'logo' => $organizationSettings->logo,
             'mission' => $organizationSettings->mission,
             'vision' => $organizationSettings->vision,
-            'faqs' => $organizationSettings->faqs,
+            'faqs' => json_encode($organizationSettings->faqs),
+
 
         ]);
     }
@@ -183,11 +184,13 @@ class ContentManagementController extends Controller
     public function storeOrgDetails(Request $request)
     {
         $request->validate([
-            'logo' => 'required|string|max:255',
+            'logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'mission' => 'required|string|max:255',
             'vision' => 'required|string|max:255',
-            'faqs' => 'required|string|max:255',
+            'faqs' => 'required|json',
         ]);
+
+        $logoPath = $request->file('logo')->store('logos', 'public');
 
         $organizationSettings = DB::table('organizations_setting')->first();
 
@@ -195,21 +198,50 @@ class ContentManagementController extends Controller
             DB::table('organizations_setting')
                 ->where('id', $organizationSettings->id)
                 ->update([
-                    'logo' => $request->input('logo'),
+                    'logo' => $logoPath,
                     'mission' => $request->input('mission'),
                     'vision' => $request->input('vision'),
                     'faqs' => $request->input('faqs'),
                 ]);
         } else {
             DB::table('organizations_setting')->insert([
-                'logo' => $request->input('logo'),
+                'logo' => $logoPath,
                 'mission' => $request->input('mission'),
                 'vision' => $request->input('vision'),
                 'faqs' => $request->input('faqs'),
             ]);
         }
 
-        return redirect()->route('org-details')->with('success', 'Org Details added successfully.');
+        return redirect()->route('org-details')->with('success', 'Organization details added successfully.');
+    }
+
+    public function updateOrgDetails(Request $request)
+    {
+        $request->validate([
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'mission' => 'required|string|max:255',
+            'vision' => 'required|string|max:255',
+            'faqs' => 'required|json',
+        ]);
+
+        $organizationSettings = DB::table('organizations_setting')->first();
+
+        $data = [
+            'mission' => $request->input('mission'),
+            'vision' => $request->input('vision'),
+            'faqs' => $request->input('faqs'),
+        ];
+
+        if ($request->hasFile('logo')) {
+            $logoPath = $request->file('logo')->store('logos', 'public');
+            $data['logo'] = $logoPath;
+        }
+
+        DB::table('organizations_setting')
+            ->where('id', $organizationSettings->id)
+            ->update($data);
+
+        return redirect()->route('org-details')->with('success', 'Organization details updated successfully.');
     }
 
 
