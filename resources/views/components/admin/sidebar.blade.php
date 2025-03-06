@@ -28,7 +28,7 @@
         <div
             class="h-full overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
             <nav class="hs-accordion-group p-3 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
-                <ul class="flex flex-col space-y-1">
+                <ul class="flex flex-col space-y-3">
                     <li>
                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-700 dark:text-neutral-200"
                             href="{{ route('dashboard') }}">
@@ -100,7 +100,7 @@
                         <div id="projects-accordion-child"
                             class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden"
                             role="region" aria-labelledby="projects-accordion">
-                            <ul class="ps-8 pt-1 space-y-1">
+                            <ul class="ps-8 pt-1 space-y-3">
                                 <li>
                                     <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
                                         href="{{ route('contacts') }}">

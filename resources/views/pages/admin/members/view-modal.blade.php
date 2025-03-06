@@ -13,7 +13,7 @@
                 <h1 class="text-2xl font-semibold  text-gray-800 dark:text-neutral-200">
                     Member's Information
                 </h1>
-                <p class="text-sm  text-gray-800 dark:text-neutral-200">
+                <p class="text-xs text-wrap text-gray-800 dark:text-neutral-200">
                     Review member details and approve or reject the membership
                     application.
                 </p>

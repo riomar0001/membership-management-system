@@ -1,12 +1,12 @@
  <x-layouts.admin>
-     <div class="flex flex-col">
-         <div class="-m-1.5 overflow-x-auto">
-             <div class="p-1.5 min-w-full inline-block align-middle">
+     <div class="px-4 sm:px-6 lg:p-5 rounded-xl ">
+         <div class="-m-1.5 overflow-x-auto rounded-xl">
+             <div class="p-1.5 min-w-full inline-block align-middle rounded-xl ">
                  <div
-                     class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-neutral-900 dark:border-neutral-800">
+                     class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-neutral-900 dark:border-neutral-800 p-5">
                      <!-- Header -->
                      <div
-                         class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-neutral-800">
+                         class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-neutral-800 rounded-xl ">
                          <div>
                              <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-200">
                                  Registered Members
