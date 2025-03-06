@@ -56,7 +56,7 @@
             <h2 class="text-xl font-semibold text-gray-800">Edit Officer</h2>
             <form id="editOfficerForm" method="POST" action="{{ route('officers.update') }}">
                 @csrf
-                @method('POST')
+                @method('PUT')
                 <input type="hidden" name="id" id="editOfficerId">
                 <div class="mt-4">
                     <label for="editOfficerPosition" class="block text-sm font-medium text-gray-700">Position</label>
@@ -77,12 +77,8 @@
             <form id="addOfficerForm" method="POST" action="{{ route('officers.store') }}">
                 @csrf
                 <div class="mt-4">
-                    <label for="addOfficerMember" class="block text-sm font-medium text-gray-700">Member</label>
-                    <select name="member_id" id="addOfficerMember" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                        @foreach ($approvedMembers as $member)
-                            <option value="{{ $member->id }}">{{ $member->first_name }} {{ $member->last_name }} ({{ $member->student_id }})</option>
-                        @endforeach
-                    </select>
+                    <label for="addOfficerStudentId" class="block text-sm font-medium text-gray-700">Student ID</label>
+                    <input type="text" name="student_id" id="addOfficerStudentId" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                 </div>
                 <div class="mt-4">
                     <label for="addOfficerPosition" class="block text-sm font-medium text-gray-700">Position</label>

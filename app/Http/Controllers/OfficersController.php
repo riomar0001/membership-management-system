@@ -35,28 +35,34 @@ class OfficersController extends Controller
     }
 
     public function storeOfficer(Request $request)
-    {
-        $request->validate([
-            'member_id' => 'required|uuid',
-            'position' => 'required|string|max:255',
-        ]);
+{
+    $request->validate([
+        'student_id' => 'required|string|max:255',
+        'position' => 'required|string|max:255',
+    ]);
 
-        // Update the membership type to Officer
-        DB::table('membership_types')
-            ->where('members_id', $request->input('member_id'))
-            ->update(['type' => 'Officer']);
+    $member = DB::table('members')
+        ->where('student_id', $request->input('student_id'))
+        ->first();
 
-        // Insert the officer into the officers table
-        DB::table('officers')->insert([
-            'id' => \Illuminate\Support\Str::uuid(),
-            'member_id' => $request->input('member_id'),
-            'position' => $request->input('position'),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        return redirect()->route('officers.view')->with('success', 'Officer added successfully.');
+    if (!$member) {
+        return redirect()->route('officers.view')->with('error', 'Member not found.');
     }
+
+    DB::table('membership_types')
+        ->where('members_id', $member->id)
+        ->update(['type' => 'Officer']);
+
+    DB::table('officers')->insert([
+        'id' => \Illuminate\Support\Str::uuid(),
+        'member_id' => $member->id,
+        'position' => $request->input('position'),
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+
+    return redirect()->route('officers.view')->with('success', 'Officer added successfully.');
+}
 
     public function updateOfficer(Request $request)
     {
