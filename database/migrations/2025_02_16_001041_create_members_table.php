@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('umindanao_email')->unique();
-            $table->string('department');
             $table->string('program');
             $table->integer('year_level');
             $table->string('proof_of_membership');

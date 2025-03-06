@@ -3,10 +3,13 @@ import DataTable from "datatables.net-dt";
 import jquery from "jquery";
 import "preline/dist/preline.js";
 import HSDataTable from "@preline/datatable";
+import Alpine from "alpinejs";
 
 window.jQuery = jquery;
 window.$ = jquery;
 window.DataTable = DataTable;
 window.HSDataTable = HSDataTable;
+window.Alpine = Alpine;
 
-const func = function () {};
+Alpine.start();
+

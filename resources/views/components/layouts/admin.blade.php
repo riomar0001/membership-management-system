@@ -26,13 +26,11 @@
         else if (isDarkOrAuto && html.classList.contains('light')) html.classList.remove('light');
         else if (isDarkOrAuto && !html.classList.contains('dark')) html.classList.add('dark');
         else if (isLightOrAuto && !html.classList.contains('light')) html.classList.add('light');
-
-
     </script>
     @stack('scripts')
 </head>
 
-<body class="antialiased bg-gray-50 dark:bg-neutral-900">
+<body class="antialiased bg-gray-50 dark:bg-neutral-900" x-data="{ modalIsOpen: false }">
     <x-admin.header />
     <x-admin.breadcrumb />
     <x-admin.sidebar />
@@ -46,6 +44,7 @@
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+    {{-- <script src="//unpkg.com/alpinejs" defer></script> --}}
 </body>
 
 </html>

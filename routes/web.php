@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
 
     //get all members /admin/members, MembersControler index
     Route::get('/admin/members', [MemberController::class, 'index'])->name('members');
+    Route::get('/admin/members/receipt/{path}', [App\Http\Controllers\MemberController::class, 'viewReceipt'])->name('view.receipt');
     //get view invididual member page /admin/members/{id} MembersControler show
     Route::get('/admin/members/{id}', [MemberController::class, 'show']);
     //get edit member page /admin/members/{id}/edit MembersControler edit

@@ -96,14 +96,14 @@
                     Action</th>
             </tr>
         </thead>
-        <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+        <tbody class="divide-y divide-gray-200 dark:divide-neutral-700 border">
             @foreach ($members as $member)
                 <tr>
                     <td class="p-3 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
                         {{ $member->student_id }}
                     </td>
                     <td class="p-3 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
-                        {{ $member->student_name }}
+                        {{ $member->first_name }} {{ $member->last_name }}
                     </td>
                     <td class="p-3 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
                         {{ $member->membership_status ?? 'Pending' }}

@@ -16,6 +16,8 @@
     },
     "dependencies": {
         "@preline/datatable": "^2.5.2",
+        "@preline/overlay": "^3.0.0",
+        "alpinejs": "^3.14.8",
         "datatables.net-dt": "^2.2.2",
         "jquery": "^3.7.1",
         "preline": "^2.7.0"
