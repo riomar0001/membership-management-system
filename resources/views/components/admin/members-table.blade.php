@@ -5,21 +5,21 @@
 
 
     <table class="min-w-full">
-        <thead class="border-y border-gray-200 dark:border-neutral-700">
+        <thead class="border-y border-gray-200 dark:border-neutral-800">
             <tr>
                 <th scope="col" class="py-1 group text-start font-normal focus:outline-none">
                     <div
-                        class="cursor-pointer py-1 px-2.5 inline-flex items-center border border-transparent text-sm text-gray-500 rounded-md hover:border-gray-200 dark:text-neutral-500 dark:hover:border-neutral-700">
+                        class="cursor-pointer py-1 px-2.5 inline-flex items-center border border-transparent text-sm text-gray-500 rounded-md hover:border-gray-200 dark:text-neutral-500 dark:hover:border-neutral-800">
                         Student ID
                         <svg class="size-3.5 ms-1 -me-0.5 text-gray-400 dark:text-neutral-500"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round">
                             <path
-                                class="hs-datatable-ordering-desc:text-blue-600 dark:hs-datatable-ordering-desc:text-blue-500"
+                                class="hs-datatable-ordering-desc:text-yellow-600 dark:hs-datatable-ordering-desc:text-yellow-500"
                                 d="m7 15 5 5 5-5"></path>
                             <path
-                                class="hs-datatable-ordering-asc:text-blue-600 dark:hs-datatable-ordering-asc:text-blue-500"
+                                class="hs-datatable-ordering-asc:text-yellow-600 dark:hs-datatable-ordering-asc:text-yellow-500"
                                 d="m7 9 5-5 5 5"></path>
                         </svg>
                     </div>
@@ -27,17 +27,17 @@
 
                 <th scope="col" class="py-1 group text-start font-normal focus:outline-none">
                     <div
-                        class="cursor-pointer py-1 px-2.5 inline-flex items-center border border-transparent text-sm text-gray-500 rounded-md hover:border-gray-200 dark:text-neutral-500 dark:hover:border-neutral-700">
+                        class="cursor-pointer py-1 px-2.5 inline-flex items-center border border-transparent text-sm text-gray-500 dark:text-neutral-500 rounded-md hover:border-gray-200  dark:hover:border-neutral-800">
                         Members Name
                         <svg class="size-3.5 ms-1 -me-0.5 text-gray-400 dark:text-neutral-500"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round">
                             <path
-                                class="hs-datatable-ordering-desc:text-blue-600 dark:hs-datatable-ordering-desc:text-blue-500"
+                                class="hs-datatable-ordering-desc:text-yellow-600 dark:hs-datatable-ordering-desc:text-yellow-500"
                                 d="m7 15 5 5 5-5"></path>
                             <path
-                                class="hs-datatable-ordering-asc:text-blue-600 dark:hs-datatable-ordering-asc:text-blue-500"
+                                class="hs-datatable-ordering-asc:text-yellow-600 dark:hs-datatable-ordering-asc:text-yellow-500"
                                 d="m7 9 5-5 5 5"></path>
                         </svg>
                     </div>
@@ -45,34 +45,34 @@
 
                 <th scope="col" class="py-1 group text-start font-normal focus:outline-none">
                     <div
-                        class="cursor-pointer py-1 px-2.5 inline-flex items-center border border-transparent text-sm text-gray-500 rounded-md hover:border-gray-200 dark:text-neutral-500 dark:hover:border-neutral-700">
+                        class="cursor-pointer py-1 px-2.5 inline-flex items-center border border-transparent text-sm text-gray-500 rounded-md hover:border-gray-200 dark:text-neutral-500 dark:hover:border-neutral-800">
                         Membership Status
                         <svg class="size-3.5 ms-1 -me-0.5 text-gray-400 dark:text-neutral-500"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round">
                             <path
-                                class="hs-datatable-ordering-desc:text-blue-600 dark:hs-datatable-ordering-desc:text-blue-500"
+                                class="hs-datatable-ordering-desc:text-yellow-600 dark:hs-datatable-ordering-desc:text-yellow-500"
                                 d="m7 15 5 5 5-5"></path>
                             <path
-                                class="hs-datatable-ordering-asc:text-blue-600 dark:hs-datatable-ordering-asc:text-blue-500"
+                                class="hs-datatable-ordering-asc:text-yellow-600 dark:hs-datatable-ordering-asc:text-yellow-500"
                                 d="m7 9 5-5 5 5"></path>
                         </svg>
                     </div>
                 </th>
                 <th scope="col" class="py-1 group text-start font-normal focus:outline-none">
                     <div
-                        class="cursor-pointer py-1 px-2.5 inline-flex items-center border border-transparent text-sm text-gray-500 rounded-md hover:border-gray-200 dark:text-neutral-500 dark:hover:border-neutral-700">
+                        class="cursor-pointer py-1 px-2.5 inline-flex items-center border border-transparent text-sm text-gray-500 rounded-md hover:border-gray-200 dark:text-neutral-500 dark:hover:border-neutral-800">
                         Reviewed By
                         <svg class="size-3.5 ms-1 -me-0.5 text-gray-400 dark:text-neutral-500"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round">
                             <path
-                                class="hs-datatable-ordering-desc:text-blue-600 dark:hs-datatable-ordering-desc:text-blue-500"
+                                class="hs-datatable-ordering-desc:text-yellow-600 dark:hs-datatable-ordering-desc:text-yellow-500"
                                 d="m7 15 5 5 5-5"></path>
                             <path
-                                class="hs-datatable-ordering-asc:text-blue-600 dark:hs-datatable-ordering-asc:text-blue-500"
+                                class="hs-datatable-ordering-asc:text-yellow-600 dark:hs-datatable-ordering-asc:text-yellow-500"
                                 d="m7 9 5-5 5 5"></path>
                         </svg>
                     </div>
@@ -80,17 +80,17 @@
 
                 <th scope="col" class="py-1 group text-start font-normal focus:outline-none">
                     <div
-                        class="cursor-pointer py-1 px-2.5 inline-flex items-center border border-transparent text-sm text-gray-500 rounded-md hover:border-gray-200 dark:text-neutral-500 dark:hover:border-neutral-700">
+                        class="cursor-pointer py-1 px-2.5 inline-flex items-center border border-transparent text-sm text-gray-500 rounded-md hover:border-gray-200 dark:text-neutral-500 dark:hover:border-neutral-800">
                         Registered At
                         <svg class="size-3.5 ms-1 -me-0.5 text-gray-400 dark:text-neutral-500"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round">
                             <path
-                                class="hs-datatable-ordering-desc:text-blue-600 dark:hs-datatable-ordering-desc:text-blue-500"
+                                class="hs-datatable-ordering-desc:text-yellow-600 dark:hs-datatable-ordering-desc:text-yellow-500"
                                 d="m7 15 5 5 5-5"></path>
                             <path
-                                class="hs-datatable-ordering-asc:text-blue-600 dark:hs-datatable-ordering-asc:text-blue-500"
+                                class="hs-datatable-ordering-asc:text-yellow-600 dark:hs-datatable-ordering-asc:text-yellow-500"
                                 d="m7 9 5-5 5 5"></path>
                         </svg>
                     </div>
@@ -101,7 +101,7 @@
                     Action</th>
             </tr>
         </thead>
-        <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+        <tbody class="divide-y divide-gray-200 dark:divide-neutral-800">
             @foreach ($members as $member)
                 <tr>
                     <td class="p-3 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
@@ -111,13 +111,23 @@
                         {{ $member->first_name }} {{ $member->last_name }}
                     </td>
                     <td class="p-3 whitespace-nowrap text-sm dark:text-neutral-200">
-                        <span
-                            class="
-                            @if ($member->membership_status == 'Pending') py-2 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-orange-100 text-orange-800 rounded-full dark:bg-orange-500/10 dark:text-orange-500
-                            @elseif($member->membership_status == 'Rejected') py-2 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-red-100 text-red-800 rounded-full dark:bg-red-500/10 dark:text-red-500
-                            @elseif($member->membership_status == 'Approved') py-2 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full dark:bg-teal-500/10 dark:text-teal-500
-                            @else text-gray-800 @endif">
-                            {{ $member->membership_status ?? 'Pending' }}
+                        @php
+                            $statusStyles = [
+                                'Pending' =>
+                                    'py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-orange-100 text-orange-800 rounded-full dark:bg-orange-500/10 dark:text-orange-500',
+                                'Rejected' =>
+                                    'py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-red-100 text-red-800 rounded-full dark:bg-red-500/10 dark:text-red-500',
+                                'Approved' =>
+                                    'py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full dark:bg-teal-500/10 dark:text-teal-500',
+                                'default' => 'text-neutral-800',
+                            ];
+
+                            $status = $member->membership_status ?? 'Pending';
+                            $className = $statusStyles[$status] ?? $statusStyles['default'];
+
+                        @endphp
+                        <span class="{{ $className }}">
+                            {{ $status }}
                         </span>
                     </td>
                     <td class="p-3 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
@@ -127,11 +137,11 @@
                         {{ $member->registered_at }}
                     </td>
                     <td class="p-3 whitespace-nowrap flex flex-row justify-end font-medium">
-                        <div x-data="{ modalIsOpen: false }">
-                            <button x-on:click="modalIsOpen = true" type="button">
+                        <div x-data="{ viewMemberModalIsOpen: false }">
+                            <button x-on:click="viewMemberModalIsOpen = true" type="button">
                                 <span class="py-1.5">
                                     <span
-                                        class="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-lg border border-gray-200 font-medium bg-white text-gray-700 shadow-2xs align-middle hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
+                                        class="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-lg border border-gray-200 font-medium bg-white text-gray-700 shadow-2xs align-middle hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-yellow-600 transition-all text-sm dark:bg-neutral-950 dark:hover:bg-neutral-900 dark:border-neutral-800 dark:text-neutral-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
                                         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="16"
                                             height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path
@@ -146,15 +156,14 @@
 
 
 
-                            @include('pages.admin.members.member-view-modal', ['member' => $member])
+                            @include('pages.admin.members.view-modal', ['member' => $member])
 
 
 
-                            <button type="button" aria-haspopup="dialog" aria-expanded="false"
-                                aria-controls="hs-ai-invoice-modal" data-hs-overlay="#hs-ai-invoice-modal">
+                            <a href="{{ route('members.edit', $member->id) }}">
                                 <span class="py-1.5">
                                     <span
-                                        class="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-lg border border-gray-200 font-medium bg-white text-gray-700 shadow-2xs align-middle hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
+                                        class="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-lg border border-gray-200 font-medium bg-white text-gray-700 shadow-2xs align-middle hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-yellow-600 transition-all text-sm dark:bg-neutral-950 dark:hover:bg-neutral-900 dark:border-neutral-800 dark:text-neutral-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -166,7 +175,7 @@
                                         Edit
                                     </span>
                                 </span>
-                            </button>
+                            </a>
                         </div>
                     </td>
                 </tr>

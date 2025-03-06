@@ -2,28 +2,28 @@
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <h1 class="text-3xl font-bold text-gray-800 dark:text-neutral-200">Officers</h1>
 
-        <button type="button" onclick="showAddOfficerModal()" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Add Officer</button>
+        <button type="button" onclick="showAddOfficerModal()" class="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 focus:outline-none focus:bg-yellow-700">Add Officer</button>
 
         @if ($officers->isEmpty())
             <p class="text-gray-600 dark:text-neutral-400">No officers found.</p>
         @else
             <div class="mt-8">
-                <table class="min-w-full bg-white dark:bg-neutral-800">
+                <table class="min-w-full bg-white dark:bg-neutral-900">
                     <thead>
                         <tr>
-                            <th class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700">Student ID</th>
-                            <th class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700">Name</th>
-                            <th class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700">Position</th>
-                            <th class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700">Action</th>
+                            <th class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-800">Student ID</th>
+                            <th class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-800">Name</th>
+                            <th class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-800">Position</th>
+                            <th class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-800">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($officers as $officer)
                             <tr>
-                                <td class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700">{{ $officer->student_id }}</td>
-                                <td class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700">{{ $officer->first_name }} {{ $officer->last_name }}</td>
-                                <td class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700">{{ $officer->position }}</td>
-                                <td class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700 text-end">
+                                <td class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-800">{{ $officer->student_id }}</td>
+                                <td class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-800">{{ $officer->first_name }} {{ $officer->last_name }}</td>
+                                <td class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-800">{{ $officer->position }}</td>
+                                <td class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-800 text-end">
                                     <button type="button" title="View" onclick="showOfficerDetails({{ json_encode($officer) }})" class="inline-flex items-center gap-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-chart-gantt"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 8h7"/><path d="M8 12h6"/><path d="M11 16h5"/></svg>
                                     </button>

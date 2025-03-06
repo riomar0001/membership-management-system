@@ -31,7 +31,7 @@
     </script>
 </head>
 
-<body class="bg-neutral-50 dark:bg-neutral-900 ">
+<body class="bg-neutral-50 dark:bg-neutral-950 ">
 
     <main>
 

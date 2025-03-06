@@ -17,7 +17,7 @@
             <p class="text-gray-600 dark:text-neutral-400">{{ $registration_end_date }}</p>
         </div>
         <div class="mt-8">
-                <a href="{{route('regis-details.edit')}}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Update Details</a>
+                <a href="{{route('regis-details.edit')}}" class="inline-block px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 focus:outline-none focus:bg-yellow-700">Update Details</a>
             </div>
         @else
             <div class="mt-8">

@@ -7,7 +7,7 @@
 
 </head>
 
-<body class="bg-neutral-900">
+<body class="bg-neutral-950">
     <x-landing.nav />
 
     <x-landing.hero/>

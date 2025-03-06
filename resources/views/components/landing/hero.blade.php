@@ -1,5 +1,5 @@
     <section id="hero">
-        <div class="bg-neutral-900">
+        <div class="bg-neutral-950">
             <div class="px-10 pt-4 my-10 mt-10 max-w-5xl mx-auto ">
                 <div class="flex flex-col text-start">
                     <h1 class="max-w-xl font-semibold text-white text-5xl md:text-6xl leading-tight md:leading-relaxed">

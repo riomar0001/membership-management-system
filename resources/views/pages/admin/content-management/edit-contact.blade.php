@@ -1,7 +1,7 @@
 <x-layouts.admin>
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <h1 class="text-3xl font-bold text-gray-800 dark:text-neutral-200">Edit Contact Information</h1>
-        
+
         <form action="{{ route('contacts.store') }}" method="POST">
             @csrf
             @method('POST')
@@ -27,7 +27,7 @@
             </div>
 
             <div class="mt-8">
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Update Contact</button>
+                <button type="submit" class="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 focus:outline-none focus:bg-yellow-700">Update Contact</button>
             </div>
         </form>
     </div>

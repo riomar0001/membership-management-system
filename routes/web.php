@@ -29,18 +29,14 @@ Route::middleware('auth')->group(function () {
             return view('pages.admin.index');
         });
     });
+
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/admin/members', [MemberController::class, 'index'])->name('members.index');
+    Route::get('/admin/members/create', [MemberController::class, 'create'])->name('members.create');
+    Route::get('/admin/members/{id}', [MemberController::class, 'show'])->name('members.show');
+    Route::get('/admin/members/{id}/edit', [MemberController::class, 'edit'])->name('members.edit');
 
-    //get all members /admin/members, MembersControler index
-    Route::get('/admin/members', [MemberController::class, 'index'])->name('members');
-    Route::get('/admin/members/receipt/{path}', [App\Http\Controllers\MemberController::class, 'viewReceipt'])->name('view.receipt');
-    //get view invididual member page /admin/members/{id} MembersControler show
-    Route::get('/admin/members/{id}', [MemberController::class, 'show']);
-    //get edit member page /admin/members/{id}/edit MembersControler edit
-    Route::get('/admin/members/{id}/edit', [MemberController::class, 'edit']);
-    //get add member page /admin/members/create MembersControler create
-    Route::get('/admin/members/create', [MemberController::class, 'create']);
 
     Route::middleware('role:admin,president')->group(function () {
         Route::get('/admin-only', function () {
@@ -61,7 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/content-management/socials', [ContentManagementController::class, 'showSocials'])->name('socials');
     Route::get('/admin/content-management/org-details', [ContentManagementController::class, 'showOrgDetails'])->name('org-details');
     Route::get('/admin/content-management/regis-details', [ContentManagementController::class, 'showRegisDetails'])->name('regis-details');
-    
+
     Route::get('/admin/content-management/contacts/create', [ContentManagementController::class, 'showCreateContact'])->name('contacts.show');
     Route::get('/admin/content-management/contacts/edit', [ContentManagementController::class, 'showEditContact'])->name('contacts.edit');
     Route::post('/admin/content-management/contacts/store', [ContentManagementController::class, 'storeContact'])->name('contacts.store');
@@ -79,7 +75,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/content-management/regis-details/edit', [ContentManagementController::class, 'showEditRegisDetails'])->name('regis-details.edit');
     Route::post('/admin/content-management/regis-details/store', [ContentManagementController::class, 'storeRegisDetails'])->name('regis-details.store');
 
-    
+
 
     Route::get('/admin/officers', [OfficersController::class, 'viewOfficers'])->name('officers.view');
     Route::middleware('role:admin,president')->group(function () {
