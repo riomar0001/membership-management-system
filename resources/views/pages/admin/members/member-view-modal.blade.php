@@ -1,7 +1,7 @@
 <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen"
     x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false"
     class="fixed inset-0 z-50 flex items-end justify-center bg-black/80 p-4 pb-8 sm:items-center lg:p-8" role="dialog"
-    aria-modal="true" aria-labelledby="defaultModalTitle">
+    aria-modal="true" aria-labelledby="defaultModalTitle" style="display: none !important;">
     <!-- Modal Dialog -->
     <div x-show="modalIsOpen"
         x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity"
@@ -23,15 +23,15 @@
             <div class="border-b dark:border-b-neutral-600 border-b-neutral-300 my-5"></div>
 
             <div>
-                <p class="text-sm text-neutral-500">Student ID: {{ $member->student_id }}</p>
+                <p class="text-sm text-neutral-800 dark:text-neutral-400">Student ID: {{ $member->student_id }}</p>
 
-                <h1 class="text-2xl font-semibold text-neutral-500">
+                <h1 class="text-2xl font-semibold text-neutral-800 dark:text-neutral-400">
                     {{ $member->first_name }} {{ $member->last_name }}
                 </h1>
-                <p class="text-sm text-neutral-500">
+                <p class="text-sm text-neutral-800 dark:text-neutral-400">
                     {{ $member->umindanao_email }}
                 </p>
-                <p class="text-sm text-neutral-500">
+                <p class="text-sm text-neutral-800 dark:text-neutral-400">
                     {{ $member->year_level }}{{ $member->year_level == 1 ? 'st' : ($member->year_level == 2 ? 'nd' : ($member->year_level == 3 ? 'rd' : 'th')) }}
                     Year | {{ $member->program }}
 
