@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('members', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->uuid('id')->primary(); // Change this to uuid
             $table->integer('student_id')->unique();
             $table->string('first_name');
             $table->string('last_name');
@@ -38,7 +38,6 @@ return new class extends Migration
             $table->foreign('members_id')->references('id')->on('members')->onDelete('cascade');
         });
 
-
         Schema::create('membership_types', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('members_id')->unique();
@@ -49,8 +48,6 @@ return new class extends Migration
 
             $table->foreign('members_id')->references('id')->on('members')->onDelete('cascade');
         });
-
-
     }
 
     /**
