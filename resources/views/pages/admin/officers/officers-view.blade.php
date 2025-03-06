@@ -1,4 +1,3 @@
-<!-- filepath: /home/matchan/Documents/2nd-Year-BSCS/CST-5/Final-Project/membership-management-system/resources/views/pages/admin/officers/officers-view.blade.php -->
 <x-layouts.admin>
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <h1 class="text-3xl font-bold text-gray-800 dark:text-neutral-200">Officers</h1>
@@ -26,10 +25,10 @@
                                 <td class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700">{{ $officer->position }}</td>
                                 <td class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700 text-end">
                                     <button type="button" title="View" onclick="showOfficerDetails({{ json_encode($officer) }})" class="inline-flex items-center gap-x-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-chart-gantt"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 8h7"/><path d="M8 12h6"/><path d="M11 16h5"/></svg>
                                     </button>
                                     <button type="button" title="Edit" onclick="editOfficerDetails({{ json_encode($officer) }})" class="inline-flex items-center gap-x-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-edit"><path d="M11 4h10"/><path d="M11 4v10"/><path d="M11 4L4 11"/><path d="M4 11v10"/><path d="M4 11h10"/></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-pen-line"><path d="m18 5-2.414-2.414A2 2 0 0 0 14.172 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2"/><path d="M21.378 12.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/><path d="M8 18h1"/></svg>
                                     </button>
                                 </td>
                             </tr>
