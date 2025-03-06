@@ -81,7 +81,9 @@ Route::middleware('auth')->group(function () {
     
 
     Route::get('/admin/officers', [OfficersController::class, 'viewOfficers'])->name('officers.view');
-    Route::post('/admin/officers/store', [OfficersController::class, 'storeOfficer'])->name('officers.store');
-    Route::post('/admin/officers/update', [OfficersController::class, 'updateOfficer'])->name('officers.update');
+    Route::middleware('role:admin,president')->group(function () {
+        Route::post('/admin/officers/store', [OfficersController::class, 'storeOfficer'])->name('officers.store');
+        Route::post('/admin/officers/update', [OfficersController::class, 'updateOfficer'])->name('officers.update');
+    });
     Route::get('/admin/members/search', [OfficersController::class, 'searchMembers'])->name('members.search');
 });

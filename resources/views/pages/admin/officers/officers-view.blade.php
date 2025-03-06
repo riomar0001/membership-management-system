@@ -56,7 +56,7 @@
             <h2 class="text-xl font-semibold text-gray-800">Edit Officer</h2>
             <form id="editOfficerForm" method="POST" action="{{ route('officers.update') }}">
                 @csrf
-                @method('PUT')
+                @method('POST')
                 <input type="hidden" name="id" id="editOfficerId">
                 <div class="mt-4">
                     <label for="editOfficerPosition" class="block text-sm font-medium text-gray-700">Position</label>
