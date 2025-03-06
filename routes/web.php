@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ContentManagementController;
+use App\Http\Controllers\OfficersController;
 
 
 
@@ -78,4 +79,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/content-management/regis-details/store', [ContentManagementController::class, 'storeRegisDetails'])->name('regis-details.store');
 
     
+
+    Route::get('/admin/officers', [OfficersController::class, 'viewOfficers'])->name('officers.view');
+    Route::post('/admin/officers/store', [OfficersController::class, 'storeOfficer'])->name('officers.store');
+    Route::post('/admin/officers/update', [OfficersController::class, 'updateOfficer'])->name('officers.update');
+    Route::get('/admin/members/search', [OfficersController::class, 'searchMembers'])->name('members.search');
 });

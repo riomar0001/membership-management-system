@@ -1,0 +1,136 @@
+<!-- filepath: /home/matchan/Documents/2nd-Year-BSCS/CST-5/Final-Project/membership-management-system/resources/views/pages/admin/officers/officers-view.blade.php -->
+<x-layouts.admin>
+    <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-neutral-200">Officers</h1>
+
+        <button type="button" onclick="showAddOfficerModal()" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Add Officer</button>
+
+        @if ($officers->isEmpty())
+            <p class="text-gray-600 dark:text-neutral-400">No officers found.</p>
+        @else
+            <div class="mt-8">
+                <table class="min-w-full bg-white dark:bg-neutral-800">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700">Student ID</th>
+                            <th class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700">Name</th>
+                            <th class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700">Position</th>
+                            <th class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($officers as $officer)
+                            <tr>
+                                <td class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700">{{ $officer->student_id }}</td>
+                                <td class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700">{{ $officer->first_name }} {{ $officer->last_name }}</td>
+                                <td class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700">{{ $officer->position }}</td>
+                                <td class="py-2 px-4 border-b border-gray-200 dark:text-white dark:border-neutral-700 text-end">
+                                    <button type="button" title="View" onclick="showOfficerDetails({{ json_encode($officer) }})" class="inline-flex items-center gap-x-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    </button>
+                                    <button type="button" title="Edit" onclick="editOfficerDetails({{ json_encode($officer) }})" class="inline-flex items-center gap-x-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-edit"><path d="M11 4h10"/><path d="M11 4v10"/><path d="M11 4L4 11"/><path d="M4 11v10"/><path d="M4 11h10"/></svg>
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
+    </div>
+
+    <!-- Officer Details Modal -->
+    <div id="officerDetailsModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white rounded-lg p-8">
+            <h2 class="text-xl font-semibold text-gray-800">Officer Details</h2>
+            <p id="officerDetailsContent" class="mt-4 text-gray-600"></p>
+            <div class="mt-6 text-right">
+                <button id="closeOfficerDetailsModal" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:bg-red-700">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Officer Modal -->
+    <div id="editOfficerModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white rounded-lg p-8">
+            <h2 class="text-xl font-semibold text-gray-800">Edit Officer</h2>
+            <form id="editOfficerForm" method="POST" action="{{ route('officers.update') }}">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="id" id="editOfficerId">
+                <div class="mt-4">
+                    <label for="editOfficerPosition" class="block text-sm font-medium text-gray-700">Position</label>
+                    <input type="text" name="position" id="editOfficerPosition" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                </div>
+                <div class="mt-6 text-right">
+                    <button type="button" id="closeEditOfficerModal" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:bg-red-700">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:bg-green-700">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Officer Modal -->
+    <div id="addOfficerModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white rounded-lg p-8">
+            <h2 class="text-xl font-semibold text-gray-800">Add Officer</h2>
+            <form id="addOfficerForm" method="POST" action="{{ route('officers.store') }}">
+                @csrf
+                <div class="mt-4">
+                    <label for="addOfficerMember" class="block text-sm font-medium text-gray-700">Member</label>
+                    <select name="member_id" id="addOfficerMember" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                        @foreach ($approvedMembers as $member)
+                            <option value="{{ $member->id }}">{{ $member->first_name }} {{ $member->last_name }} ({{ $member->student_id }})</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mt-4">
+                    <label for="addOfficerPosition" class="block text-sm font-medium text-gray-700">Position</label>
+                    <input type="text" name="position" id="addOfficerPosition" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                </div>
+                <div class="mt-6 text-right">
+                    <button type="button" id="closeAddOfficerModal" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:bg-red-700">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:bg-green-700">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showOfficerDetails(officer) {
+            const content = `
+                <p><strong>Student ID:</strong> ${officer.student_id}</p>
+                <p><strong>Name:</strong> ${officer.first_name} ${officer.last_name}</p>
+                <p><strong>Department:</strong> ${officer.department}</p>
+                <p><strong>Program:</strong> ${officer.program}</p>
+                <p><strong>Year Level:</strong> ${officer.year_level}</p>
+                <p><strong>Position:</strong> ${officer.position}</p>
+            `;
+            document.getElementById('officerDetailsContent').innerHTML = content;
+            document.getElementById('officerDetailsModal').classList.remove('hidden');
+        }
+
+        function editOfficerDetails(officer) {
+            document.getElementById('editOfficerId').value = officer.id;
+            document.getElementById('editOfficerPosition').value = officer.position;
+            document.getElementById('editOfficerModal').classList.remove('hidden');
+        }
+
+        function showAddOfficerModal() {
+            document.getElementById('addOfficerModal').classList.remove('hidden');
+        }
+
+        document.getElementById('closeOfficerDetailsModal').addEventListener('click', function() {
+            document.getElementById('officerDetailsModal').classList.add('hidden');
+        });
+
+        document.getElementById('closeEditOfficerModal').addEventListener('click', function() {
+            document.getElementById('editOfficerModal').classList.add('hidden');
+        });
+
+        document.getElementById('closeAddOfficerModal').addEventListener('click', function() {
+            document.getElementById('addOfficerModal').classList.add('hidden');
+        });
+    </script>
+</x-layouts.admin>
