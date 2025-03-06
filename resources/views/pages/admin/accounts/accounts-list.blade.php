@@ -1,4 +1,3 @@
-<!-- filepath: /home/matchan/Documents/2nd-Year-BSCS/CST-5/Final-Project/membership-management-system/resources/views/pages/admin/accounts/accounts-list.blade.php -->
 <x-layouts.admin>
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <div class="flex justify-between items-center mb-6">
