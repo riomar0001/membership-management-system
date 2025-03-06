@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ContentManagementController;
 use App\Http\Controllers\OfficersController;
+use App\Http\Controllers\AccountsController;
 
 
 
@@ -83,4 +84,20 @@ Route::middleware('auth')->group(function () {
         Route::post('/admin/officers/update', [OfficersController::class, 'updateOfficer'])->name('officers.update');
     });
     Route::get('/admin/members/search', [OfficersController::class, 'searchMembers'])->name('members.search');
+});
+
+
+Route::middleware('auth')->group(function () {
+    // Other routes...
+    
+    // Accounts management routes
+    Route::middleware('role:admin,president')->group(function () {
+        Route::get('/admin/accounts', [AccountsController::class, 'index'])->name('accounts.index');
+        Route::get('/admin/accounts/create', [AccountsController::class, 'create'])->name('accounts.create');
+        Route::post('/admin/accounts', [AccountsController::class, 'store'])->name('accounts.store');
+        Route::get('/admin/accounts/{id}', [AccountsController::class, 'show'])->name('accounts.show');
+        Route::get('/admin/accounts/{id}/edit', [AccountsController::class, 'edit'])->name('accounts.edit');
+        Route::post('/admin/accounts/{id}', [AccountsController::class, 'update'])->name('accounts.update');
+        Route::delete('/admin/accounts/{id}', [AccountsController::class, 'destroy'])->name('accounts.destroy');
+    });
 });
