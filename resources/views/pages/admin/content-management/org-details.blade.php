@@ -29,7 +29,7 @@
         @else
             <div class="mt-8">
                 <p class="text-gray-600 dark:text-neutral-400">No organization details available.</p>
-                <a href="{{ route('org-details.create') }}" class="inline-block px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:bg-green-700">Add Details</a>
+                <a href="{{ route('org-details.show') }}" class="inline-block px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:bg-green-700">Add Details</a>
             </div>
         @endif
     </div>
