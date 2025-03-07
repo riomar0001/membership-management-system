@@ -79,15 +79,12 @@ class MemberController extends Controller
         if ($request->hasFile('proof_of_membership')) {
             $file = $request->file('proof_of_membership');
             $extension = $file->getClientOriginalExtension();
-            $filename = 'proof_of_membership_' . $request->student_id . '.' . $extension;
+            $filename = 'proof_of_membership_' . $uuid . '.' . $extension;
 
-            if (in_array($extension, ['jpg', 'jpeg', 'png'])) {
-                $path = $this->compressAndStoreImage($file, $filename, $request->student_id);
-            } else {
-                $path = Storage::disk('private')->putFileAs('receipts', $file, $filename);
-            }
+            $this->compressAndStoreImage($file, $filename);
 
-            $member->proof_of_membership = $path;
+            // Store only the filename instead of the full path
+            $member->proof_of_membership = $filename;
         }
 
 
@@ -110,10 +107,11 @@ class MemberController extends Controller
 
     public function show($id)
     {
+
         $member = Member::findOrFail($id);
 
-        $membershipStatus = MembershipStatus::where('members_id', $id)->first();
-        $membershipType = MembershipType::where('members_id', $id)->first();
+        $membershipStatus = MembershipStatus::where('members_id', $member->id)->first();
+        $membershipType = MembershipType::where('members_id', $member->id)->first();
 
         return view('pages.admin.members.show', [
             'member' => $member,
@@ -121,12 +119,14 @@ class MemberController extends Controller
             'membershipType' => $membershipType
         ]);
     }
+
     public function edit($id)
     {
-        $member = Member::findOrFail($id);
+        $id = (string) $id;
 
-        $membershipStatus = MembershipStatus::where('members_id', $id)->first();
-        $membershipType = MembershipType::where('members_id', $id)->first();
+        $member = Member::findOrFail($id);
+        $membershipStatus = MembershipStatus::where('members_id', $member->id)->first();
+        $membershipType = MembershipType::where('members_id', $member->id)->first();
 
         return view('pages.admin.members.edit', [
             'member' => $member,
@@ -137,6 +137,8 @@ class MemberController extends Controller
 
     public function update(Request $request, $id)
     {
+        $memberId = $request->input('member_id', $id);
+        $member = Member::findOrFail($memberId);
         $member = Member::findOrFail($id);
 
         $request->validate([
@@ -175,10 +177,10 @@ class MemberController extends Controller
 
             $file = $request->file('proof_of_membership');
             $extension = $file->getClientOriginalExtension();
-            $filename = 'proof_of_membership_' . $request->student_id . '.' . $extension;
+            $filename = 'proof_of_membership_' . $request->id . '.' . $extension;
 
             if (in_array($extension, ['jpg', 'jpeg', 'png'])) {
-                $path = $this->compressAndStoreImage($file, $filename, $request->student_id);
+                $path = $this->compressAndStoreImage($file, $filename);
             } else {
                 $path = Storage::disk('private')->putFileAs('receipts', $file, $filename);
             }
@@ -209,33 +211,45 @@ class MemberController extends Controller
         return redirect()->route('members.index')->with('success', 'Member Successfully Updated');
     }
 
-    public function updateMembershipStatus(Request $request, $id)
+    public function destroy($id)
+    {
+        if (Auth::user()->role !== 'Admin' && Auth::user()->role !== 'President') {
+            return redirect()->route('members.index')->with('error', 'You are not authorized to delete members');
+        }
+
+        try {
+            $member = Member::findOrFail($id);
+
+            MembershipStatus::where('members_id', $id)->delete();
+            MembershipType::where('members_id', $id)->delete();
+
+            if ($member->proof_of_membership && Storage::disk('private')->exists($member->proof_of_membership)) {
+                Storage::disk('private')->delete($member->proof_of_membership);
+            }
+
+            $member->delete();
+            return redirect()->route('members.index')->with('success', 'Member Successfully Deleted');
+        } catch (\Exception $e) {
+            return redirect()->route('members.index')->with('error', 'Member not found or could not be deleted');
+        }
+    }
+
+    public function approveMembership(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:Approved,Rejected',
             'remarks' => 'nullable|string|max:255',
         ]);
-
-        $member = Member::findOrFail($id);
 
         $membershipStatus = MembershipStatus::where('members_id', $id)->firstOrFail();
 
         $user = Auth::user();
         $staffName = $user->first_name . ' ' . $user->last_name;
 
-        $membershipStatus->status = $request->status;
-
-        if ($request->status == 'Approved') {
-            $membershipStatus->approved_by = $staffName;
-            $membershipStatus->approved_at = now();
-            $membershipStatus->rejected_by = null;
-            $membershipStatus->rejected_at = null;
-        } else {
-            $membershipStatus->rejected_by = $staffName;
-            $membershipStatus->rejected_at = now();
-            $membershipStatus->approved_by = null;
-            $membershipStatus->approved_at = null;
-        }
+        $membershipStatus->status = 'Approved';
+        $membershipStatus->approved_by = $staffName;
+        $membershipStatus->approved_at = now();
+        $membershipStatus->rejected_by = null;
+        $membershipStatus->rejected_at = null;
 
         if ($request->has('remarks')) {
             $membershipStatus->remarks = $request->remarks;
@@ -244,31 +258,58 @@ class MemberController extends Controller
         $membershipStatus->save();
 
         return redirect()->route('members.show', $id)
-            ->with('success', 'Membership has been ' . strtolower($request->status) . ' successfully.');
+            ->with('success', 'Membership has been approved successfully.');
+    }
+
+    public function rejectMembership(Request $request, $id)
+    {
+        $request->validate([
+            'remarks' => 'nullable|string|max:255',
+        ]);
+
+        $membershipStatus = MembershipStatus::where('members_id', $id)->firstOrFail();
+
+        $user = Auth::user();
+        $staffName = $user->first_name . ' ' . $user->last_name;
+
+        $membershipStatus->status = 'Rejected';
+        $membershipStatus->rejected_by = $staffName;
+        $membershipStatus->rejected_at = now();
+        $membershipStatus->approved_by = null;
+        $membershipStatus->approved_at = null;
+
+        if ($request->has('remarks')) {
+            $membershipStatus->remarks = $request->remarks;
+        }
+
+        $membershipStatus->save();
+
+        return redirect()->route('members.show', $id)
+            ->with('success', 'Membership has been rejected successfully.');
     }
 
 
 
-    public function getProofOfMembership($memberId)
+    public function getProofOfMembership($filename)
     {
-        $member = Member::findOrFail($memberId);
-
-        if (!$member->proof_of_membership) {
-            return response()->json(['error' => 'No proof of membership found'], 404);
+        if (empty($filename)) {
+            return response()->json(['error' => 'No filename provided'], 400);
         }
-        if (!Storage::disk('private')->exists($member->proof_of_membership)) {
+
+        $path = 'receipts/' . $filename;
+
+        if (!Storage::disk('private')->exists($path)) {
             return response()->json(['error' => 'File not found'], 404);
         }
 
-        $file = Storage::disk('private')->get($member->proof_of_membership);
-
-        $mimeType = Storage::disk('private')->mimeType($member->proof_of_membership);
+        $file = Storage::disk('private')->get($path);
+        $mimeType = Storage::disk('private')->mimeType($path);
 
         return response($file, 200)->header('Content-Type', $mimeType);
     }
 
 
-    private function compressAndStoreImage($file, $filename, $student_id)
+    private function compressAndStoreImage($file, $filename)
     {
         $extension = $file->getClientOriginalExtension();
 

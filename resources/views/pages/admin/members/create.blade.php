@@ -1,6 +1,5 @@
 <x-layouts.admin>
 
-    <!-- Card Section -->
     <div class="px-4 py-5 sm:px-6 lg:px-5 lg:py-5 mx-auto bg-white dark:bg-neutral-900 rounded-xl shadow-xs">
         <a href="{{ route('members.index') }}"
             class="py-2 px-3 mb-5 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
@@ -22,13 +21,12 @@
             </p>
 
         </div>
-        <!-- Card -->
         <div class=" max-w-3xl mx-auto p-4 sm:p-7 ">
 
             <form action="{{ route('members.store') }}" method="POST" enctype="multipart/form-data">
 
                 @csrf
-                <!-- Section -->
+
                 <div
                     class="grid sm:grid-cols-8 gap-2 sm:gap-2 first:pt-0 last:pb-0 border-gray-200 dark:border-neutral-700 dark:first:border-transparent">
                     <div class="sm:col-span-8">
@@ -73,7 +71,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End Col -->
+
 
                     <div class="sm:col-span-8">
                         <div class="flex flex-col gap-y-2">
@@ -89,7 +87,7 @@
                             @enderror
                         </div>
                     </div>
-                    <!-- End Col -->
+
 
                     <div class="sm:col-span-8">
                         <div class="flex flex-col gap-y-2">
@@ -124,7 +122,7 @@
                             @enderror
                         </div>
                     </div>
-                    <!-- End Col -->
+
 
                     <div class="sm:col-span-8">
                         <div class="flex flex-col gap-y-2">
@@ -146,7 +144,7 @@
                             @enderror
                         </div>
                     </div>
-                    <!-- End Col -->
+
 
 
                     <div class="sm:col-span-8">
@@ -168,9 +166,9 @@
                     </div>
 
                 </div>
-                <!-- End Section -->
 
-                <!-- Section -->
+
+
                 <div x-data="{ termsAndConditionModal: false }"
                     class="py-8 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-neutral-700 dark:first:border-transparent">
                     <div class="lex space-x-2">
@@ -199,10 +197,8 @@
 
             </form>
         </div>
-        <!-- End Card -->
+
     </div>
-    <!-- End Card Section -->
-    <!-- resources/views/components/dark-mode-toggle.blade.php -->
 
 
 

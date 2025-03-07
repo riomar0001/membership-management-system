@@ -103,14 +103,17 @@
         </thead>
         <tbody class="divide-y divide-gray-200 dark:divide-neutral-800">
             @foreach ($members as $member)
-                <tr>
-                    <td class="p-3 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
+                <tr class="hover:bg-gray-50 dark:hover:bg-neutral-800 cursor-pointer">
+                    <td onclick="window.location='{{ route('members.show', $member->id) }}'"
+                        class="p-3 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200 rounded-lg">
                         {{ $member->student_id }}
                     </td>
-                    <td class="p-3 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
+                    <td onclick="window.location='{{ route('members.show', $member->id) }}'"
+                        class="p-3 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200 ">
                         {{ $member->first_name }} {{ $member->last_name }}
                     </td>
-                    <td class="p-3 whitespace-nowrap text-sm dark:text-neutral-200">
+                    <td onclick="window.location='{{ route('members.show', $member->id) }}'"
+                        class="p-3 whitespace-nowrap text-sm dark:text-neutral-200 ">
                         @php
                             $statusStyles = [
                                 'Pending' =>
@@ -130,12 +133,15 @@
                             {{ $status }}
                         </span>
                     </td>
-                    <td class="p-3 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
+                    <td onclick="window.location='{{ route('members.show', $member->id) }}'"
+                        class="p-3 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200 ">
                         {{ $member->reviewed_by }}
                     </td>
-                    <td class="p-3 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
+                    <td onclick="window.location='{{ route('members.show', $member->id) }}'"
+                        class="p-3 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200 ">
                         {{ $member->registered_at }}
                     </td>
+
                     <td class="p-3 whitespace-nowrap flex flex-row justify-end font-medium">
                         <div x-data="{ viewMemberModalIsOpen: false }">
                             <button x-on:click="viewMemberModalIsOpen = true" type="button">
@@ -157,8 +163,6 @@
 
 
                             @include('pages.admin.members.view-modal', ['member' => $member])
-
-
 
                             <a href="{{ route('members.edit', $member->id) }}">
                                 <span class="py-1.5">

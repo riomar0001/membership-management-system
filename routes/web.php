@@ -33,11 +33,14 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
+
+
     Route::get('/admin/members', [MemberController::class, 'index'])->name('members.index');
     Route::get('/admin/members/create', [MemberController::class, 'create'])->name('members.create');
     Route::post('/admin/members/store', [MemberController::class, 'store'])->name('members.store');
     Route::get('/admin/members/{id}', [MemberController::class, 'show'])->name('members.show');
     Route::get('/admin/members/{id}/edit', [MemberController::class, 'edit'])->name('members.edit');
+    Route::put('/admin/members/{id}/update', [MemberController::class,'update'])->name('members.update');
     Route::get('/admin/members/proof-of-membership/{id}', [MemberController::class, 'getProofOfMembership'])->name('members.proof-of-membership');
 
 

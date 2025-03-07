@@ -98,8 +98,8 @@
                 <div x-cloak x-show="isExpanded" id="accordionItemOne" role="region"
                     aria-labelledby="controlsAccordionItemOne" x-collapse>
                     <img type="image" class="w-full h-full object-cover rounded-lg mt-2"
-                        src="{{ route('members.proof-of-membership', $member->id) }}" alt="proof-of-membership"
-                        loading="lazy">
+                        src="{{ route('members.proof-of-membership', $member->proof_of_membership) }}"
+                        alt="proof-of-membership" loading="lazy">
                 </div>
             </div>
 

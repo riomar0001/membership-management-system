@@ -14,7 +14,7 @@ class OfficersController extends Controller
         // Fetch all members who are officers from the database
         $officers = DB::table('officers')
             ->join('members', 'officers.member_id', '=', 'members.id')
-            ->select('members.student_id', 'members.first_name', 'members.last_name', 'members.department', 'members.program', 'members.year_level', 'officers.position', 'officers.id')
+            ->select('members.student_id', 'members.first_name', 'members.last_name', 'members.program', 'members.year_level', 'officers.position', 'officers.id')
             ->get();
 
         // Fetch all approved members who are not officers
