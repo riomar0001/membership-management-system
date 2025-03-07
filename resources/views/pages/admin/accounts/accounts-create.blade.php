@@ -41,13 +41,6 @@
                     @enderror
                 </div>
                 
-                <div class="mb-4">
-                    <label for="department" class="block mb-2 text-sm font-medium text-gray-700 dark:text-neutral-200">Department</label>
-                    <input type="text" id="department" name="department" value="{{ old('department') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white" required>
-                    @error('department')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
                 
                 <div class="mb-4">
                     <label for="program" class="block mb-2 text-sm font-medium text-gray-700 dark:text-neutral-200">Program</label>
@@ -78,19 +71,6 @@
                     @error('position')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label for="password" class="block mb-2 text-sm font-medium text-gray-700 dark:text-neutral-200">Password</label>
-                    <input type="password" id="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white" required>
-                    @error('password')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label for="password_confirmation" class="block mb-2 text-sm font-medium text-gray-700 dark:text-neutral-200">Confirm Password</label>
-                    <input type="password" id="password_confirmation" name="password_confirmation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white" required>
                 </div>
 
                 <div class="mb-4">

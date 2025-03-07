@@ -24,37 +24,34 @@ class AccountsController extends Controller
         return view('pages.admin.accounts.accounts-create');
     }
 
-    public function store(Request $request)
+        public function store(Request $request)
     {
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'student_id' => ['required', 'integer', 'unique:users'],
             'umindanao_email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'department' => ['required', 'string', 'max:255'],
             'program' => ['required', 'string', 'max:255'],
             'year_level' => ['required', 'integer'],
             'position' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required', 'string', 'in:admin,president,officer'],
         ]);
-
+    
         $userId = DB::table('users')->insertGetId([
             'id' => \Illuminate\Support\Str::uuid(),
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'student_id' => $request->student_id,
-            'department' => $request->department,
             'program' => $request->program,
             'year_level' => $request->year_level,
             'position' => $request->position,
             'umindanao_email' => $request->umindanao_email,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make('welcome123'), // Default password
             'role' => $request->role,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
+    
         return redirect()->route('accounts.index')->with('success', 'User added successfully');
     }
 
@@ -94,7 +91,6 @@ class AccountsController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'student_id' => ['required', 'integer', 'unique:users,student_id,' . $id],
             'umindanao_email' => ['required', 'string', 'email', 'max:255', 'unique:users,umindanao_email,' . $id],
-            'department' => ['required', 'string', 'max:255'],
             'program' => ['required', 'string', 'max:255'],
             'year_level' => ['required', 'integer'],
             'position' => ['required', 'string', 'max:255'],
@@ -106,7 +102,6 @@ class AccountsController extends Controller
             'last_name' => $request->last_name,
             'student_id' => $request->student_id,
             'umindanao_email' => $request->umindanao_email,
-            'department' => $request->department,
             'program' => $request->program,
             'year_level' => $request->year_level,
             'position' => $request->position,

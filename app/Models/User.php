@@ -22,7 +22,6 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'umindanao_email',
-        'department',
         'program',
         'year_level',
         'position',

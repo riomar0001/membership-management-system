@@ -16,13 +16,13 @@ class MembershipSeeder extends Seeder
      */
     public function run()
     {
-        // Define departments and programs
-        $departments = [
-            'College of Computer Studies' => ['BS Computer Science', 'BS Information Technology', 'BS Information Systems'],
-            'College of Business Administration' => ['BS Business Administration', 'BS Accountancy', 'BS Economics'],
-            'College of Education' => ['BS Elementary Education', 'BS Secondary Education', 'BS Special Education'],
-            'College of Engineering' => ['BS Civil Engineering', 'BS Electrical Engineering', 'BS Mechanical Engineering'],
-            'College of Arts and Sciences' => ['BS Psychology', 'BA Communication', 'BS Biology']
+        // Define programs as a flat array without departments
+        $programs = [
+            'BS Computer Science', 'BS Information Technology', 'BS Information Systems',
+            'BS Business Administration', 'BS Accountancy', 'BS Economics',
+            'BS Elementary Education', 'BS Secondary Education', 'BS Special Education',
+            'BS Civil Engineering', 'BS Electrical Engineering', 'BS Mechanical Engineering',
+            'BS Psychology', 'BA Communication', 'BS Biology'
         ];
 
         // Define membership types
@@ -34,7 +34,7 @@ class MembershipSeeder extends Seeder
         // Define approval/rejection staff
         $staff = ['Dr. Santos', 'Prof. Reyes', 'Dean Mendoza', 'Dir. Aquino'];
 
-        // Generate 20 members
+        // Generate 50 members
         for ($i = 1; $i <= 50; $i++) {
             // Generate student details
             $firstName = $this->getRandomFirstName();
@@ -42,9 +42,7 @@ class MembershipSeeder extends Seeder
             $studentId = rand(300000, 599999);
             $email = strtolower(substr($firstName, 0, 1) . '.' . $lastName . '.' . $studentId . '@umindanao.edu.ph');
 
-            // Get random department and program
-            $department = array_rand($departments);
-            $programs = $departments[$department];
+            // Get random program
             $program = $programs[array_rand($programs)];
 
             // Generate member UUID

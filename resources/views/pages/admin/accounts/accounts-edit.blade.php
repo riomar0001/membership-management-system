@@ -43,14 +43,6 @@
                 </div>
                 
                 <div class="mb-4">
-                    <label for="department" class="block mb-2 text-sm font-medium text-gray-700 dark:text-neutral-200">Department</label>
-                    <input type="text" id="department" name="department" value="{{ old('department', $user->department) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white" required>
-                    @error('department')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-                
-                <div class="mb-4">
                     <label for="program" class="block mb-2 text-sm font-medium text-gray-700 dark:text-neutral-200">Program</label>
                     <input type="text" id="program" name="program" value="{{ old('program', $user->program) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white" required>
                     @error('program')
