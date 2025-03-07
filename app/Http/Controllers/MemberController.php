@@ -2,9 +2,15 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Member;
+use App\Models\MembershipStatus;
+use App\Models\MembershipType;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
+use App\Http\Controllers\Mail;
 
 class MemberController extends Controller
 {
@@ -20,7 +26,8 @@ class MemberController extends Controller
                 'membership_status.approved_by as reviewed_by',
                 DB::raw("DATE_FORMAT(CONVERT_TZ(members.created_at, '+00:00', '+08:00'), '%m-%d-%Y %I:%i %p') as registered_at"),
             ])
-            ->get();
+            ->orderBy('members.created_at', 'desc')
+            ->lazyById();
 
         return view('pages.admin.members.index', compact('user', 'members'));
     }
@@ -34,46 +41,275 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'student_id' => 'required|unique:members',
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|email|unique:members',
-            'phone' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'zip' => 'required',
-            'country' => 'required'
+            'umindanao_email' => 'required|email|regex:/^[a-z]+\.[a-z]+\.[0-9]{6}@umindanao\.edu\.ph$/i|unique:members',
+            'program' => 'required',
+            'year_level' => 'required',
+            'proof_of_membership' => 'required|file|mimes:jpeg,png,jpg,pdf|max:2048',
+            'accept_terms_and_conditions' => 'required', // Fixed typo
+        ], [
+            'student_id.required' => 'Student ID is required',
+            'first_name.required' => 'First name is required',
+            'last_name.required' => 'Last name is required',
+            'umindanao_email.required' => 'University email is required and must be a valid email',
+            'umindanao_email.regex' => 'University email must be in the format firstname.lastname.123456@umindanao.edu.ph',
+            'umindanao_email.unique' => 'University email is already taken',
+            'student_id.unique' => 'Student ID is already taken',
+            'program.required' => 'Program is required',
+            'year_level.required' => 'Year level is required',
+            'proof_of_membership.required' => 'Proof of membership is required',
+            'accept_terms_and_conditions.required' => 'You must accept the terms and conditions'
         ]);
 
-        $member = Member::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'address' => $request->address,
-            'city' => $request->city,
-            'state' => $request->state,
-            'zip' => $request->zip,
-            'country' => $request->country,
-            'notes' => $request->notes,
-        ]);
+        $uuid = Str::uuid();
+
+        $member = new Member();
+        $membership_status = new MembershipStatus();
+        $membership_type = new MembershipType();
+        $member->id = $uuid;
+        $member->student_id = $request->student_id;
+        $member->first_name = $request->first_name;
+        $member->last_name = $request->last_name;
+        $member->umindanao_email = $request->umindanao_email;
+        $member->program = $request->program;
+        $member->year_level = $request->year_level;
+
+        if ($request->hasFile('proof_of_membership')) {
+            $file = $request->file('proof_of_membership');
+            $extension = $file->getClientOriginalExtension();
+            $filename = 'proof_of_membership_' . $request->student_id . '.' . $extension;
+
+            if (in_array($extension, ['jpg', 'jpeg', 'png'])) {
+                $path = $this->compressAndStoreImage($file, $filename, $request->student_id);
+            } else {
+                $path = Storage::disk('private')->putFileAs('receipts', $file, $filename);
+            }
+
+            $member->proof_of_membership = $path;
+        }
+
+
+        $member->agree_to_terms_and_conditions = $request->has('accept_terms_and_conditions') ? true : false;
+
+        $membership_status->id = Str::uuid();
+        $membership_status->members_id = $uuid;
+        $membership_status->status = "Pending";
+
+        $membership_type->type = "New";
+        $membership_type->members_id = $uuid;
+
+        $member->save();
+        $membership_type->save();
+        $membership_status->save();
+
 
         return redirect()->route('members.index')->with('success', 'Member Succesfully Added');
     }
 
     public function show($id)
     {
-        $member = Member::find($id);
-        return view('pages.admin.members.show', compact('member'));
+        $member = Member::findOrFail($id);
+
+        $membershipStatus = MembershipStatus::where('members_id', $id)->first();
+        $membershipType = MembershipType::where('members_id', $id)->first();
+
+        return view('pages.admin.members.show', [
+            'member' => $member,
+            'membershipStatus' => $membershipStatus,
+            'membershipType' => $membershipType
+        ]);
     }
     public function edit($id)
     {
-        $member = Member::find($id);
-        return view('pages.admin.members.edit', compact('member'));
+        $member = Member::findOrFail($id);
+
+        $membershipStatus = MembershipStatus::where('members_id', $id)->first();
+        $membershipType = MembershipType::where('members_id', $id)->first();
+
+        return view('pages.admin.members.edit', [
+            'member' => $member,
+            'membershipStatus' => $membershipStatus,
+            'membershipType' => $membershipType
+        ]);
     }
 
     public function update(Request $request, $id)
     {
+        $member = Member::findOrFail($id);
+
+        $request->validate([
+            'student_id' => 'required|unique:members,student_id,' . $member->id,
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'umindanao_email' => 'required|email|regex:/^[a-z]+\.[a-z]+\.[0-9]{6}@umindanao\.edu\.ph$/i|unique:members,umindanao_email,' . $member->id,
+            'program' => 'required',
+            'year_level' => 'required',
+            'proof_of_membership' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:2048',
+            'accept_terms_and_conditions' => 'required',
+        ], [
+            'student_id.required' => 'Student ID is required',
+            'first_name.required' => 'First name is required',
+            'last_name.required' => 'Last name is required',
+            'umindanao_email.required' => 'University email is required and must be a valid email',
+            'umindanao_email.regex' => 'University email must be in the format firstname.lastname.123456@umindanao.edu.ph',
+            'umindanao_email.unique' => 'University email is already taken',
+            'student_id.unique' => 'Student ID is already taken',
+            'program.required' => 'Program is required',
+            'year_level.required' => 'Year level is required',
+            'accept_terms_and_conditions.required' => 'You must accept the terms and conditions'
+        ]);
+
+        $member->student_id = $request->student_id;
+        $member->first_name = $request->first_name;
+        $member->last_name = $request->last_name;
+        $member->umindanao_email = $request->umindanao_email;
+        $member->program = $request->program;
+        $member->year_level = $request->year_level;
+
+        if ($request->hasFile('proof_of_membership')) {
+            if ($member->proof_of_membership && Storage::disk('private')->exists($member->proof_of_membership)) {
+                Storage::disk('private')->delete($member->proof_of_membership);
+            }
+
+            $file = $request->file('proof_of_membership');
+            $extension = $file->getClientOriginalExtension();
+            $filename = 'proof_of_membership_' . $request->student_id . '.' . $extension;
+
+            if (in_array($extension, ['jpg', 'jpeg', 'png'])) {
+                $path = $this->compressAndStoreImage($file, $filename, $request->student_id);
+            } else {
+                $path = Storage::disk('private')->putFileAs('receipts', $file, $filename);
+            }
+
+            $member->proof_of_membership = $path;
+        }
+
+        $member->agree_to_terms_and_conditions = $request->has('accept_terms_and_conditions') ? true : false;
+
+        $member->save();
+
+        if ($request->has('status')) {
+            $membership_status = MembershipStatus::where('members_id', $member->id)->first();
+            if ($membership_status) {
+                $membership_status->status = $request->status;
+                $membership_status->save();
+            }
+        }
+
+        if ($request->has('membership_type')) {
+            $membership_type = MembershipType::where('members_id', $member->id)->first();
+            if ($membership_type) {
+                $membership_type->type = $request->membership_type;
+                $membership_type->save();
+            }
+        }
+
+        return redirect()->route('members.index')->with('success', 'Member Successfully Updated');
     }
+
+    public function updateMembershipStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:Approved,Rejected',
+            'remarks' => 'nullable|string|max:255',
+        ]);
+
+        $member = Member::findOrFail($id);
+
+        $membershipStatus = MembershipStatus::where('members_id', $id)->firstOrFail();
+
+        $user = Auth::user();
+        $staffName = $user->first_name . ' ' . $user->last_name;
+
+        $membershipStatus->status = $request->status;
+
+        if ($request->status == 'Approved') {
+            $membershipStatus->approved_by = $staffName;
+            $membershipStatus->approved_at = now();
+            $membershipStatus->rejected_by = null;
+            $membershipStatus->rejected_at = null;
+        } else {
+            $membershipStatus->rejected_by = $staffName;
+            $membershipStatus->rejected_at = now();
+            $membershipStatus->approved_by = null;
+            $membershipStatus->approved_at = null;
+        }
+
+        if ($request->has('remarks')) {
+            $membershipStatus->remarks = $request->remarks;
+        }
+
+        $membershipStatus->save();
+
+        return redirect()->route('members.show', $id)
+            ->with('success', 'Membership has been ' . strtolower($request->status) . ' successfully.');
+    }
+
+
+
+    public function getProofOfMembership($memberId)
+    {
+        $member = Member::findOrFail($memberId);
+
+        if (!$member->proof_of_membership) {
+            return response()->json(['error' => 'No proof of membership found'], 404);
+        }
+        if (!Storage::disk('private')->exists($member->proof_of_membership)) {
+            return response()->json(['error' => 'File not found'], 404);
+        }
+
+        $file = Storage::disk('private')->get($member->proof_of_membership);
+
+        $mimeType = Storage::disk('private')->mimeType($member->proof_of_membership);
+
+        return response($file, 200)->header('Content-Type', $mimeType);
+    }
+
+
+    private function compressAndStoreImage($file, $filename, $student_id)
+    {
+        $extension = $file->getClientOriginalExtension();
+
+        if ($extension == 'png') {
+            $image = imagecreatefrompng($file->getRealPath());
+        } else {
+            $image = imagecreatefromjpeg($file->getRealPath());
+        }
+
+        $tempPath = storage_path('app/temp');
+        if (!file_exists($tempPath)) {
+            mkdir($tempPath, 0755, true);
+        }
+
+        $tempFilePath = $tempPath . '/' . $filename;
+
+        if ($extension == 'png') {
+            $compressionLevel = 8;
+            imagepng($image, $tempFilePath, $compressionLevel);
+        } else {
+            $compressionQuality = 75;
+            imagejpeg($image, $tempFilePath, $compressionQuality);
+        }
+
+        imagedestroy($image);
+
+        $fileContent = file_get_contents($tempFilePath);
+        $path = 'receipts/' . $filename;
+        Storage::disk('private')->put($path, $fileContent);
+
+        unlink($tempFilePath);
+
+        return $path;
+    }
+
+    // private function sendStatusUpdateEmail($member, $status)
+    // {
+
+    //     $subject = 'Your Membership Application Status Update';
+    //     $message = 'Your membership application has been ' . strtolower($status) . '.';
+    //     Mail::to($member->umindanao_email)->send(new MembershipStatusUpdate($member, $status));
+    // }
 
 }

@@ -35,8 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/admin/members', [MemberController::class, 'index'])->name('members.index');
     Route::get('/admin/members/create', [MemberController::class, 'create'])->name('members.create');
+    Route::post('/admin/members/store', [MemberController::class, 'store'])->name('members.store');
     Route::get('/admin/members/{id}', [MemberController::class, 'show'])->name('members.show');
     Route::get('/admin/members/{id}/edit', [MemberController::class, 'edit'])->name('members.edit');
+    Route::get('/admin/members/proof-of-membership/{id}', [MemberController::class, 'getProofOfMembership'])->name('members.proof-of-membership');
 
 
     Route::middleware('role:admin,president')->group(function () {
@@ -89,7 +91,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     // Other routes...
-    
+
     // Accounts management routes
     Route::middleware('role:admin,president')->group(function () {
         Route::get('/admin/accounts', [AccountsController::class, 'index'])->name('accounts.index');

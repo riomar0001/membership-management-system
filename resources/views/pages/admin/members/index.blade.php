@@ -6,7 +6,7 @@
                      class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-neutral-900 dark:border-neutral-800 p-5">
                      <!-- Header -->
                      <div
-                         class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-neutral-800 rounded-xl ">
+                         class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-neutral-800">
                          <div>
                              <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-200">
                                  Registered Members

@@ -132,17 +132,25 @@
                 <!-- End Section -->
 
                 <!-- Section -->
-                <div
+                <div x-data="{ termsAndConditionModal: false }"
                     class="py-8 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-neutral-700 dark:first:border-transparent">
                     <div class="lex space-x-2">
-                        <input type="checkbox" name="acccept_terms_and_conditions" value="1"
+                        <input type="checkbox" name="accept_terms_and_conditions" value="true"
                             class="shrink-0 mt-0.5 border-gray-300 rounded-sm text-blue-600 checked:border-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-600 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                             id="af-submit-application-privacy-check">
                         <label for="af-submit-application-privacy-check"
                             class="text-sm text-gray-600 dark:text-neutral-100">
-                            Accept<button>Terms and Conditions and Privacy Policy</button>
+                            Accept&nbsp;<button type="button" x-on:click="termsAndConditionModal = true"
+                                class="hover:underline">Terms and
+                                Conditions and Privacy Policy</button>
                         </label>
+                        @error('accept_terms_and_conditions')
+                            <div class="text-red-500 text-xs pl-5">{{ $message }}</div>
+                        @enderror
+
                     </div>
+
+                    @include('pages.admin.members.terms-and-condition-modal')
                 </div>
 
                 <button type="button"

@@ -35,34 +35,34 @@ class OfficersController extends Controller
     }
 
     public function storeOfficer(Request $request)
-{
-    $request->validate([
-        'student_id' => 'required|string|max:255',
-        'position' => 'required|string|max:255',
-    ]);
+    {
+        $request->validate([
+            'student_id' => 'required|string|max:255',
+            'position' => 'required|string|max:255',
+        ]);
 
-    $member = DB::table('members')
-        ->where('student_id', $request->input('student_id'))
-        ->first();
+        $member = DB::table('members')
+            ->where('student_id', $request->input('student_id'))
+            ->first();
 
-    if (!$member) {
-        return redirect()->route('officers.view')->with('error', 'Member not found.');
+        if (!$member) {
+            return redirect()->route('officers.view')->with('error', 'Member not found.');
+        }
+
+        DB::table('membership_types')
+            ->where('members_id', $member->id)
+            ->update(['type' => 'Officer']);
+
+        DB::table('officers')->insert([
+            'id' => \Illuminate\Support\Str::uuid(),
+            'member_id' => $member->id,
+            'position' => $request->input('position'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('officers.view')->with('success', 'Officer added successfully.');
     }
-
-    DB::table('membership_types')
-        ->where('members_id', $member->id)
-        ->update(['type' => 'Officer']);
-
-    DB::table('officers')->insert([
-        'id' => \Illuminate\Support\Str::uuid(),
-        'member_id' => $member->id,
-        'position' => $request->input('position'),
-        'created_at' => now(),
-        'updated_at' => now(),
-    ]);
-
-    return redirect()->route('officers.view')->with('success', 'Officer added successfully.');
-}
 
     public function updateOfficer(Request $request)
     {
@@ -80,5 +80,5 @@ class OfficersController extends Controller
 
         return redirect()->route('officers.view')->with('success', 'Officer details updated successfully.');
     }
-    
+
 }

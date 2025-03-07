@@ -1,5 +1,6 @@
-<div x-cloak x-show="viewMemberModalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="viewMemberModalIsOpen"
-    x-on:keydown.esc.window="viewMemberModalIsOpen = false" x-on:click.self="viewMemberModalIsOpen = false"
+<div x-cloak x-show="viewMemberModalIsOpen" x-transition.opacity.duration.200ms
+    x-trap.inert.noscroll="viewMemberModalIsOpen" x-on:keydown.esc.window="viewMemberModalIsOpen = false"
+    x-on:click.self="viewMemberModalIsOpen = false"
     class="fixed inset-0 z-50 flex items-end justify-center bg-black/80 p-4 pb-8 items-center lg:p-8" role="dialog"
     aria-modal="true" aria-labelledby="defaultModalTitle" style="display: none !important;">
     <!-- Modal Dialog -->
@@ -97,8 +98,8 @@
                 <div x-cloak x-show="isExpanded" id="accordionItemOne" role="region"
                     aria-labelledby="controlsAccordionItemOne" x-collapse>
                     <img type="image" class="w-full h-full object-cover rounded-lg mt-2"
-                        src="https://res.cloudinary.com/dbkfqslny/image/upload/v1729557609/members_receipt/receipt_9a479a12-9e75-4cf4-9143-cce3e200abc1.jpg"
-                        alt="proof-of-membership">
+                        src="{{ route('members.proof-of-membership', $member->id) }}" alt="proof-of-membership"
+                        loading="lazy">
                 </div>
             </div>
 
