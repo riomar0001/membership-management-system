@@ -15,6 +15,8 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
+
+
         $members = DB::table('members')
             ->leftJoin('membership_status', 'members.id', '=', 'membership_status.members_id')
             ->select([

@@ -24,9 +24,9 @@
                     </p>
 
                 </div>
-                <div class="flex items-center gap-x-5">
-                    <button type="button"
-                        class="py-2 px-10 inline-flex items-center gap-x-2 text-base font-medium rounded-lg border border-transparent text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+                <div class="flex items-center gap-x-5" x-data="{ confirmDeleteModal: false }">
+                    <button type="button" onclick="window.location.href = '{{ route('members.edit', $member->id) }}'"
+                        class="py-2 px-10 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="lucide lucide-pencil">
@@ -36,10 +36,28 @@
                         </svg>
                         Edit Information
                     </button>
+                    @if (auth()->user()->role == 'president' || auth()->user()->role == 'admin')
+                        <button type="button" x-on:click="confirmDeleteModal = true"
+                            class="py-2 px-10 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-500 text-white hover:bg-red-600 focus:outline-hidden focus:bg-red-600 disabled:opacity-50 disabled:pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-trash-2">
+                                <path d="M3 6h18" />
+                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                                <line x1="10" x2="10" y1="11" y2="17" />
+                                <line x1="14" x2="14" y1="11" y2="17" />
+                            </svg>
+                            Delete Member
+                        </button>
+
+
+                        @include('pages.admin.members.member-delete-modal')
+                    @endif
                 </div>
             </div>
         </div>
-        <div class="max-w-4xl mx-auto p-4 sm:p-7">
+        <div class="max-w-3xl mx-auto p-4 sm:p-7">
             <div class="flex flex-col justify-start text-start overflow-y-auto gap-y-10">
                 <div class="space-y-2">
                     <p class="text-base text-gray-800 dark:text-neutral-200">Student ID: {{ $member->student_id }}</p>
@@ -73,7 +91,7 @@
                                 'default' => 'text-neutral-800',
                             ];
 
-                            $status = $member->membership_status ?? 'Pending';
+                            $status = $membershipStatus->status ?? 'Pending';
                             $className = $statusStyles[$status] ?? $statusStyles['default'];
 
                         @endphp
@@ -86,15 +104,16 @@
                             Reviewed By:
                         </span>
                         <span class="text-sm font-medium text-gray-800 dark:text-neutral-200">
-                            {{ $member->reviewed_by }}
+                            {{ $membershipStatus->approved_by ?? $membershipStatus->approved_by }}
+                            {{ $membershipStatus->rejected_by ?? $membershipStatus->rejected_by }}
                         </span>
                     </div>
                     <div class="space-y-2">
-                        <span class="block text-xs uppercase text-gray-500 dark:text-neutral-500 ">
-                            Registration Date:
+                        <span class="block text-xs uppercase text-gray14-500 dark:text-neutral-500 ">
+                            Date Reviewed :
                         </span>
                         <span class="text-sm font-medium text-gray-800 dark:text-neutral-200">
-                            {{ $member->created_at }}
+                            {{ $member->updated_at->format('M d, Y h:m:s A') }}
                         </span>
                     </div>
                 </div>
@@ -109,14 +128,20 @@
                 </div>
 
                 <div class="flex flex-col md:flex-row  gap-y-5 md:gap-x-10">
-                    <button type="button"
-                        class="w-full py-2 px-16 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-green-500 text-white hover:bg-green-600 focus:outline-hidden focus:bg-green-600 disabled:opacity-50 disabled:pointer-events-none">
-                        Approve
-                    </button>
-                    <button type="button"
-                        class="w-full py-2 px-16 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-500 text-white hover:bg-red-600 focus:outline-hidden focus:bg-red-600 disabled:opacity-50 disabled:pointer-events-none">
-                        Reject
-                    </button>
+                    <form action="{{ route('members.approve', $member->id) }}" class="w-full" method="POST">
+                        @csrf
+                        <button type="submit"
+                            class="w-full py-2 px-16 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-green-500 text-white hover:bg-green-600 focus:outline-hidden focus:bg-green-600 disabled:opacity-50 disabled:pointer-events-none">
+                            Approve
+                        </button>
+                    </form>
+                    <form action="{{ route('members.reject', $member->id) }}" class="w-full" method="POST">
+                        @csrf
+                        <button type="submit"
+                            class="w-full py-2 px-16 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-500 text-white hover:bg-red-600 focus:outline-hidden focus:bg-red-600 disabled:opacity-50 disabled:pointer-events-none">
+                            Reject
+                        </button>
+                    </form>
                 </div>
 
             </div>
@@ -124,7 +149,5 @@
         </div>
 
     </div>
-
-
 
 </x-layouts.admin>

@@ -14,10 +14,11 @@ use App\Http\Controllers\Mail;
 
 class MemberController extends Controller
 {
-    //all roles can manage members
+
     public function index()
     {
         $user = Auth::user();
+
         $members = DB::table('members')
             ->leftJoin('membership_status', 'members.id', '=', 'membership_status.members_id')
             ->select([
@@ -31,7 +32,6 @@ class MemberController extends Controller
 
         return view('pages.admin.members.index', compact('user', 'members'));
     }
-
 
     public function create()
     {
@@ -171,21 +171,17 @@ class MemberController extends Controller
         $member->year_level = $request->year_level;
 
         if ($request->hasFile('proof_of_membership')) {
-            if ($member->proof_of_membership && Storage::disk('private')->exists($member->proof_of_membership)) {
-                Storage::disk('private')->delete($member->proof_of_membership);
+            if ($member->proof_of_membership && Storage::disk('private')->exists('receipts/' . $member->proof_of_membership)) {
+                Storage::disk('private')->delete('receipts/' . $member->proof_of_membership);
             }
 
             $file = $request->file('proof_of_membership');
             $extension = $file->getClientOriginalExtension();
-            $filename = 'proof_of_membership_' . $request->id . '.' . $extension;
+            $filename = 'proof_of_membership_' . $member->id . '.' . $extension;
 
-            if (in_array($extension, ['jpg', 'jpeg', 'png'])) {
-                $path = $this->compressAndStoreImage($file, $filename);
-            } else {
-                $path = Storage::disk('private')->putFileAs('receipts', $file, $filename);
-            }
+            $this->compressAndStoreImage($file, $filename);
 
-            $member->proof_of_membership = $path;
+            $member->proof_of_membership = $filename;
         }
 
         $member->agree_to_terms_and_conditions = $request->has('accept_terms_and_conditions') ? true : false;
@@ -213,20 +209,17 @@ class MemberController extends Controller
 
     public function destroy($id)
     {
-        if (Auth::user()->role !== 'Admin' && Auth::user()->role !== 'President') {
+        if (Auth::user()->role !== 'admin' && Auth::user()->role !== 'president') {
             return redirect()->route('members.index')->with('error', 'You are not authorized to delete members');
         }
-
         try {
             $member = Member::findOrFail($id);
-
             MembershipStatus::where('members_id', $id)->delete();
             MembershipType::where('members_id', $id)->delete();
 
-            if ($member->proof_of_membership && Storage::disk('private')->exists($member->proof_of_membership)) {
-                Storage::disk('private')->delete($member->proof_of_membership);
+            if ($member->proof_of_membership && Storage::disk('private')->exists('receipts/' . $member->proof_of_membership)) {
+                Storage::disk('private')->delete('receipts/' . $member->proof_of_membership);
             }
-
             $member->delete();
             return redirect()->route('members.index')->with('success', 'Member Successfully Deleted');
         } catch (\Exception $e) {
@@ -234,11 +227,8 @@ class MemberController extends Controller
         }
     }
 
-    public function approveMembership(Request $request, $id)
+    public function approveMembership($id)
     {
-        $request->validate([
-            'remarks' => 'nullable|string|max:255',
-        ]);
 
         $membershipStatus = MembershipStatus::where('members_id', $id)->firstOrFail();
 
@@ -247,25 +237,17 @@ class MemberController extends Controller
 
         $membershipStatus->status = 'Approved';
         $membershipStatus->approved_by = $staffName;
-        $membershipStatus->approved_at = now();
         $membershipStatus->rejected_by = null;
-        $membershipStatus->rejected_at = null;
-
-        if ($request->has('remarks')) {
-            $membershipStatus->remarks = $request->remarks;
-        }
 
         $membershipStatus->save();
+
 
         return redirect()->route('members.show', $id)
             ->with('success', 'Membership has been approved successfully.');
     }
 
-    public function rejectMembership(Request $request, $id)
+    public function rejectMembership($id)
     {
-        $request->validate([
-            'remarks' => 'nullable|string|max:255',
-        ]);
 
         $membershipStatus = MembershipStatus::where('members_id', $id)->firstOrFail();
 
@@ -274,21 +256,13 @@ class MemberController extends Controller
 
         $membershipStatus->status = 'Rejected';
         $membershipStatus->rejected_by = $staffName;
-        $membershipStatus->rejected_at = now();
         $membershipStatus->approved_by = null;
-        $membershipStatus->approved_at = null;
-
-        if ($request->has('remarks')) {
-            $membershipStatus->remarks = $request->remarks;
-        }
 
         $membershipStatus->save();
 
         return redirect()->route('members.show', $id)
             ->with('success', 'Membership has been rejected successfully.');
     }
-
-
 
     public function getProofOfMembership($filename)
     {
@@ -307,7 +281,6 @@ class MemberController extends Controller
 
         return response($file, 200)->header('Content-Type', $mimeType);
     }
-
 
     private function compressAndStoreImage($file, $filename)
     {
