@@ -1,7 +1,7 @@
 <div x-cloak x-show="viewMemberModalIsOpen" x-transition.opacity.duration.200ms
     x-trap.inert.noscroll="viewMemberModalIsOpen" x-on:keydown.esc.window="viewMemberModalIsOpen = false"
     x-on:click.self="viewMemberModalIsOpen = false"
-    class="fixed inset-0 z-50 flex items-end justify-center bg-black/80 p-4 pb-8 items-center lg:p-8" role="dialog"
+    class="fixed inset-0 z-50 flex justify-center bg-black/80 p-4 pb-8 items-center lg:p-8" role="dialog"
     aria-modal="true" aria-labelledby="defaultModalTitle" style="display: none !important;">
     <!-- Modal Dialog -->
     <div x-show="viewMemberModalIsOpen"
