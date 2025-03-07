@@ -7,6 +7,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ContentManagementController;
 use App\Http\Controllers\OfficersController;
 use App\Http\Controllers\AccountsController;
+use App\Http\Controllers\ProfileController;
 
 
 
@@ -108,4 +109,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/admin/accounts/{id}', [AccountsController::class, 'update'])->name('accounts.update');
         Route::get('/admin/accounts/{id}/reset-password', [AccountsController::class, 'resetPassword'])->name('accounts.reset-password');
     });
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/admin/profile', [ProfileController::class, 'show'])->name('admin.profile');
+        Route::post('/admin/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+    });
+
 });
