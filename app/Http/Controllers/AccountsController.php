@@ -12,7 +12,7 @@ class AccountsController extends Controller
     public function index()
     {
         $users = DB::table('users')
-            ->select('id', 'first_name', 'last_name', 'umindanao_email', 'role', 'program', 'created_at')
+            ->select('id', 'student_id','first_name', 'last_name', 'umindanao_email', 'role', 'program', 'created_at')
             ->orderBy('created_at', 'desc')
             ->get();
 
