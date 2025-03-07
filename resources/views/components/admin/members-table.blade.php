@@ -160,8 +160,6 @@
                                 </span>
                             </button>
 
-
-
                             @include('pages.admin.members.view-modal', ['member' => $member])
 
                             <a href="{{ route('members.edit', $member->id) }}">
