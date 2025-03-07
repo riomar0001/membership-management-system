@@ -12,7 +12,7 @@ class AccountsController extends Controller
     public function index()
     {
         $users = DB::table('users')
-            ->select('id', 'first_name','last_name', 'umindanao_email', 'role', 'program','created_at')
+            ->select('id', 'first_name', 'last_name', 'umindanao_email', 'role', 'program', 'created_at')
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -61,7 +61,7 @@ class AccountsController extends Controller
     public function show($id)
     {
         $user = DB::table('users')->find($id);
-        
+
         if (!$user) {
             return redirect()->route('accounts.index')->with('error', 'User not found');
         }
@@ -72,7 +72,7 @@ class AccountsController extends Controller
     public function edit($id)
     {
         $user = DB::table('users')->find($id);
-        
+
         if (!$user) {
             return redirect()->route('accounts.index')->with('error', 'User not found');
         }
@@ -80,15 +80,15 @@ class AccountsController extends Controller
         return view('pages.admin.accounts.accounts-edit', ['user' => $user]);
     }
 
-    
+
     public function update(Request $request, $id)
     {
         $user = DB::table('users')->find($id);
-        
+
         if (!$user) {
             return redirect()->route('accounts.index')->with('error', 'User not found');
         }
-    
+
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -100,7 +100,7 @@ class AccountsController extends Controller
             'position' => ['required', 'string', 'max:255'],
             'role' => ['required', 'string', 'in:admin,president,officer'],
         ]);
-    
+
         $data = [
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -113,29 +113,24 @@ class AccountsController extends Controller
             'role' => $request->role,
             'updated_at' => now(),
         ];
-    
-        // Only update password if provided
-        if ($request->filled('password')) {
-            $request->validate([
-                'password' => ['confirmed', Rules\Password::defaults()],
-            ]);
-            $data['password'] = Hash::make($request->password);
-        }
-    
+
         DB::table('users')->where('id', $id)->update($data);
-    
+
         return redirect()->route('accounts.index')->with('success', 'User updated successfully');
     }
-    public function destroy($id)
+    public function resetPassword($id)
     {
         $user = DB::table('users')->find($id);
-        
+    
         if (!$user) {
             return redirect()->route('accounts.index')->with('error', 'User not found');
         }
-
-        DB::table('users')->where('id', $id)->delete();
-
-        return redirect()->route('accounts.index')->with('success', 'User deleted successfully');
+    
+        DB::table('users')->where('id', $id)->update([
+            'password' => Hash::make('welcome123'),
+            'updated_at' => now(),
+        ]);
+    
+        return redirect()->route('accounts.edit', $id)->with('success', 'Password has been reset to the default (welcome123)');
     }
 }

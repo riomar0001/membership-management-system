@@ -101,6 +101,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/accounts/{id}', [AccountsController::class, 'show'])->name('accounts.show');
         Route::get('/admin/accounts/{id}/edit', [AccountsController::class, 'edit'])->name('accounts.edit');
         Route::post('/admin/accounts/{id}', [AccountsController::class, 'update'])->name('accounts.update');
-        Route::delete('/admin/accounts/{id}', [AccountsController::class, 'destroy'])->name('accounts.destroy');
+        Route::get('/admin/accounts/{id}/reset-password', [AccountsController::class, 'resetPassword'])->name('accounts.reset-password');
     });
 });
