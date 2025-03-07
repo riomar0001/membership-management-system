@@ -97,7 +97,6 @@
             const content = `
                 <p><strong>Student ID:</strong> ${officer.student_id}</p>
                 <p><strong>Name:</strong> ${officer.first_name} ${officer.last_name}</p>
-                <p><strong>Department:</strong> ${officer.department}</p>
                 <p><strong>Program:</strong> ${officer.program}</p>
                 <p><strong>Year Level:</strong> ${officer.year_level}</p>
                 <p><strong>Position:</strong> ${officer.position}</p>

@@ -43,14 +43,6 @@
                 </div>
                 
                 <div class="mb-4">
-                    <label for="department" class="block mb-2 text-sm font-medium text-gray-700 dark:text-neutral-200">Department</label>
-                    <input type="text" id="department" name="department" value="{{ old('department', $user->department) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white" required>
-                    @error('department')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-                
-                <div class="mb-4">
                     <label for="program" class="block mb-2 text-sm font-medium text-gray-700 dark:text-neutral-200">Program</label>
                     <input type="text" id="program" name="program" value="{{ old('program', $user->program) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white" required>
                     @error('program')
@@ -81,17 +73,14 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="password" class="block mb-2 text-sm font-medium text-gray-700 dark:text-neutral-200">Password</label>
-                    <input type="password" id="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white">
-                    <p class="text-sm text-gray-500 mt-1">Leave blank to keep current password</p>
-                    @error('password')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label for="password_confirmation" class="block mb-2 text-sm font-medium text-gray-700 dark:text-neutral-200">Confirm Password</label>
-                    <input type="password" id="password_confirmation" name="password_confirmation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white">
+                    <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-neutral-200">Password Management</label>
+                    <a href="{{ route('accounts.reset-password', $user->id) }}" 
+                       class="inline-flex items-center px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600"
+                       onclick="return confirm('Are you sure you want to reset this user\'s password to the default?');">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-refresh-cw mr-2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
+                        Reset Password
+                    </a>
+                    <p class="text-sm text-gray-500 mt-2">This will reset the user's password</p>
                 </div>
 
                 <div class="mb-4">

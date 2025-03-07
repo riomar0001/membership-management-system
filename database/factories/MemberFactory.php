@@ -17,7 +17,6 @@ class MemberFactory extends Factory
             'umindanao_email' => function (array $attributes) {
                 return strtolower(substr($attributes['first_name'], 0, 1) . '.' . $attributes['last_name'] . '.' . $attributes['student_id'] . '@umindanao.edu.ph');
             },
-            'department' => 'College of Computer Education',
             'program' => 'Full name of the program',
             'year_level' => fake()->numberBetween(1, 4),
             'proof_of_membership' => 'some_image.jpg',
