@@ -18,11 +18,13 @@ class MembershipSeeder extends Seeder
     {
         // Define programs as a flat array without departments
         $programs = [
-            'BS Computer Science', 'BS Information Technology', 'BS Information Systems',
-            'BS Business Administration', 'BS Accountancy', 'BS Economics',
-            'BS Elementary Education', 'BS Secondary Education', 'BS Special Education',
-            'BS Civil Engineering', 'BS Electrical Engineering', 'BS Mechanical Engineering',
-            'BS Psychology', 'BA Communication', 'BS Biology'
+            'Bachelor of Science in Information Technology',
+            'Bachelor of Science in Computer Science',
+            'Bachelor of Science in Information Systems',
+            'Bachelor of Library and Information Science',
+            'Bachelor of Science in Entertainment and Multimedia Computing – Digital Animation',
+            'Bachelor of Science in Entertainment and Multimedia Computing – Game Development',
+            'Bachelor of Multimedia Arts'
         ];
 
         // Define membership types
