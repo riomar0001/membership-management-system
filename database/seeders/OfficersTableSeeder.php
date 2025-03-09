@@ -12,19 +12,35 @@ class OfficersTableSeeder extends Seeder
      */
     public function run(): void
     {
+        // Define a list of positions
+        $positions = [
+            'President',
+            'Vice President',
+            'Secretary',
+            'Treasurer',
+            'Auditor',
+            'PRO',
+            'Externals',
+            'Communications',
+            'Logistics',
+            'Membership',
+            'Events',
+            'Marketing'
+        ];
+
         // Fetch all members who are officers from the membership_types table
         $officers = DB::table('membership_types')
             ->join('members', 'membership_types.members_id', '=', 'members.id')
             ->where('membership_types.type', 'Officer')
-            ->select('members.id as member_id', 'membership_types.type as position')
+            ->select('members.id as member_id')
             ->get();
 
-        // Insert officers into the officers table
-        foreach ($officers as $officer) {
+        // Insert officers into the officers table with predefined positions
+        foreach ($officers as $index => $officer) {
             DB::table('officers')->insert([
                 'id' => \Illuminate\Support\Str::uuid(),
                 'member_id' => $officer->member_id,
-                'position' => $officer->position,
+                'position' => $positions[$index % count($positions)], // Assign positions in a cyclic manner
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
