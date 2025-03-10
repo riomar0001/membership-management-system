@@ -21,7 +21,7 @@
         </div>
 
         <div class="max-w-3xl mx-auto p-4 sm:p-7">
-            <form action="{{ route('org-details.update') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('org-details.update') }}" method="POST" enctype="multipart/form-data" id="orgDetailsForm">
                 @csrf
                 @method('POST')
                 
@@ -73,11 +73,20 @@
 
                     <div class="sm:col-span-8">
                         <div class="flex flex-col gap-y-2">
-                            <label for="faqs" class="inline-block text-sm font-medium text-gray-800 mt-2.5 dark:text-neutral-300">
-                                Frequently Asked Questions (JSON)
+                            <label class="inline-block text-sm font-medium text-gray-800 mt-2.5 dark:text-neutral-300">
+                                Frequently Asked Questions
                             </label>
-                            <textarea id="faqs" name="faqs" rows="3"
-                                class="py-1.5 sm:py-2 px-3 pe-11 block w-full border-gray-200 shadow-2xs sm:text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-100 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">{{ old('faqs', $faqs) }}</textarea>
+                            <div id="faqs-container" class="space-y-4">
+                                <!-- FAQ items will be generated here -->
+                            </div>
+                            <button type="button" id="add-faq-btn" class="mt-2 py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus">
+                                    <path d="M5 12h14"/>
+                                    <path d="M12 5v14"/>
+                                </svg>
+                                Add Another FAQ
+                            </button>
+                            <input type="hidden" name="faqs" id="faqs-json">
                             @error('faqs')
                                 <div class="text-red-500 text-xs">{{ $message }}</div>
                             @enderror
@@ -94,4 +103,107 @@
             </form>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqsContainer = document.getElementById('faqs-container');
+            const addFaqBtn = document.getElementById('add-faq-btn');
+            const faqsJsonInput = document.getElementById('faqs-json');
+            const form = document.getElementById('orgDetailsForm');
+            
+            // Parse existing FAQs
+            let existingFaqs = [];
+            try {
+                existingFaqs = JSON.parse('{!! addslashes($faqs) !!}') || [];
+            } catch (e) {
+                existingFaqs = [];
+                console.error('Error parsing FAQs:', e);
+            }
+            
+            // Load existing FAQs
+            if (existingFaqs.length === 0) {
+                // Add an empty FAQ if none exist
+                addFaqItem('', '');
+            } else {
+                // Add existing FAQs
+                existingFaqs.forEach(faq => {
+                    addFaqItem(faq.question, faq.answer);
+                });
+            }
+            
+            // Show/hide remove buttons based on FAQ count
+            updateRemoveButtons();
+            
+            // Add new FAQ
+            addFaqBtn.addEventListener('click', function() {
+                addFaqItem('', '');
+                updateRemoveButtons();
+            });
+            
+            // Function to add FAQ item
+            function addFaqItem(question, answer) {
+                const newFaq = document.createElement('div');
+                newFaq.className = 'faq-item p-4 border border-gray-200 dark:border-neutral-700 rounded-lg';
+                newFaq.innerHTML = `
+                    <div class="flex flex-col gap-y-2">
+                        <label class="inline-block text-sm font-medium text-gray-800 dark:text-neutral-300">
+                            Question
+                        </label>
+                        <input type="text" name="faq_questions[]" value="${question}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 shadow-2xs sm:text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-100">
+                    </div>
+                    <div class="flex flex-col gap-y-2 mt-2">
+                        <label class="inline-block text-sm font-medium text-gray-800 dark:text-neutral-300">
+                            Answer
+                        </label>
+                        <textarea name="faq_answers[]" rows="2" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 shadow-2xs sm:text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-100">${answer}</textarea>
+                    </div>
+                    <button type="button" class="remove-faq mt-2 text-red-500 text-sm">
+                        Remove this FAQ
+                    </button>
+                `;
+                faqsContainer.appendChild(newFaq);
+                
+                // Add event listener to the new remove button
+                addRemoveEventListener(newFaq.querySelector('.remove-faq'));
+            }
+            
+            // Function to add remove event listener
+            function addRemoveEventListener(removeBtn) {
+                removeBtn.addEventListener('click', function() {
+                    this.closest('.faq-item').remove();
+                    updateRemoveButtons();
+                });
+            }
+            
+            // Update remove buttons visibility
+            function updateRemoveButtons() {
+                const faqItems = faqsContainer.querySelectorAll('.faq-item');
+                const removeButtons = faqsContainer.querySelectorAll('.remove-faq');
+                
+                if (faqItems.length === 1) {
+                    removeButtons[0].classList.add('hidden');
+                } else {
+                    removeButtons.forEach(btn => btn.classList.remove('hidden'));
+                }
+            }
+            
+            // Form submit handler to convert form data to JSON
+            form.addEventListener('submit', function(e) {
+                const questions = Array.from(document.querySelectorAll('input[name="faq_questions[]"]')).map(input => input.value);
+                const answers = Array.from(document.querySelectorAll('textarea[name="faq_answers[]"]')).map(textarea => textarea.value);
+                
+                const faqs = [];
+                for (let i = 0; i < questions.length; i++) {
+                    if (questions[i].trim() && answers[i].trim()) {
+                        faqs.push({
+                            question: questions[i],
+                            answer: answers[i]
+                        });
+                    }
+                }
+                
+                faqsJsonInput.value = JSON.stringify(faqs);
+            });
+        });
+    </script>
 </x-layouts.admin>

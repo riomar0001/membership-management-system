@@ -66,14 +66,24 @@
                                 {{ $vision }}
                             </p>
                         </div>
-
                         <div class="bg-gray-50 dark:bg-neutral-800 rounded-lg p-4 sm:p-6">
                             <div class="flex items-center">
                                 <h3 class="text-base font-semibold text-gray-800 dark:text-neutral-200">
                                     FAQs
                                 </h3>
                             </div>
-                            <pre class="mt-2 text-gray-600 dark:text-neutral-400 break-all">{{ json_encode($faqs, JSON_PRETTY_PRINT) }}</pre>
+                            <div class="mt-4 space-y-4">
+                                @if(is_array($faqs) || is_object($faqs))
+                                    @foreach($faqs as $faq)
+                                        <div class="border-b border-gray-200 dark:border-neutral-700 pb-3 mb-3 last:border-0 last:pb-0 last:mb-0">
+                                            <p class="font-medium text-gray-800 dark:text-neutral-200">{{ $faq->question ?? $faq['question'] }}</p>
+                                            <p class="mt-1 text-gray-600 dark:text-neutral-400">{{ $faq->answer ?? $faq['answer'] }}</p>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <p class="text-gray-600 dark:text-neutral-400">No FAQs available.</p>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>

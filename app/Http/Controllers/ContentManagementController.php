@@ -148,13 +148,17 @@ class ContentManagementController extends Controller
     public function showOrgDetails()
     {
         $organizationSettings = DB::table('organizations_setting')->first();
+        
+        $faqs = null;
+        if ($organizationSettings && $organizationSettings->faqs) {
+            $faqs = json_decode($organizationSettings->faqs);
+        }
 
         return view('pages.admin.content-management.org-details', [
             'logo' => $organizationSettings->logo ?? null,
             'mission' => $organizationSettings->mission ?? null,
             'vision' => $organizationSettings->vision ?? null,
-            'faqs' => $organizationSettings->faqs ?? null,
-            
+            'faqs' => $faqs,
         ]);
     }
     public function showCreateOrgDetails()
@@ -169,15 +173,13 @@ class ContentManagementController extends Controller
     public function showEditOrgDetails()
     {
         $organizationSettings = DB::table('organizations_setting')->first();
-
+    
         return view('pages.admin.content-management.edit-org-details', [
             'id' => $organizationSettings->id,
             'logo' => $organizationSettings->logo,
             'mission' => $organizationSettings->mission,
             'vision' => $organizationSettings->vision,
-            'faqs' => json_encode($organizationSettings->faqs),
-
-
+            'faqs' => $organizationSettings->faqs, 
         ]);
     }
 
@@ -187,7 +189,7 @@ class ContentManagementController extends Controller
             'logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'mission' => 'required|string|max:255',
             'vision' => 'required|string|max:255',
-            'faqs' => 'required|json',
+            'faqs' => 'required',
         ]);
 
         $logoPath = $request->file('logo')->store('logos', 'public');
