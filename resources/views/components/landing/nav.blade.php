@@ -2,7 +2,9 @@
     <nav class="relative max-w-[66rem] w-full bg-neutral-900 rounded-[28px] py-3 ps-5 pe-2 md:flex md:items-center md:justify-between md:py-0 mx-2 lg:mx-auto" aria-label="Global">
       <div class="flex items-center justify-between">
         <!-- Logo -->
+        <a href="/">
             <h1 class="text-white">LOGO</h1>
+        </a>
         <!-- End Logo -->
 
         <div class="md:hidden">
@@ -23,13 +25,13 @@
       <!-- Collapse -->
       <div id="navbar-collapse" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow md:block">
         <div class="flex flex-col gap-y-4 gap-x-0 mt-5 md:flex-row md:items-center md:justify-end md:gap-y-0 md:gap-x-7 md:mt-0 md:ps-7">
-          <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="../../templates/agency/index.html" aria-current="page">Home</a>
+          <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="" aria-current="page">Home</a>
           <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="#">Events</a>
           <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="#">Team</a>
           <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="#">Contacts</a>
 
           <div>
-            <a class="group inline-flex items-center gap-x-2 py-2 px-3 bg-[#756A53] font-medium text-sm text-white rounded-full focus:outline-none" href="#">
+            <a class="group inline-flex items-center gap-x-2 py-2 px-3 bg-[#756A53] font-medium text-sm text-white rounded-full focus:outline-none" href="{{route('member.registration')}}">
               Register
             </a>
           </div>

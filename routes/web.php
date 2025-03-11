@@ -16,10 +16,9 @@ Route::get('/', function () {
 });
 
 
-Route::get('/registration', function () {
-    return view('pages.landing.registration');
-});
 
+Route::get('/register', [MemberController::class, 'showRegistrationForm'])->name('member.registration');
+Route::post('/register', [MemberController::class, 'register'])->name('member.register');
 
 Route::get('/admin/login', [AuthController::class, 'loginForm'])->name('login')->middleware('guest');
 Route::post('/admin/login', [AuthController::class, 'login'])->middleware('guest');

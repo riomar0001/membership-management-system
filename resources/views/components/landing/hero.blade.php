@@ -17,7 +17,7 @@
                         <div>
                         </div>
                         <a class="my-8 group inline-flex items-center gap-x-2 py-2 px-3 bg-[#756A53] font-bold text-lg text-white rounded-full focus:outline-none "
-                            href="#">
+                            href="{{ route('member.registration') }}">
                             Join Our Community
                         </a>
                     </div>

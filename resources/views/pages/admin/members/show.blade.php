@@ -104,8 +104,7 @@
                             Reviewed By:
                         </span>
                         <span class="text-sm font-medium text-gray-800 dark:text-neutral-200">
-                            {{ $membershipStatus->approved_by ?? $membershipStatus->approved_by }}
-                            {{ $membershipStatus->rejected_by ?? $membershipStatus->rejected_by }}
+                            {{ $membershipStatus->approved_by ?? $membershipStatus->rejected_by ?? 'Not yet reviewed' }}
                         </span>
                     </div>
                     <div class="space-y-2">
@@ -127,7 +126,9 @@
                         alt="proof-of-membership" loading="lazy">
                 </div>
 
-                <div class="flex flex-col md:flex-row  gap-y-5 md:gap-x-10">
+                <!-- Only show approval/rejection buttons if status is Pending -->
+                @if(($membershipStatus->status ?? 'Pending') === 'Pending')
+                <div class="flex flex-col md:flex-row gap-y-5 md:gap-x-10">
                     <form action="{{ route('members.approve', $member->id) }}" class="w-full" method="POST">
                         @csrf
                         <button type="submit"
@@ -143,6 +144,19 @@
                         </button>
                     </form>
                 </div>
+                @elseif(($membershipStatus->status ?? '') === 'Approved')
+                <div class="text-center py-4 px-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg">
+                    <p class="text-green-700 dark:text-green-400">
+                        This member has been approved on {{ $membershipStatus->updated_at->format('M d, Y') }} by {{ $membershipStatus->approved_by }}.
+                    </p>
+                </div>
+                @elseif(($membershipStatus->status ?? '') === 'Rejected')
+                <div class="text-center py-4 px-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded-lg">
+                    <p class="text-red-700 dark:text-red-400">
+                        This member has been rejected on {{ $membershipStatus->updated_at->format('M d, Y') }} by {{ $membershipStatus->rejected_by }}.
+                    </p>
+                </div>
+                @endif
 
             </div>
 
