@@ -198,9 +198,8 @@
         </div>
     </div>
 
-    <!-- Edit Officer Modal -->
     <div id="editOfficerModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
-        <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-8 max-w-md w-full">
+        <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-8 min-w-[600px]">
             <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Update Officer Position</h2>
             <form id="editOfficerForm" method="POST" action="{{ route('officers.update') }}" class="space-y-4">
                 @csrf
@@ -211,17 +210,40 @@
                     <input type="text" id="editOfficerPosition" name="position" class="py-2 px-3 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300" placeholder="Enter position title">
                 </div>
                 <div class="flex justify-end gap-2">
-                    <button type="button" id="closeEditOfficerModal" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600">
-                        Cancel
+                    <button type="button" id="removeOfficerBtn" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
+                        Remove Officer
                     </button>
                     <button type="submit" class="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700">
                         Update Position
+                    </button>
+                    <button type="button" id="closeEditOfficerModal" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600">
+                        Cancel
                     </button>
                 </div>
             </form>
         </div>
     </div>
     
+    <div id="removeOfficerModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-[51]">
+        <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-8 max-w-md w-[650px]">
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Confirm Officer Removal</h2>
+            <p class="text-gray-600 dark:text-neutral-300 mb-6">Are you sure you want to remove this officer? Their membership type will be changed to regular member.</p>
+            <form id="removeOfficerForm" method="POST" action="{{ route('officers.remove') }}" class="space-y-4">
+                @csrf
+                @method('DELETE')
+                <input type="hidden" name="officer_id" id="removeOfficerId">
+                <div class="flex justify-end gap-2">
+                    <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
+                        Remove Officer
+                    </button>
+                    <button type="button" id="cancelRemoveOfficer" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Update the Add Officer Modal -->
     <div id="addOfficerModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
         <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-8 max-w-md w-full">
@@ -297,6 +319,18 @@
 
         document.getElementById('closeAddOfficerModal').addEventListener('click', function() {
             document.getElementById('addOfficerModal').classList.add('hidden');
+        });
+
+        document.getElementById('removeOfficerBtn').addEventListener('click', function() {
+            const officerId = document.getElementById('editOfficerId').value;
+            document.getElementById('removeOfficerId').value = officerId;
+            document.getElementById('editOfficerModal').classList.add('hidden');
+            document.getElementById('removeOfficerModal').classList.remove('hidden');
+        });
+    
+        document.getElementById('cancelRemoveOfficer').addEventListener('click', function() {
+            document.getElementById('removeOfficerModal').classList.add('hidden');
+            document.getElementById('editOfficerModal').classList.remove('hidden');
         });
     </script>
 </x-layouts.admin>

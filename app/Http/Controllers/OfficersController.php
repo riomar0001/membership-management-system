@@ -81,4 +81,38 @@ class OfficersController extends Controller
         return redirect()->route('officers.view')->with('success', 'Officer details updated successfully.');
     }
 
+    public function removeOfficer(Request $request)
+    {
+        $request->validate([
+            'officer_id' => 'required|uuid',
+        ]);
+    
+        $officer = DB::table('officers')->where('id', $request->officer_id)->first();
+        
+        if (!$officer) {
+            return redirect()->route('officers.view')->with('error', 'Officer not found.');
+        }
+    
+        DB::beginTransaction();
+        
+        try {
+            DB::table('membership_types')
+                ->where('members_id', $officer->member_id)
+                ->update([
+                    'type' => 'Old',
+                    'updated_at' => now()
+                ]);
+    
+            // Remove from officers table
+            DB::table('officers')
+                ->where('id', $request->officer_id)
+                ->delete();
+    
+            DB::commit();
+            return redirect()->route('officers.view')->with('success', 'Officer removed successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('officers.view')->with('error', 'An error occurred while removing the officer.');
+        }
+    }
 }

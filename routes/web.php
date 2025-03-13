@@ -112,6 +112,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/admin/profile', [ProfileController::class, 'show'])->name('admin.profile');
         Route::post('/admin/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+        Route::delete('/officers/remove', [OfficersController::class, 'removeOfficer'])->name('officers.remove');
     });
 
 });
