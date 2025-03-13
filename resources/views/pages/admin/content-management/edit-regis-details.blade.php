@@ -78,12 +78,12 @@
     </div>
 
     <!-- Error Modal -->
-    <div id="errorModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-white rounded-lg p-8">
-            <h2 class="text-xl font-semibold text-gray-800">Error</h2>
-            <p class="mt-4 text-gray-600">The registration start date cannot be later than the end date. Please correct the dates.</p>
+     <div id="errorModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white dark:bg-neutral-900 rounded-lg p-8 shadow-lg">
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-200">Error</h2>
+            <p class="mt-4 text-gray-600 dark:text-neutral-300">The registration start date cannot be later than the end date. Please correct the dates.</p>
             <div class="mt-6 text-right">
-                <button id="closeModal" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:bg-red-700">Close</button>
+                <button id="closeModal" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 dark:focus:bg-red-800">Close</button>
             </div>
         </div>
     </div>

@@ -261,7 +261,7 @@
                     </div>
                     <div class="flex justify-between">
                         <span class="font-medium">Program:</span>
-                        <span>${officer.program}</span>
+                        <span class="text-right" style="word-break: break-word; max-width: 250px;">${officer.program}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="font-medium">Year Level:</span>
