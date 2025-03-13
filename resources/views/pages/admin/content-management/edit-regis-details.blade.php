@@ -33,6 +33,7 @@
                             </label>
                             <input id="membership_fee" type="number" name="membership_fee" value="{{ old('membership_fee', $membership_fee) }}" placeholder="Enter membership fee"
                                 class="py-1.5 sm:py-2 px-3 pe-11 block w-full border-gray-200 shadow-2xs sm:text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-100 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                            <div id="membership_fee_error" class="text-red-500 text-xs hidden">Membership fee cannot be negative.</div>
                             @error('membership_fee')
                                 <div class="text-red-500 text-xs">{{ $message }}</div>
                             @enderror
@@ -100,6 +101,45 @@
 
         document.getElementById('closeModal').addEventListener('click', function() {
             document.getElementById('errorModal').classList.add('hidden');
+
+            document.getElementById('membership_fee').addEventListener('input', function() {
+                const feeValue = parseFloat(this.value);
+                const errorElement = document.getElementById('membership_fee_error');
+                
+                if (feeValue < 0) {
+                    errorElement.classList.remove('hidden');
+                    this.classList.add('border-red-500');
+                    document.querySelector('button[type="submit"]').disabled = true;
+                } else {
+                    errorElement.classList.add('hidden');
+                    this.classList.remove('border-red-500');
+                    document.querySelector('button[type="submit"]').disabled = false;
+                }
+            });
+            
+            // Also check on form submission
+            document.getElementById('regisForm').addEventListener('submit', function(event) {
+                const feeValue = parseFloat(document.getElementById('membership_fee').value);
+                const startDate = new Date(document.getElementById('registration_start_date').value);
+                const endDate = new Date(document.getElementById('registration_end_date').value);
+            
+                let hasErrors = false;
+            
+                if (feeValue < 0) {
+                    document.getElementById('membership_fee_error').classList.remove('hidden');
+                    document.getElementById('membership_fee').classList.add('border-red-500');
+                    hasErrors = true;
+                }
+            
+                if (startDate > endDate) {
+                    document.getElementById('errorModal').classList.remove('hidden');
+                    hasErrors = true;
+                }
+            
+                if (hasErrors) {
+                    event.preventDefault();
+                }
+            });
         });
     </script>
 </x-layouts.admin>

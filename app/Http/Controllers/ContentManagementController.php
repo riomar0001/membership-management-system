@@ -285,13 +285,13 @@ class ContentManagementController extends Controller
     public function storeRegisDetails(Request $request)
     {
         $request->validate([
-            'membership_fee' => 'required|numeric',
+            'membership_fee' => 'required|numeric|min:0', 
             'registration_start_date' => 'required|date',
-            'registration_end_date' => 'required|date',
+            'registration_end_date' => 'required|date|after_or_equal:registration_start_date', 
         ]);
-
+    
         $organizationSettings = DB::table('organizations_setting')->first();
-
+    
         if ($organizationSettings) {
             DB::table('organizations_setting')
                 ->where('id', $organizationSettings->id)
@@ -307,8 +307,7 @@ class ContentManagementController extends Controller
                     'registration_end_date' => $request->input('registration_end_date'),
             ]);
         }
-
-        return redirect()->route('regis-details')->with('success', 'Org Details added successfully.');
+    
+        return redirect()->route('regis-details')->with('success', 'Registration details added successfully.');
     }
-
 }
