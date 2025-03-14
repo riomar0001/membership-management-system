@@ -13,7 +13,7 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('pages.landing.index');
-});
+})->name('landing');
 
 
 

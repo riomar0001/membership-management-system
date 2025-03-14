@@ -100,13 +100,13 @@
                         required
                     >
                         <option value="" disabled {{ old('program') ? '' : 'selected' }}>Select your program</option>
-                        <option value="BSCS" {{ old('program') == 'BSCS' ? 'selected' : '' }}>BS Computer Science</option>
-                        <option value="BSIT" {{ old('program') == 'BSIT' ? 'selected' : '' }}>BS Information Technology</option>
-                        <option value="BSIS" {{ old('program') == 'BSIS' ? 'selected' : '' }}>BS Information Systems</option>
-                        <option value="BSCE" {{ old('program') == 'BSCE' ? 'selected' : '' }}>BS Computer Engineering</option>
-                        <option value="BSMath" {{ old('program') == 'BSMath' ? 'selected' : '' }}>BS Mathematics</option>
-                    </select>
-                    @error('program')
+                        <option value="Bachelor of Science in Information Technology" {{ old('program') == 'Bachelor of Science in Information Technology' ? 'selected' : '' }}>Bachelor of Science in Information Technology</option>
+                        <option value="Bachelor of Science in Computer Science" {{ old('program') == 'Bachelor of Science in Computer Science' ? 'selected' : '' }}>Bachelor of Science in Computer Science</option>
+                        <option value="Bachelor of Science in Information Systems" {{ old('program') == 'Bachelor of Science in Information Systems' ? 'selected' : '' }}>Bachelor of Science in Information Systems</option>
+                        <option value="Bachelor of Library and Information Science" {{ old('program') == 'Bachelor of Library and Information Science' ? 'selected' : '' }}>Bachelor of Library and Information Science</option>
+                        <option value="Bachelor of Science in Entertainment and Multimedia Computing – Digital Animation" {{ old('program') == 'Bachelor of Science in Entertainment and Multimedia Computing – Digital Animation' ? 'selected' : '' }}>Bachelor of Science in Entertainment and Multimedia Computing – Digital Animation</option>
+                        <option value="Bachelor of Science in Entertainment and Multimedia Computing – Game Development" {{ old('program') == 'Bachelor of Science in Entertainment and Multimedia Computing – Game Development' ? 'selected' : '' }}>Bachelor of Science in Entertainment and Multimedia Computing – Game Development</option>
+                        <option value="Bachelor of Multimedia Arts" {{ old('program') == 'Bachelor of Multimedia Arts' ? 'selected' : '' }}>Bachelor of Multimedia Arts</option>    </select>    @error('program')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
@@ -364,6 +364,25 @@
             </div>
         </div>
     </div>
+    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 {{ session('success') ? '' : 'hidden' }}">
+        <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-8 max-w-md w-full">
+            <div class="text-center mb-6">
+                <svg class="mx-auto h-12 w-12 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-white mt-4">Registration Successful!</h2>
+                <p class="text-gray-600 dark:text-neutral-300 mt-2">
+                    Your membership registration has been submitted successfully. Please wait for approval from the organization.
+                </p>
+            </div>
+            
+            <div class="mt-6 flex justify-center">
+                <button id="closeSuccessModal" class="py-2 px-6 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">
+                    Return to Home
+                </button>
+            </div>
+        </div>
+    </div>
     
     </section>
      <script>
@@ -505,6 +524,27 @@
             
             if (firstNameField.value && lastNameField.value && studentIdField.value) {
                 generateEmail();
+            }
+        });
+        
+        // Handle success modal and redirection
+        document.addEventListener('DOMContentLoaded', function() {
+            const successModal = document.getElementById('successModal');
+            const closeSuccessModal = document.getElementById('closeSuccessModal');
+            
+            if (successModal && !successModal.classList.contains('hidden')) {
+                // Prevent scrolling when modal is open
+                document.body.style.overflow = 'hidden';
+                
+                setTimeout(function() {
+                    window.location.href = "{{ route('landing') }}";
+                }, 5000);
+            }
+            
+            if (closeSuccessModal) {
+                closeSuccessModal.addEventListener('click', function() {
+                    window.location.href = "{{ route('landing') }}";
+                });
             }
         });
     </script>

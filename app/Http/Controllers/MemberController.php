@@ -401,7 +401,7 @@ class MemberController extends Controller
     
             DB::commit();
     
-            return redirect()->route('member.registration')->with('success', 'Your membership registration has been submitted successfully. Please wait for approval from the organization.');
+            return back()->with('success', 'Your membership registration has been submitted successfully.');
     
         } catch (\Exception $e) {
             DB::rollBack();
