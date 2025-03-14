@@ -3,7 +3,7 @@
 
 <head>
     @vite(['resources/css/app.css', 'resources/css/preline.css', 'resources/js/app.js'])
-    <title>Manage Members</title>
+    <title>ACSSUM | Manage Members</title>
 
     <style>
         .dt-layout-row:has(.dt-search),

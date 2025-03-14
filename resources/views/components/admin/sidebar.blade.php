@@ -4,13 +4,12 @@
     <div class="relative flex flex-col h-full max-h-full">
         <div class="px-6 pt-4">
             <!-- Logo -->
-            <a class="flex-none rounded-xl text-xl inline-block font-semibold focus:outline-none focus:opacity-80"
-                href="{{route('dashboard')}}" aria-label="Preline">
-                <svg class="w-52 h-28" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
-                <text x="50%" y="50%" font-family="Arial, sans-serif" font-size="50" fill="white" text-anchor="middle" dominant-baseline="middle">
-                MMS
+            <a class="flex rounded-xl text-xl items-center justify-center font-semibold focus:outline-none focus:opacity-80"
+                href="{{ route('dashboard') }}" aria-label="Preline">
+                <text x="50%" y="50%" font-family="Arial, sans-serif" font-size="50" fill="white" text-anchor="middle"
+                    dominant-baseline="middle" class="text-2xl font-bold text-gray-800 dark:text-neutral-200">
+                    ACSSUM
                 </text>
-    </svg>
             </a>
             <!-- End Logo -->
         </div>
@@ -122,7 +121,7 @@
 
                     <li>
                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-700 dark:text-neutral-200"
-                            href="{{route('accounts.index')}}">
+                            href="{{ route('accounts.index') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-user">
