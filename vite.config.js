@@ -8,4 +8,6 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+
+    assetsInclude: ['**/*.mp4', '**/*.webm', '**/*.ogg'],
 });
