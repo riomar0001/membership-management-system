@@ -88,7 +88,7 @@
                                 Umindanao Email
                             </label>
                             <input id="af-submit-application-email" type="email" name="umindanao_email"
-                                value="{{ old('umindanao_email') }}" placeholder="j.delacruz.123456@umindanao.edu.ph"
+                                value="{{ old('umindanao_email') }}" placeholder="Auto-generated from your information"
                                 class="py-1.5 sm:py-2 px-3 pe-11 block w-full border-gray-200 shadow-2xs sm:text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-100 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                             @error('umindanao_email')
                                 <div class="text-red-500 text-xs">{{ $message }}</div>
@@ -244,3 +244,72 @@
     </section>
     <x-landing.bottom :address="$address" :email="$email" :mobile="$mobile" />
 </x-layouts.landing>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const firstNameInput = document.getElementById('af-submit-application-full-name');
+    const lastNameInput = document.querySelector('input[name="last_name"]');
+    const studentIdInput = document.getElementById('af-submit-application-phone');
+    const emailInput = document.getElementById('af-submit-application-email');
+    
+    function generateEmail() {
+        const firstName = firstNameInput.value.trim();
+        const lastName = lastNameInput.value.trim();
+        const studentId = studentIdInput.value.trim();
+        
+        if (firstName && lastName && studentId) {
+            const firstInitial = firstName.charAt(0).toLowerCase();
+            
+            const cleanLastName = lastName.toLowerCase().replace(/\s+/g, '');
+            
+            const email = `${firstInitial}.${cleanLastName}.${studentId}@umindanao.edu.ph`;
+            
+            emailInput.value = email;
+            
+            emailInput.readOnly = true;
+            emailInput.classList.add('bg-gray-50', 'dark:bg-neutral-800');
+            
+            if (!document.getElementById('email-helper-text')) {
+                const helperText = document.createElement('p');
+                helperText.id = 'email-helper-text';
+                helperText.className = 'text-xs text-gray-500 mt-1 italic';
+                helperText.textContent = 'Email is automatically generated based on your name and student ID';
+                emailInput.parentNode.appendChild(helperText);
+            }
+        }
+    }
+    
+    firstNameInput.addEventListener('input', generateEmail);
+    lastNameInput.addEventListener('input', generateEmail);
+    studentIdInput.addEventListener('input', generateEmail);
+    
+    if (firstNameInput.value && lastNameInput.value && studentIdInput.value) {
+        generateEmail();
+    }
+});
+
+studentIdInput.addEventListener('input', function() {
+    this.value = this.value.replace(/[^0-9]/g, '');
+    
+    const idValue = parseInt(this.value);
+    if (isNaN(idValue) || idValue < 0) {
+        if (!document.getElementById('studentid-error')) {
+            const errorMsg = document.createElement('div');
+            errorMsg.id = 'studentid-error';
+            errorMsg.className = 'text-red-500 text-xs';
+            errorMsg.textContent = 'Student ID cannot be negative';
+            this.parentNode.appendChild(errorMsg);
+        }
+        this.classList.add('border-red-500');
+    } else {
+        const errorMsg = document.getElementById('studentid-error');
+        if (errorMsg) {
+            errorMsg.remove();
+        }
+        this.classList.remove('border-red-500');
+        
+        generateEmail();
+    }
+});
+</script>
