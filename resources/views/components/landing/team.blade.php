@@ -21,7 +21,7 @@
 
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
                 <div class="member">
-                    <div class="pic"><img src="{{ asset('img/team/mark.jpg') }}" class="img-fluid"
+                    <div class="pic"><img src="{{ asset('img/team/mark.jpg') }}" class="img-fluid" style="margin-top: -70px;"
                             class="max-h-20">
                     </div>
                     <div class="member-info">
