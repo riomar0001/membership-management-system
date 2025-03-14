@@ -10,7 +10,7 @@
             </svg>
             Go Back
         </a>
-        
+
         <div class="border-b border-gray-200 dark:border-neutral-700 pb-5 sm:pb-6 mb-5 sm:mb-6">
             <h1 class="text-2xl font-semibold text-gray-800 dark:text-neutral-200">
                 Add Organization Details
@@ -21,16 +21,22 @@
         </div>
 
         <div class="max-w-3xl mx-auto p-4 sm:p-7">
-            <form action="{{ route('org-details.store') }}" method="POST" enctype="multipart/form-data" id="orgDetailsForm">
+            <form action="{{ route('org-details.store') }}" method="POST" enctype="multipart/form-data"
+                id="orgDetailsForm">
                 @csrf
-                
-                <div class="grid sm:grid-cols-8 gap-2 sm:gap-2 first:pt-0 last:pb-0 border-gray-200 dark:border-neutral-700 dark:first:border-transparent">
+
+                <div
+                    class="grid sm:grid-cols-8 gap-2 sm:gap-2 first:pt-0 last:pb-0 border-gray-200 dark:border-neutral-700 dark:first:border-transparent">
                     <div class="sm:col-span-8">
                         <div class="flex flex-col gap-y-2">
-                            <label for="logo" class="inline-block text-sm font-medium text-gray-800 mt-2.5 dark:text-neutral-300">
+                            <label for="logo"
+                                class="inline-block text-sm font-medium text-gray-800 mt-2.5 dark:text-neutral-300">
                                 Logo
                             </label>
-                            <input id="logo" type="file" name="logo" class="py-1.5 sm:py-2 px-3 pe-11 block w-full border-gray-200 shadow-2xs sm:text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-100 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                            <input type="file" name="logo" id="logo"
+                                value="{{ old('logo') }}" uri="{{ old('logo') }}"
+                                class="block w-full border border-gray-200 shadow-sm  rounded-lg sm:text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400
+                              file:bg-gray-50 file:border-0 file:me-4 file:py-2 file:px-4 dark:file:bg-neutral-700 dark:file:text-neutral-400">
                             @error('logo')
                                 <div class="text-red-500 text-xs">{{ $message }}</div>
                             @enderror
@@ -39,11 +45,13 @@
 
                     <div class="sm:col-span-8">
                         <div class="flex flex-col gap-y-2">
-                            <label for="mission" class="inline-block text-sm font-medium text-gray-800 mt-2.5 dark:text-neutral-300">
+                            <label for="mission"
+                                class="inline-block text-sm font-medium text-gray-800 mt-2.5 dark:text-neutral-300">
                                 Mission
                             </label>
-                            <input id="mission" type="text" name="mission" value="{{ old('mission') }}"
+                            <textarea id="mission" type="text" name="mission" value="{{ old('mission') }}"
                                 class="py-1.5 sm:py-2 px-3 pe-11 block w-full border-gray-200 shadow-2xs sm:text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-100 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                            </textarea>
                             @error('mission')
                                 <div class="text-red-500 text-xs">{{ $message }}</div>
                             @enderror
@@ -52,11 +60,13 @@
 
                     <div class="sm:col-span-8">
                         <div class="flex flex-col gap-y-2">
-                            <label for="vision" class="inline-block text-sm font-medium text-gray-800 mt-2.5 dark:text-neutral-300">
+                            <label for="vision"
+                                class="inline-block text-sm font-medium text-gray-800 mt-2.5 dark:text-neutral-300">
                                 Vision
                             </label>
-                            <input id="vision" type="text" name="vision" value="{{ old('vision') }}"
+                            <textarea id="vision" type="text" name="vision" value="{{ old('vision') }}"
                                 class="py-1.5 sm:py-2 px-3 pe-11 block w-full border-gray-200 shadow-2xs sm:text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-100 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                            </textarea>
                             @error('vision')
                                 <div class="text-red-500 text-xs">{{ $message }}</div>
                             @enderror
@@ -71,26 +81,33 @@
                             <div id="faqs-container" class="space-y-4">
                                 <div class="faq-item p-4 border border-gray-200 dark:border-neutral-700 rounded-lg">
                                     <div class="flex flex-col gap-y-2">
-                                        <label class="inline-block text-sm font-medium text-gray-800 dark:text-neutral-300">
+                                        <label
+                                            class="inline-block text-sm font-medium text-gray-800 dark:text-neutral-300">
                                             Question
                                         </label>
-                                        <input type="text" name="faq_questions[]" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 shadow-2xs sm:text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-100">
+                                        <input type="text" name="faq_questions[]"
+                                            class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 shadow-2xs sm:text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-100">
                                     </div>
                                     <div class="flex flex-col gap-y-2 mt-2">
-                                        <label class="inline-block text-sm font-medium text-gray-800 dark:text-neutral-300">
+                                        <label
+                                            class="inline-block text-sm font-medium text-gray-800 dark:text-neutral-300">
                                             Answer
                                         </label>
-                                        <textarea name="faq_answers[]" rows="2" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 shadow-2xs sm:text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-100"></textarea>
+                                        <textarea name="faq_answers[]" rows="2"
+                                            class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 shadow-2xs sm:text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-100"></textarea>
                                     </div>
                                     <button type="button" class="remove-faq mt-2 text-red-500 text-sm hidden">
                                         Remove this FAQ
                                     </button>
                                 </div>
                             </div>
-                            <button type="button" id="add-faq-btn" class="mt-2 py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus">
-                                    <path d="M5 12h14"/>
-                                    <path d="M12 5v14"/>
+                            <button type="button" id="add-faq-btn"
+                                class="mt-2 py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus">
+                                    <path d="M5 12h14" />
+                                    <path d="M12 5v14" />
                                 </svg>
                                 Add Another FAQ
                             </button>
@@ -141,35 +158,37 @@
                     </button>
                 `;
                 faqsContainer.appendChild(newFaq);
-                
+
                 // Show all remove buttons if there are more than one FAQ
                 if (faqsContainer.querySelectorAll('.faq-item').length > 1) {
                     faqsContainer.querySelectorAll('.remove-faq').forEach(btn => {
                         btn.classList.remove('hidden');
                     });
                 }
-                
+
                 // Add event listener to the new remove button
                 addRemoveEventListener(newFaq.querySelector('.remove-faq'));
             });
-            
+
             // Function to add remove event listener
             function addRemoveEventListener(removeBtn) {
                 removeBtn.addEventListener('click', function() {
                     this.closest('.faq-item').remove();
-                    
+
                     // If only one FAQ remains, hide its remove button
                     if (faqsContainer.querySelectorAll('.faq-item').length === 1) {
                         faqsContainer.querySelector('.remove-faq').classList.add('hidden');
                     }
                 });
             }
-            
+
             // Form submit handler to convert form data to JSON
             form.addEventListener('submit', function(e) {
-                const questions = Array.from(document.querySelectorAll('input[name="faq_questions[]"]')).map(input => input.value);
-                const answers = Array.from(document.querySelectorAll('textarea[name="faq_answers[]"]')).map(textarea => textarea.value);
-                
+                const questions = Array.from(document.querySelectorAll('input[name="faq_questions[]"]'))
+                    .map(input => input.value);
+                const answers = Array.from(document.querySelectorAll('textarea[name="faq_answers[]"]')).map(
+                    textarea => textarea.value);
+
                 const faqs = [];
                 for (let i = 0; i < questions.length; i++) {
                     if (questions[i].trim() && answers[i].trim()) {
@@ -179,7 +198,7 @@
                         });
                     }
                 }
-                
+
                 faqsJsonInput.value = JSON.stringify(faqs);
             });
         });

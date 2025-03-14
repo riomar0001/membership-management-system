@@ -318,19 +318,11 @@ class MemberController extends Controller
         return $path;
     }
 
-    // private function sendStatusUpdateEmail($member, $status)
-    // {
-
-    //     $subject = 'Your Membership Application Status Update';
-    //     $message = 'Your membership application has been ' . strtolower($status) . '.';
-    //     Mail::to($member->umindanao_email)->send(new MembershipStatusUpdate($member, $status));
-    // }
-    
     public function showRegistrationForm()
     {
         return view('pages.landing.registration');
     }
-    
+
     public function register(Request $request)
     {
         $request->validate([
@@ -357,16 +349,16 @@ class MemberController extends Controller
             'proof_of_membership.required' => 'Proof of membership is required',
             'accept_terms_and_conditions.required' => 'You must accept the terms and conditions'
         ]);
-    
+
         try {
             DB::beginTransaction();
-    
+
             $uuid = Str::uuid();
-    
+
             $member = new Member();
             $membership_status = new MembershipStatus();
             $membership_type = new MembershipType();
-            
+
             $member->id = $uuid;
             $member->student_id = $request->student_id;
             $member->first_name = $request->first_name;
@@ -374,35 +366,35 @@ class MemberController extends Controller
             $member->umindanao_email = $request->umindanao_email;
             $member->program = $request->program;
             $member->year_level = $request->year_level;
-    
+
             if ($request->hasFile('proof_of_membership')) {
                 $file = $request->file('proof_of_membership');
                 $extension = $file->getClientOriginalExtension();
                 $filename = 'proof_of_membership_' . $uuid . '.' . $extension;
-    
+
                 $this->compressAndStoreImage($file, $filename);
-    
+
                 $member->proof_of_membership = $filename;
             }
-    
+
             $member->agree_to_terms_and_conditions = $request->has('accept_terms_and_conditions') ? true : false;
-    
+
             $membership_status->id = Str::uuid();
             $membership_status->members_id = $uuid;
             $membership_status->status = "Pending";
-    
+
             $membership_type->id = Str::uuid();
             $membership_type->members_id = $uuid;
             $membership_type->type = $request->membership_type;
-    
+
             $member->save();
             $membership_status->save();
             $membership_type->save();
-    
+
             DB::commit();
-    
+
             return redirect()->route('member.registration')->with('success', 'Your membership registration has been submitted successfully. Please wait for approval from the organization.');
-    
+
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'There was a problem with your registration. Please try again later.')->withInput();

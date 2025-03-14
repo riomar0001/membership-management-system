@@ -14,28 +14,25 @@
                 <div>
                     <h2 class="text-xl font-bold">Terms and Condition and Privary Policy</h2>
                     <p class="text-xs text-gray-600 dark:text-neutral-400">
-                        University of Mindanao Student Developer Community (UMSDC) - Terms and Conditions and Privacy
-                        Policy
+                        Association of Computer Science Students of the University of Mindanao (ACSSUM) - Terms and
+                        Conditions and Privacy Policy
                     </p>
                 </div>
 
                 <p class="text-sm text-justify">
-                    By registering with the University of Mindanao Student Developer Community (UMSDC), you agree to
-                    provide
-                    accurate information for membership management and communication. Participation in UMSDC activities
-                    and
-                    adherence to community guidelines are required, with violations subject to appropriate actions,
-                    including termination of membership.
+                    By registering with the Association of Computer Science Students of the University of Mindanao
+                    (ACSSUM), you agree to provide accurate information for membership management and communication.
+                    Participation in ACSSUM activities and adherence to community guidelines are required, with
+                    violations subject to appropriate actions, including termination of membership.
 
                 </p>
 
                 <p class="text-sm text-justify">
-                    Your personal data will be collected, stored, and used for purposes related to UMSDC operations,
+                    Your personal data will be collected, stored, and used for purposes related to ACSSUM operations,
                     including membership management, event coordination, and communication. All data will be handled in
                     compliance with the Data Privacy Act of 2012 (Republic Act No. 10173), ensuring that it is used
-                    solely
-                    for organizational purposes. We take all necessary measures to secure your data from unauthorized
-                    access, misuse, or disclosure.
+                    solely for organizational purposes. We take all necessary measures to secure your data from
+                    unauthorized access, misuse, or disclosure.
                 </p>
 
                 <p class="text-sm text-justify">
@@ -45,16 +42,14 @@
                 </p>
 
                 <p class="text-sm text-justify">
-                    UMSDC reserves the right to amend these terms and policies at any time, with notice provided via
-                    email
-                    or on our website. Your continued participation signifies acceptance of these terms and any future
-                    updates.
+                    ACSSUM reserves the right to amend these terms and policies at any time, with notice provided via
+                    email or on our website. Your continued participation signifies acceptance of these terms and any
+                    future updates.
                 </p>
 
                 <p class="text-sm text-justify">
-                    By continuing to use our services, you acknowledge and accept these terms, and you agree to adhere
-                    to
-                    the guidelines and policies set forth by UMSDC.
+                    By continuing to use our services, you acknowledge and accept these terms and agree to adhere to the
+                    guidelines and policies set forth by ACSSUM.
                 </p>
 
                 <button type="button" x-on:click="termsAndConditionModal = false"

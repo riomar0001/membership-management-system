@@ -8,17 +8,15 @@ use App\Http\Controllers\ContentManagementController;
 use App\Http\Controllers\OfficersController;
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LandingController;
 
 
 
-Route::get('/', function () {
-    return view('pages.landing.index');
-});
-
-
+Route::get('/', [LandingController::class, 'index'])->name('landing');
 
 Route::get('/register', [MemberController::class, 'showRegistrationForm'])->name('member.registration');
 Route::post('/register', [MemberController::class, 'register'])->name('member.register');
+Route::get('/logo/{filename}', [ContentManagementController::class, 'getOrgLogo'])->name('landing.logo');
 
 Route::get('/admin/login', [AuthController::class, 'loginForm'])->name('login')->middleware('guest');
 Route::post('/admin/login', [AuthController::class, 'login'])->middleware('guest');

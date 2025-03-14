@@ -1,5 +1,5 @@
   <header class="sticky top-4 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full">
-    <nav class="relative max-w-[66rem] w-full bg-neutral-900 rounded-[28px] py-3 ps-5 pe-2 md:flex md:items-center md:justify-between md:py-0 mx-2 lg:mx-auto" aria-label="Global">
+    <nav class="relative max-w-[66rem] w-full bg-neutral-950/50 rounded-[28px] backdrop-blur-sm  py-3 ps-5 pe-2 md:flex md:items-center md:justify-between md:py-0 mx-2 lg:mx-auto" aria-label="Global">
       <div class="flex items-center justify-between">
         <!-- Logo -->
         <a href="{{ url('/') }}" class="flex items-center gap-x-2 focus:outline-none">

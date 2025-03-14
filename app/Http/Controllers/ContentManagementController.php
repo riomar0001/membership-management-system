@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ContentManagementController extends Controller
 {
@@ -69,7 +70,6 @@ class ContentManagementController extends Controller
         return redirect()->route('contacts')->with('success', 'Contact information saved successfully.');
     }
 
-
     public function showSocials()
     {
         $organizationSettings = DB::table('organizations_setting')->first();
@@ -81,11 +81,11 @@ class ContentManagementController extends Controller
             'linkedin' => $organizationSettings->linkedin ?? null,
             'discord' => $organizationSettings->discord ?? null,
         ]);
-    }   
+    }
 
     public function showCreateSocials()
     {
-        $organizationSettings = DB::table('organizations_setting')->first();    
+        $organizationSettings = DB::table('organizations_setting')->first();
 
         return view('pages.admin.content-management.create-socials', [
             'id' => $organizationSettings->id ?? null,
@@ -142,13 +142,10 @@ class ContentManagementController extends Controller
         return redirect()->route('socials')->with('success', 'Socials information added successfully.');
     }
 
-
-
-
     public function showOrgDetails()
     {
         $organizationSettings = DB::table('organizations_setting')->first();
-        
+
         $faqs = null;
         if ($organizationSettings && $organizationSettings->faqs) {
             $faqs = json_decode($organizationSettings->faqs);
@@ -163,7 +160,7 @@ class ContentManagementController extends Controller
     }
     public function showCreateOrgDetails()
     {
-        $organizationSettings = DB::table('organizations_setting')->first();    
+        $organizationSettings = DB::table('organizations_setting')->first();
 
         return view('pages.admin.content-management.create-org-details', [
             'id' => $organizationSettings->id ?? null,
@@ -173,13 +170,13 @@ class ContentManagementController extends Controller
     public function showEditOrgDetails()
     {
         $organizationSettings = DB::table('organizations_setting')->first();
-    
+
         return view('pages.admin.content-management.edit-org-details', [
             'id' => $organizationSettings->id,
             'logo' => $organizationSettings->logo,
             'mission' => $organizationSettings->mission,
             'vision' => $organizationSettings->vision,
-            'faqs' => $organizationSettings->faqs, 
+            'faqs' => $organizationSettings->faqs,
         ]);
     }
 
@@ -192,7 +189,16 @@ class ContentManagementController extends Controller
             'faqs' => 'required',
         ]);
 
-        $logoPath = $request->file('logo')->store('logos', 'public');
+        $logoPath = null;
+        if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+            $extension = $file->getClientOriginalExtension();
+            $filename = 'logo_' . uniqid() . '.' . $extension;
+
+            $this->compressAndStoreImage($file, $filename);
+
+            $logoPath = $filename;
+        }
 
         $organizationSettings = DB::table('organizations_setting')->first();
 
@@ -223,7 +229,7 @@ class ContentManagementController extends Controller
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'mission' => 'required|string|max:255',
             'vision' => 'required|string|max:255',
-            'faqs' => 'required|json',
+            'faqs' => 'required',
         ]);
 
         $organizationSettings = DB::table('organizations_setting')->first();
@@ -235,7 +241,11 @@ class ContentManagementController extends Controller
         ];
 
         if ($request->hasFile('logo')) {
-            $logoPath = $request->file('logo')->store('logos', 'public');
+            $file = $request->file('logo');
+            $extension = $file->getClientOriginalExtension();
+            $filename = 'logo_' . uniqid() . '.' . $extension;
+
+            $logoPath = $this->compressAndStoreImage($file, $filename);
             $data['logo'] = $logoPath;
         }
 
@@ -245,7 +255,6 @@ class ContentManagementController extends Controller
 
         return redirect()->route('org-details')->with('success', 'Organization details updated successfully.');
     }
-
 
     public function showRegisDetails()
     {
@@ -261,7 +270,7 @@ class ContentManagementController extends Controller
 
     public function showCreateRegisDetails()
     {
-        $organizationSettings = DB::table('organizations_setting')->first();    
+        $organizationSettings = DB::table('organizations_setting')->first();
 
         return view('pages.admin.content-management.create-regis-details', [
             'id' => $organizationSettings->id ?? null,
@@ -277,7 +286,7 @@ class ContentManagementController extends Controller
             'membership_fee' => $organizationSettings->membership_fee,
             'registration_start_date' => $organizationSettings->registration_start_date,
             'registration_end_date' => $organizationSettings->registration_end_date,
-           
+
 
         ]);
     }
@@ -285,13 +294,13 @@ class ContentManagementController extends Controller
     public function storeRegisDetails(Request $request)
     {
         $request->validate([
-            'membership_fee' => 'required|numeric|min:0', 
+            'membership_fee' => 'required|numeric|min:0',
             'registration_start_date' => 'required|date',
-            'registration_end_date' => 'required|date|after_or_equal:registration_start_date', 
+            'registration_end_date' => 'required|date|after_or_equal:registration_start_date',
         ]);
-    
+
         $organizationSettings = DB::table('organizations_setting')->first();
-    
+
         if ($organizationSettings) {
             DB::table('organizations_setting')
                 ->where('id', $organizationSettings->id)
@@ -302,12 +311,68 @@ class ContentManagementController extends Controller
                 ]);
         } else {
             DB::table('organizations_setting')->insert([
-                    'membership_fee' => $request->input('membership_fee'),
-                    'registration_start_date' => $request->input('registration_start_date'),
-                    'registration_end_date' => $request->input('registration_end_date'),
+                'membership_fee' => $request->input('membership_fee'),
+                'registration_start_date' => $request->input('registration_start_date'),
+                'registration_end_date' => $request->input('registration_end_date'),
             ]);
         }
-    
+
         return redirect()->route('regis-details')->with('success', 'Registration details added successfully.');
+    }
+
+
+    public function getOrgLogo($filename)
+    {
+        if (empty($filename)) {
+            return response()->json(['error' => 'No filename provided'], 400);
+        }
+
+        $path = 'logos/' . $filename;
+
+        if (!Storage::disk('public')->exists($path)) {
+            return response()->json(['error' => 'File not found'], 404);
+        }
+
+        $file = Storage::disk('public')->get($path);
+        $mimeType = Storage::disk('public')->mimeType($path);
+
+        return response($file, 200)->header('Content-Type', $mimeType);
+    }
+
+    private function compressAndStoreImage($file, $filename)
+    {
+        $extension = $file->getClientOriginalExtension();
+
+        // Suppress libpng warnings about incorrect sRGB profile
+        ini_set('gd.png_ignore_warning', 1);
+
+        $image = $extension == 'png'
+            ? imagecreatefrompng($file->getRealPath())
+            : imagecreatefromjpeg($file->getRealPath());
+
+        $tempPath = storage_path('app/temp');
+        if (!file_exists($tempPath)) {
+            mkdir($tempPath, 0755, true);
+        }
+
+        $tempFilePath = "{$tempPath}/{$filename}";
+
+        if ($extension == 'png') {
+            $compressionLevel = 8;
+            imagepng($image, $tempFilePath, $compressionLevel);
+        } else {
+            $compressionQuality = 75;
+            imagejpeg($image, $tempFilePath, $compressionQuality);
+        }
+
+        imagedestroy($image);
+
+        $fileContent = file_get_contents($tempFilePath);
+        $path = "logos/{$filename}";
+        Storage::disk('public')->put($path, $fileContent);
+
+        unlink($tempFilePath);
+
+        return $path;
     }
 }
