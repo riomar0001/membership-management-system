@@ -1,9 +1,13 @@
 <x-layouts.landing>
-    <x-landing.hero :data="$data" />
-    <x-landing.about :data="$data" />
-    <x-landing.purpose :data="$data" />
-    <x-landing.goals :data="$data" />
-    <x-landing.team :data="$data" />
-    <x-landing.faq :data="$data" />
-    <x-landing.contact :data="$data" />
+    <x-landing.header />
+    <x-landing.hero />
+    <x-landing.about :mission="$mission" :vision="$vision" />
+    <x-landing.purpose :mission="$mission" :vision="$vision" />
+    <x-landing.goals />
+    <x-landing.team :facebook="$facebook" />
+    <x-landing.faq :faqs="$faqs" />
+    <x-landing.contact :address="$address" :email="$email" :mobile="$mobile" />
+    <x-landing.bottom :address="$address" :email="$email" :mobile="$mobile" />
+
+
 </x-layouts.landing>

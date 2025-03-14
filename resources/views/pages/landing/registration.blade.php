@@ -1,6 +1,6 @@
 <x-layouts.landing>
 
-
+    <x-landing.header />
     <div class="page-title dark-background" data-aos="fade"
         style="background-image: url({{ asset('img/page-title-bg.webp') }});">
         <div class="container position-relative">
@@ -64,7 +64,7 @@
                                     <input id="af-submit-application-full-name" type="text" name="first_name"
                                         value="{{ old('first_name') }}" placeholder="First Name"
                                         class="py-1.5 sm:py-2 px-3 pe-11 block w-full border-gray-200 shadow-2xs -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg sm:text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-100 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-                                    <input type="text" name="last_name" placeholder="Last Name"
+                                    <input type="text" name="last_name" placeholder="Last Name" value="{{ old('last_name') }}"
                                         class="py-1.5 sm:py-2 px-3 pe-11 block w-full border-gray-200 shadow-2xs -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg sm:text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-100 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                                 </div>
                                 <div class="flex flex-row gap-y-2">
@@ -222,4 +222,5 @@
         </div>
 
     </section>
+    <x-landing.bottom :address="$address" :email="$email" :mobile="$mobile" />
 </x-layouts.landing>

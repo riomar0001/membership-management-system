@@ -14,13 +14,9 @@
             <div class="col-lg-6" data-aos="fade-up" data-aos-delay="250">
                 <div class="content ps-0 ps-lg-5">
                     <h4>Mission</h4>
-                    <p class="fst-italic">To empower Computer Science students of the University of Mindanao by
-                        fostering innovation, collaboration, and continuous learning through inclusive programs,
-                        projects, and community engagement.</p>
+                    <p class="fst-italic">{{$mission}}</p>
                     <h4>Vision</h4>
-                    <p class="fst-italic">To be a leading organization that cultivates future-ready Computer Science
-                        professionals, driving technological advancement and creating a positive impact in the digital
-                        world.</p>
+                    <p class="fst-italic">{{$vision}}</p>
                     <ul>
                         <li><i class="bi bi-check-circle-fill"></i> <span>Encourage innovation and technological
                                 exploration.</span></li>

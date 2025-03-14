@@ -12,7 +12,8 @@ use App\Http\Controllers\LandingController;
 
 
 
-Route::get('/', [LandingController::class, 'index'])->name('landing');
+
+Route::get('/', [ContentManagementController::class, 'index'])->name('landing');
 
 Route::get('/register', [MemberController::class, 'showRegistrationForm'])->name('member.registration');
 Route::post('/register', [MemberController::class, 'register'])->name('member.register');
@@ -108,8 +109,10 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('auth')->group(function () {
-        Route::get('/admin/profile', [ProfileController::class, 'show'])->name('admin.profile');
-        Route::post('/admin/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+        Route::get('/admin/profile', [ProfileController::class, 'editProfile'])->name('admin.profile');
+        Route::get('/admin/profile/password', [ProfileController::class, 'editPassword'])->name('admin.profile.editPassword');
+        Route::post('/admin/profile/password', [ProfileController::class, 'updatePassword'])->name('admin.profile.updatePassword');
+        Route::post('/admin/profile', [ProfileController::class, 'updateProfile'])->name('admin.profile.updateProfile');
         Route::delete('/officers/remove', [OfficersController::class, 'removeOfficer'])->name('officers.remove');
     });
 

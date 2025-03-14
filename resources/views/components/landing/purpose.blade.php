@@ -11,7 +11,6 @@
                <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                    <div class="flex flex-col md:flex-row gap-5 justify-between">
-
                        <div class="col " data-aos="zoom-in" data-aos-delay="200">
                            <div class="service-item">
                                <div class="img">
@@ -24,9 +23,7 @@
                                    <a href="service-details.html" class="stretched-link">
                                        <h3>Mission</h3>
                                    </a>
-                                   <p>To empower Computer Science students of the UM by fostering
-                                       innovation, collaboration, and continuous learning through inclusive programs,
-                                       projects, and community engagement.</p>
+                                   <p>{{$mission}}</p>
                                </div>
                            </div>
                        </div>
@@ -43,9 +40,7 @@
                                    <a href="service-details.html" class="stretched-link">
                                        <h3>Vision</h3>
                                    </a>
-                                   <p>To be a leading organization that cultivates future-ready Computer Science
-                                       professionals, driving technological advancement and creating a positive impact
-                                       in the digital world.</p>
+                                   <p>{{$vision}}</p>
                                </div>
                            </div>
                        </div>

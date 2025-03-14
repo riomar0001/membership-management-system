@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+
 class LandingController extends Controller
 {
 
@@ -14,18 +15,20 @@ class LandingController extends Controller
      */
     public function index()
     {
-        // Fetch organization settings from the database
-        $data = \DB::table('organizations_setting')->first();
+        $content = DB::table('organizations_setting')->first();
 
-        // If settings exist, decode the JSON field
-        if ($data && isset($data->faqs) && !empty($data->faqs)) {
-            $data->faqs = json_decode($data->faqs);
-            // Add a debug to check what's being decoded
-            // dd($data->faqs);
+        $faqs = null;
+        if ($content && $content->faqs) {
+            $faqs = json_decode($content->faqs);
         }
-
-        // Return the view with the settings data
-        return view('pages.landing.index', compact('data'));
+        return view('pages.landing.index', [
+            'content' => $content,
+            'name' => $content->name,
+            'logo' => $content->logo,
+            'email' => $content->email,
+            'address' => $content->address,
+            'faqs' => $faqs,
+        ]);
     }
 
 

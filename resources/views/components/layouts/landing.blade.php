@@ -36,15 +36,14 @@
 <body class="index-page">
 
     <!-- ======= Header ======= -->
-    <x-landing.header />
+
 
     <main class="main">
         {{ $slot }}
-
     </main>
 
     <!-- ======= Footer ======= -->
-    <x-landing.footer />
+
 
 
 

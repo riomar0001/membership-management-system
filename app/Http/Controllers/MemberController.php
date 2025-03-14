@@ -320,7 +320,35 @@ class MemberController extends Controller
 
     public function showRegistrationForm()
     {
-        return view('pages.landing.registration');
+        $organizationSettings = DB::table('organizations_setting')->first();
+
+        // Decode FAQs if they exist
+        $faqs = null;
+        if (isset($organizationSettings->faqs) && $organizationSettings->faqs) {
+            $faqs = json_decode($organizationSettings->faqs);
+        }
+
+        // dd($organizationSettings);
+
+        // Pass variables to view
+        return view('pages.landing.registration', [
+            'name' => $organizationSettings->name ?? null,
+            'email' => $organizationSettings->email ?? null,
+            'mobile' => $organizationSettings->contact_number ?? null,
+            'address' => $organizationSettings->address ?? null,
+            'facebook' => $organizationSettings->facebook ?? null,
+            'twitter' => $organizationSettings->twitter ?? null,
+            'instagram' => $organizationSettings->instagram ?? null,
+            'linkedin' => $organizationSettings->linkedin ?? null,
+            'discord' => $organizationSettings->discord ?? null,
+            'logo' => $organizationSettings->logo ?? null,
+            'mission' => $organizationSettings->mission ?? null,
+            'vision' => $organizationSettings->vision ?? null,
+            'faqs' => $faqs,
+            'membership_fee' => $organizationSettings->membership_fee ?? null,
+            'registration_start_date' => $organizationSettings->registration_start_date ?? null,
+            'registration_end_date' => $organizationSettings->registration_end_date ?? null,
+        ]);
     }
 
     public function register(Request $request)

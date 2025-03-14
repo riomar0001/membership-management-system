@@ -1562,7 +1562,10 @@ section,
 .team .member .pic {
   overflow: hidden;
   margin-bottom: 50px;
+  height: 500px;
+  object-fit:  fill;
 }
+
 
 .team .member .member-info {
   background-color: var(--surface-color);
