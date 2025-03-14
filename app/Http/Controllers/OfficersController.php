@@ -37,8 +37,13 @@ class OfficersController extends Controller
     public function storeOfficer(Request $request)
     {
         $request->validate([
-            'student_id' => 'required|string|max:255',
+            'student_id' => 'required|integer|min:0', // Added integer|min:0 to prevent negative values
             'position' => 'required|string|max:255',
+        ], [
+            'student_id.required' => 'Student ID is required',
+            'student_id.integer' => 'Student ID must be a number',
+            'student_id.min' => 'Student ID cannot be negative',
+            'position.required' => 'Position is required',
         ]);
 
         $member = DB::table('members')

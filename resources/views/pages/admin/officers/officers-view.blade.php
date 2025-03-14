@@ -247,22 +247,39 @@
     <!-- Update the Add Officer Modal -->
     <div id="addOfficerModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
         <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-8 max-w-md w-full">
-            <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Add Officer</h2>
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Add Officer</h2>            
             <form id="addOfficerForm" method="POST" action="{{ route('officers.store') }}" class="space-y-4">
                 @csrf
+                <!-- Student ID input -->
                 <div>
                     <label for="addOfficerStudentId" class="block text-sm font-medium text-gray-700 dark:text-neutral-300 mb-1">Student ID</label>
-                    <input type="text" id="addOfficerStudentId" name="student_id" class="py-2 px-3 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300" placeholder="Enter student ID">
+                    <input type="number" id="addOfficerStudentId" name="student_id" min="0" required
+                        class="py-2 px-3 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300" 
+                        placeholder="Enter student ID">
+                    @error('student_id')
+                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
+                
+                <!-- Position input -->
                 <div>
                     <label for="addOfficerPosition" class="block text-sm font-medium text-gray-700 dark:text-neutral-300 mb-1">Position</label>
-                    <input type="text" id="addOfficerPosition" name="position" class="py-2 px-3 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300" placeholder="Enter position title">
+                    <input type="text" id="addOfficerPosition" name="position" required
+                        class="py-2 px-3 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300" 
+                        placeholder="Enter position title">
+                    @error('position')
+                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
+                
+                <!-- Form buttons -->
                 <div class="flex justify-end gap-2">
-                    <button type="button" id="closeAddOfficerModal" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600">
+                    <button type="button" id="closeAddOfficerModal" 
+                        class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600">
                         Cancel
                     </button>
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                    <button type="submit" 
+                        class="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700">
                         Add Officer
                     </button>
                 </div>
@@ -331,6 +348,100 @@
         document.getElementById('cancelRemoveOfficer').addEventListener('click', function() {
             document.getElementById('removeOfficerModal').classList.add('hidden');
             document.getElementById('editOfficerModal').classList.remove('hidden');
+        });
+
+        document.getElementById('addOfficerStudentId').addEventListener('input', function() {
+            validateStudentId(this);
+        });
+        
+        document.getElementById('addOfficerForm').addEventListener('submit', function(event) {
+            const studentIdField = document.getElementById('addOfficerStudentId');
+            if (!validateStudentId(studentIdField)) {
+                event.preventDefault();
+            }
+        });
+        
+        function validateStudentId(input) {
+            const idValue = parseInt(input.value);
+            const errorId = 'student_id_error';
+            let errorMsg = document.getElementById(errorId);
+            
+            if (errorMsg) {
+                errorMsg.remove();
+            }
+            
+            if (isNaN(idValue) || idValue < 0) {
+                errorMsg = document.createElement('p');
+                errorMsg.id = errorId;
+                errorMsg.className = 'text-sm text-red-600 mt-1';
+                errorMsg.textContent = 'Student ID cannot be negative';
+                
+                input.parentNode.appendChild(errorMsg);
+                
+                input.classList.add('border-red-500');
+                
+                return false;
+            }
+            
+            input.classList.remove('border-red-500');
+            return true;
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fix Preline UI issues with modals
+            const addOfficerBtn = document.getElementById('addOfficerBtn');
+            const closeAddOfficerModal = document.getElementById('closeAddOfficerModal');
+            const addOfficerModal = document.getElementById('addOfficerModal');
+            
+            if (addOfficerBtn && addOfficerModal) {
+                addOfficerBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    addOfficerModal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                });
+            }
+            
+            if (closeAddOfficerModal && addOfficerModal) {
+                closeAddOfficerModal.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    addOfficerModal.classList.add('hidden');
+                    document.body.style.overflow = ''; // Restore scrolling
+                });
+            }
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === addOfficerModal) {
+                    addOfficerModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // Add validation for student ID
+            const studentIdField = document.getElementById('addOfficerStudentId');
+            if (studentIdField) {
+                studentIdField.addEventListener('input', function() {
+                    const idValue = parseInt(this.value);
+                    const errorDiv = this.nextElementSibling || document.createElement('p');
+                    
+                    if (isNaN(idValue) || idValue < 0) {
+                        // Show error
+                        errorDiv.textContent = 'Student ID cannot be negative';
+                        errorDiv.className = 'text-sm text-red-600 mt-1';
+                        if (!this.nextElementSibling) {
+                            this.parentNode.appendChild(errorDiv);
+                        }
+                        this.classList.add('border-red-500');
+                    } else {
+                        // Clear error
+                        if (this.nextElementSibling && this.nextElementSibling.classList.contains('text-red-600')) {
+                            this.nextElementSibling.remove();
+                        }
+                        this.classList.remove('border-red-500');
+                    }
+                });
+            }
         });
     </script>
 </x-layouts.admin>
