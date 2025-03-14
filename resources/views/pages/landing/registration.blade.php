@@ -31,7 +31,7 @@
                 Please fill in all required fields to complete your registration.
             </h5>
 
-            <form action="{{ route('members.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('member.register') }}" method="POST" enctype="multipart/form-data">
 
                 @csrf
 
@@ -168,6 +168,25 @@
                     </div>
 
 
+                <div class="sm:col-span-8">
+                    <div class="flex flex-col gap-y-2">
+                        <label for="membership_type" class="inline-block text-sm font-medium text-gray-800 mt-2.5 dark:text-neutral-300">
+                            Membership Type
+                        </label>
+                        <select name="membership_type" id="membership_type"
+                            class="py-1.5 sm:py-2 px-3 pe-11 block w-full border-gray-200 shadow-2xs sm:text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-100 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                            <option value="" {{ old('membership_type') == '' ? 'selected' : '' }}>Select Membership Type</option>
+                            <option value="New" {{ old('membership_type') == 'New' ? 'selected' : '' }}>New Member</option>
+                            <option value="Old" {{ old('membership_type') == 'Old' ? 'selected' : '' }}>Old Member</option>
+                            <option value="Volunteer" {{ old('membership_type') == 'Volunteer' ? 'selected' : '' }}>Volunteer</option>
+                        </select>
+                        @error('membership_type')
+                            <div class="text-red-500 text-xs">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+
 
                     <div class="sm:col-span-8">
                         <div class="flex flex-col gap-y-2">
@@ -189,6 +208,7 @@
                     </div>
 
                 </div>
+                
 
 
 

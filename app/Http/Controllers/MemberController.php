@@ -421,7 +421,7 @@ class MemberController extends Controller
 
             DB::commit();
 
-            return back()->with('success', 'Your membership registration has been submitted successfully.');
+            return redirect()->route('landing')->with('success', 'Your membership registration has been submitted successfully.');
 
         } catch (\Exception $e) {
             DB::rollBack();
