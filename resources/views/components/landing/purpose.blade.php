@@ -20,10 +20,7 @@
                                    <div class="icon">
                                        <i class="bi bi-activity"></i>
                                    </div>
-                                   <a href="service-details.html" class="stretched-link">
-                                       <h3>Mission</h3>
-                                   </a>
-                                   <p>{{$mission}}</p>
+                                <h3>Mission</h3>            <p>{{$mission}}</p>
                                </div>
                            </div>
                        </div>
@@ -37,10 +34,7 @@
                                    <div class="icon">
                                        <i class="bi bi-broadcast"></i>
                                    </div>
-                                   <a href="service-details.html" class="stretched-link">
-                                       <h3>Vision</h3>
-                                   </a>
-                                   <p>{{$vision}}</p>
+                                <h3>Vision</h3>            <p>{{$vision}}</p>
                                </div>
                            </div>
                        </div>

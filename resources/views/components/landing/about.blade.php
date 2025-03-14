@@ -13,10 +13,6 @@
             </div>
             <div class="col-lg-6" data-aos="fade-up" data-aos-delay="250">
                 <div class="content ps-0 ps-lg-5">
-                    <h4>Mission</h4>
-                    <p class="fst-italic">{{$mission}}</p>
-                    <h4>Vision</h4>
-                    <p class="fst-italic">{{$vision}}</p>
                     <ul>
                         <li><i class="bi bi-check-circle-fill"></i> <span>Encourage innovation and technological
                                 exploration.</span></li>
