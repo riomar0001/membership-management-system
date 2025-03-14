@@ -1,26 +1,20 @@
-    <section id="hero">
-        <div class="bg-neutral-950">
-            <div class="px-10 pt-4 my-10 mt-10 max-w-5xl mx-auto ">
-                <div class="flex flex-col text-start">
+<section id="hero">
+    <div class="bg-neutral-950">
+        <div class="px-10 pt-4 my-10 mt-10 max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row text-start">
+                <!-- Left Side (Text Content) -->
+                <div class="flex-1">
                     <h1 class="max-w-xl font-semibold text-white text-5xl md:text-6xl leading-tight md:leading-relaxed">
-                        <span class="text-[#ff0]">Org Tagline:</span> Lorem ipsum odor amet,
+                        <span class="text-[#ff0]">Code the Future,</span> Build the World
                     </h1>
-                    <div class="max-w-4xl">
-                        <p
-                            class="max-w-lg text-white mt-2 text-titlesec font-light text-justify md:text-left text-sm/tight  sm:text-xl">
-                            Lorem ipsum odor amet, consectetuer adipiscing elit. Dictumst pharetra ex eget at tempus nec
-                            a. Malesuada est nulla vel adipiscing a velit sagittis class mi? Sed id sagittis dis aliquet
-                            et.
-                        </p>
-                        <div>
-                        </div>
-                        <div>
-                        </div>
-                        <a class="my-8 group inline-flex items-center gap-x-2 py-2 px-3 bg-[#756A53] font-bold text-lg text-white rounded-full focus:outline-none "
-                            href="{{ route('member.registration') }}">
-                            Join Our Community
-                        </a>
-                    </div>
+                    <p class="max-w-lg text-white mt-2 text-titlesec font-light text-justify md:text-left text-sm/tight sm:text-xl">
+                        A vibrant community dedicated to fostering the growth and development of aspiring computer scientists.
+                        Join us as we innovate, learn, and shape the future of technology together.
+                    </p>
+                    <a class="my-8 group inline-flex items-center gap-x-2 py-2 px-3 bg-[#756A53] font-bold text-lg text-white rounded-full focus:outline-none hover:bg-[#ff0] hover:translate-y-[-4px] transform transition duration-300 ease-in-out"
+                        href="{{ route('member.registration') }}">
+                        Join Our Community
+                    </a>
                     <p class="mt-5 text-white text-lg">
                         Contact with Us:
                     </p>
@@ -36,5 +30,10 @@
                         </a>
                     </div>
                 </div>
+                <div class="flex-1 flex justify-center md:justify-end">
+                    <img src="/ACSS_logo.svg" alt="ACSS Logo" class="w-full max-w-xs md:max-w-lg object-contain">
+                </div>
             </div>
-    </section>
+        </div>
+    </div>
+</section>

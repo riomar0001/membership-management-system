@@ -2,8 +2,8 @@
     <nav class="relative max-w-[66rem] w-full bg-neutral-900 rounded-[28px] py-3 ps-5 pe-2 md:flex md:items-center md:justify-between md:py-0 mx-2 lg:mx-auto" aria-label="Global">
       <div class="flex items-center justify-between">
         <!-- Logo -->
-        <a href="/">
-            <h1 class="text-white">LOGO</h1>
+        <a href="{{ url('/') }}" class="flex items-center gap-x-2 focus:outline-none">
+          <img src="{{ asset('ACSS_logo.svg') }}" class="w-13 h-13 m-2" alt="Logo">
         </a>
         <!-- End Logo -->
 
@@ -31,7 +31,7 @@
           <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="#">Contacts</a>
 
           <div>
-            <a class="group inline-flex items-center gap-x-2 py-2 px-3 bg-[#756A53] font-medium text-sm text-white rounded-full focus:outline-none" href="{{route('member.registration')}}">
+            <a class="group inline-flex items-center gap-x-2 py-2 px-3 bg-[#756A53] font-medium text-sm text-white rounded-full focus:outline-none hover:bg-[#ff0] hover:translate-y-[-4px] transform transition duration-300 ease-in-out" href="{{route('member.registration')}}">
               Register
             </a>
           </div>

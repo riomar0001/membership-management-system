@@ -7,14 +7,15 @@
                 <a class="group relative z-10 p-4 md:p-6 h-full flex flex-col bg-[#262626]  first:rounded-t-xl last:rounded-b-xl lg:first:rounded-l-xl lg:first:rounded-tr-none lg:last:rounded-r-xl lg:last:rounded-bl-none before:absolute before:inset-0 before:bg-gradient-to-b before:hover:from-transparent before:hover:via-transparent before:hover:to-[#ff0]/10 before:via-80% before:-z-[1] before:last:rounded-b-xl lg:before:first:rounded-s-xl lg:before:last:rounded-e-xl lg:before:last:rounded-bl-none before:opacity-0 before:hover:opacity-100"
                     href="#">
                     <div class="mb-5">
-                        <img src="/Innovate.svg" alt="Goal" width="60" height="16">
+                        <img src="/goal1.svg" alt="Goal" width="100" height="100">
 
                         <div class="mt-5">
-                            <h3 class="font-semibold text-3xl text-white">GOAL #1</h3>
+                            <h3 class="font-semibold text-3xl text-white">Enhance Member Engagement</h3>
                             <p class="mt-3 font-light text-white text-sm  sm:text-lg">
-                                Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis ante nascetur cursus
-                                fames cubilia interdum. Suscipit adipiscing pulvinar ipsum porta donec aptent himenaeos
-                                imperdiet. </p>
+                                Use the membership management system to improve communication and event management,
+                                making it easier to organize and promote activities like coding workshops, tech talks,
+                                and meetups, fostering an active and engaged student community.
+                            </p>
                         </div>
                     </div>
 
@@ -23,14 +24,13 @@
                 <a class="group relative z-10 p-4 md:p-6 h-full flex flex-col bg-[#262626]  first:rounded-t-xl last:rounded-b-xl lg:first:rounded-l-xl lg:first:rounded-tr-none lg:last:rounded-r-xl lg:last:rounded-bl-none before:absolute before:inset-0 before:bg-gradient-to-b before:hover:from-transparent before:hover:via-transparent before:hover:to-[#ff0]/10 before:via-80% before:-z-[1] before:last:rounded-b-xl lg:before:first:rounded-s-xl lg:before:last:rounded-e-xl lg:before:last:rounded-bl-none before:opacity-0 before:hover:opacity-100"
                     href="#">
                     <div class="mb-5">
-                        <img src="/Innovate.svg" alt="Goal" width="60" height="16">
+                        <img src="/goal2.svg" alt="Goal" width="100" height="56">
 
                         <div class="mt-5">
-                            <h3 class="font-semibold text-3xl text-white">GOAL #2</h3>
+                            <h3 class="font-semibold text-3xl text-white">Streamline Membership Management</h3>
                             <p class="mt-3 font-light text-white text-sm  sm:text-lg">
-                                Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis ante nascetur cursus
-                                fames cubilia interdum. Suscipit adipiscing pulvinar ipsum porta donec aptent himenaeos
-                                imperdiet. </p>
+                                Leverage the system’s features to efficiently track membership details, streamline registration,
+                                and manage subscriptions, ensuring a smooth and organized process for all members.</p>
                         </div>
                     </div>
 
@@ -39,14 +39,13 @@
                 <a class="group relative z-10 p-4 md:p-6 h-full flex flex-col bg-[#262626]  first:rounded-t-xl last:rounded-b-xl lg:first:rounded-l-xl lg:first:rounded-tr-none lg:last:rounded-r-xl lg:last:rounded-bl-none before:absolute before:inset-0 before:bg-gradient-to-b before:hover:from-transparent before:hover:via-transparent before:hover:to-[#ff0]/10 before:via-80% before:-z-[1] before:last:rounded-b-xl lg:before:first:rounded-s-xl lg:before:last:rounded-e-xl lg:before:last:rounded-bl-none before:opacity-0 before:hover:opacity-100"
                     href="#">
                     <div class="mb-5">
-                        <img src="/Innovate.svg" alt="Goal" width="60" height="16">
+                        <img src="/goal3.svg" alt="Goal" width="100" height="56">
 
                         <div class="mt-5">
-                            <h3 class="font-semibold text-3xl text-white">GOAL #3</h3>
+                            <h3 class="font-semibold text-3xl text-white">Foster Innovation and Creativity</h3>
                             <p class="mt-3 font-light text-white text-sm  sm:text-lg">
-                                Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis ante nascetur cursus
-                                fames cubilia interdum. Suscipit adipiscing pulvinar ipsum porta donec aptent himenaeos
-                                imperdiet. </p>
+                                Support and encourage student-led initiatives, hackathons, and tech projects,
+                                promoting a culture of innovation and creativity in the field of computer science.</p>
                         </div>
                     </div>
 
