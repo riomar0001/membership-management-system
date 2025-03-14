@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>ACSSUM</title>
+    <title>ACSSUM | Association of Computer Science Student of University of Mindanao</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
 
