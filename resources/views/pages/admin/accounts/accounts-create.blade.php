@@ -159,8 +159,7 @@
                                 <option value="president" {{ old('role') === 'president' ? 'selected' : '' }}>President</option>
                                 <option value="officer" {{ old('role') === 'officer' ? 'selected' : '' }}>Officer</option>
                                 <option value="admin" {{ old('role') === 'admin' ? 'selected' : '' }}>Admin</option>
-                            </select><!-- filepath: /home/matchan/Documents/2nd-Year-BSCS/CST-5/Final-Project/membership-management-system/resources/views/pages/admin/accounts/accounts-create.blade.php -->
-
+                            </select>
                             @error('role')
                                 <div class="text-red-500 text-xs">{{ $message }}</div>
                             @enderror
