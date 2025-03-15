@@ -213,7 +213,7 @@
                     <button type="button" id="removeOfficerBtn" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
                         Remove Officer
                     </button>
-                    <button type="submit" class="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700">
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
                         Update Position
                     </button>
                     <button type="button" id="closeEditOfficerModal" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600">
@@ -279,7 +279,7 @@
                         Cancel
                     </button>
                     <button type="submit"
-                        class="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700">
+                        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
                         Add Officer
                     </button>
                 </div>

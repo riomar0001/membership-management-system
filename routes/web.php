@@ -95,9 +95,6 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware('auth')->group(function () {
-    // Other routes...
-
-    // Accounts management routes
     Route::middleware('role:admin,president')->group(function () {
         Route::get('/admin/accounts', [AccountsController::class, 'index'])->name('accounts.index');
         Route::get('/admin/accounts/create', [AccountsController::class, 'create'])->name('accounts.create');
